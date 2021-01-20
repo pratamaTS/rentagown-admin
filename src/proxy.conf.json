@@ -1,0 +1,7 @@
+{
+    "/api/*": {
+        "target": "http://absdigital.id:5000",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}
