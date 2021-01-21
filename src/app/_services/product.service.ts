@@ -5,11 +5,11 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getAllUser(tokenType: String, token: String | null): Observable<any> {
+  getAllProduct(tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
     
     const httpOptions = {
@@ -20,6 +20,6 @@ export class UserService {
       })
     };
 
-    return this.http.get('api/user/findall', httpOptions);
+    return this.http.get('api/product/findall', httpOptions);
   }
 }

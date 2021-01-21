@@ -1,7 +1,9 @@
 {
     "/api/*": {
-        "target": "http://absdigital.id:5000",
+        "target": "http://absdigital.id:5000/api/v/1",
         "secure": false,
+        "pathRewrite": {"^/api" : ""},
+        "changeOrigin": true,
         "logLevel": "debug"
     }
 }

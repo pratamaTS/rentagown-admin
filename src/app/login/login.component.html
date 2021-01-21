@@ -1,55 +1,58 @@
-<div class="login-box">
-    <div class="login-logo">
-        <a href="#"><img src="assets/dist/img/logo-200.png" width="150"/></a>
-    </div>
-    <br/>
-    <div class="card">
-        <div class="card-body login-card-body">
-            <p class="login-box-msg">Sign in to start your session</p>
-  
-            <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-                <div class="form-group">
-                    <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
-                      Login failed: {{ errorMessage }}
-                    </div>
-                </div>
 
-                <div class="input-group mb-3">
-                    <input type="email" class="form-control" name="email" [(ngModel)]="form.email" required #email="ngModel" placeholder="Email">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
+<body class="hold-transition login-page bg-white">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#"><img src="assets/dist/img/logo-200.png" width="150"/></a>
+        </div>
+        <br/>
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Sign in to start your session</p>
+    
+                <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                    <div class="form-group">
+                        <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
+                        Login failed: {{ errorMessage }}
                         </div>
                     </div>
-                </div>
-                <div class="input-group mb-3">
-                    <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel" placeholder="Password">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
+
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" name="email" [(ngModel)]="form.email" required #email="ngModel" placeholder="Email">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="remember">
-                            <label for="remember">
-                                Remember Me
-                            </label>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required minlength="6" #password="ngModel" placeholder="Password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="remember">
+                                <label for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                        </div>
                     </div>
-                </div>
-            </form>
-  
-            <br/><br/>
-  
-            <p class="mb-1 small text-center">
-                <a href="">forgot password</a> | <a href="" class="text-center">Register</a>
-            </p>
+                </form>
+    
+                <br/><br/>
+    
+                <p class="mb-1 small text-center">
+                    <a href="">forgot password</a> | <a href="" class="text-center">Register</a>
+                </p>
+            </div>
         </div>
     </div>
-  </div>
+</body>

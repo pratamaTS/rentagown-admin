@@ -2,14 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+const AUTH_API = 'http://absdigital.id:5000/api/v/1/';
+
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class ProfileService {
 
   constructor(private http: HttpClient) { }
 
-  getAllUser(tokenType: String, token: String | null): Observable<any> {
+  getProfile(tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
     
     const httpOptions = {
@@ -20,6 +22,6 @@ export class UserService {
       })
     };
 
-    return this.http.get('api/user/findall', httpOptions);
+    return this.http.get('/api/user/profile', httpOptions)
   }
 }

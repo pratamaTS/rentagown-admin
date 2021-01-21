@@ -27,8 +27,6 @@ export class AppComponent implements OnInit {
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
 
       this.email = user.data.email;
-
-      this.router.navigateByUrl('dashboard');
     }
   }
 
