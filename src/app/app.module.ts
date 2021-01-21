@@ -14,6 +14,7 @@ import { ControlSidebarComponent } from './control-sidebar/control-sidebar.compo
 import { FooterComponent } from './footer/footer.component';
 import { UserComponent } from './user/user.component';
 import { ProductComponent } from './product/product.component';
+import { ProductCategoryComponent } from './product-category/product-category.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ProductComponent } from './product/product.component';
     ControlSidebarComponent,
     FooterComponent,
     UserComponent,
-    ProductComponent
+    ProductComponent,
+    ProductCategoryComponent
   ],
   imports: [
     BrowserModule,
