@@ -15,6 +15,12 @@ import { FooterComponent } from './footer/footer.component';
 import { UserComponent } from './user/user.component';
 import { ProductComponent } from './product/product.component';
 import { ProductCategoryComponent } from './product-category/product-category.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { PromoComponent } from './promo/promo.component';
+import { BankAccountComponent } from './bank-account/bank-account.component';
+import { AddBankAccountComponent } from './bank-account/add-bank-account/add-bank-account.component';
+import { UpdateBankAccountComponent } from './bank-account/update-bank-account/update-bank-account.component';
+import { UpdateProductCategoryComponent } from './product-category/update-product-category/update-product-category.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +34,13 @@ import { ProductCategoryComponent } from './product-category/product-category.co
     FooterComponent,
     UserComponent,
     ProductComponent,
-    ProductCategoryComponent
+    ProductCategoryComponent,
+    WishlistComponent,
+    PromoComponent,
+    BankAccountComponent,
+    AddBankAccountComponent,
+    UpdateBankAccountComponent,
+    UpdateProductCategoryComponent
   ],
   imports: [
     BrowserModule,

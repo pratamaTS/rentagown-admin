@@ -14,13 +14,13 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Master Product</h1><br/>
-                <a href="master-product-add.php" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add New Product</a> &nbsp; <a href="master-product-category.php" class="btn btn-default"><i class="fas fa-plus-circle"></i> Add Product Category</a>
+                <h1 class="m-0 text-dark">Master Bank Number</h1><br/>
+                <a routerLink="/add-bank-account" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add Bank Account</a>
               </div><!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                  <li class="breadcrumb-item active">Master Product</li>
+                  <li class="breadcrumb-item active">Master Bank Number</li>
                 </ol>
               </div><!-- /.col -->
             </div><!-- /.row -->
@@ -34,7 +34,7 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Product List</h3>
+                    <h3 class="card-title">Bank Number</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
                     </div>
@@ -43,37 +43,31 @@
                     <table id="example1" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Product ID</th>
-                                <th>Product Image</th>
-                                <th>Product Name</th>
-                                <th>Product Category</th>
-                                <th>Price</th>
+                                <th>Bank Name</th>
+                                <th>Account Name</th>
+                                <th>Account Number</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody *ngFor="let product of dataProduct">
+                        <tbody *ngFor="let bank of dataBank">
                             <tr>
-                                <td>{{ product.id_product }}</td>
-                                <td><img src="http://absdigital.id:5000{{ product.path_photo }}" style="width: 150px; height: 150px;"></td>
-                                <td>{{ product.product_name }}</td>
-                                <td>{{ product.name_product_category }}</td>
-                                <td>Rp {{ product.product_price }}</td>
+                                <td>{{ bank.bank_name }}</td>
+                                <td>{{ bank.account_name }}</td>
+                                <td>{{ bank.account_number }}</td>
                                 <td class="text-center">
-                                    <a id="dropdownAction2" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fas fa-ellipsis-h"></i></a>
-                                    <ul aria-labelledby="dropdownAction2" class="dropdown-menu border-0 shadow">
-                                        <li><a href="master-product-update.php" class="dropdown-item">View </a></li>
-                                        <li><a href="#" class="dropdown-item">Delete</a></li>
+                                    <a id="dropdownAction1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fas fa-ellipsis-h"></i></a>
+                                    <ul aria-labelledby="dropdownAction1" class="dropdown-menu border-0 shadow">
+                                        <li><a routerLink="/update-bank-account/{{ bank.id_bank }}" class="dropdown-item">Update </a></li>
+                                        <li><a (click)="onDeleteBank(bank.id_bank)" type="button" class="dropdown-item">Delete </a></li>
                                     </ul>
                                 </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>Product ID</th>
-                                <th>Product Image</th>
-                                <th>Product Name</th>
-                                <th>Product Category</th>
-                                <th>Price</th>
+                                <th>Bank Name</th>
+                                <th>Account Name</th>
+                                <th>Account Number</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>

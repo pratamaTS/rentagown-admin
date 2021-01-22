@@ -1,0 +1,108 @@
+<body class="hold-transition sidebar-mini text-sm layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <div class="wrapper">
+      <!-- Navbar -->
+      <app-topbar></app-topbar>
+      <!-- /.navbar -->
+
+      <!-- Main Sidebar Container -->
+      <app-sidebar></app-sidebar>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Add Bank Number</h1><br/>
+                <a routerLink="/master-bank-account" class="btn btn-primary"><i class="fas fa-long-arrow-alt-left"></i>  Back to Bank Number List</a>
+              </div><!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a routerLink="/dashboard" >Dashboard</a></li>
+                  <li class="breadcrumb-item active">Add Bank Number</li>
+                </ol>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <div class="content">
+          <div class="container-fluid">
+            <!-- Default box -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"></h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="card-body">
+                   <div class="row">
+                       <div class="col-md-3">
+                           <!-- Profile Image -->
+                           <br/>
+                            <div class="card card-warning card-outline">
+                                <div class="card-body box-profile">
+                                    <!-- Upload image input-->
+                                    <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+                                        <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
+                                        <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
+                                        <div class="input-group-append">
+                                            <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
+                                        </div>
+                                    </div>
+
+                                    <!-- Uploaded image area-->
+                                    <p class="font-italic text-center">Upload bank logo</p>
+                                    <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                       </div>
+                       <div class="col-md-6">
+                        <form role="form">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="bankName">Bank name</label>
+                                    <input type="text" class="form-control" id="bankName" [(ngModel)]="bankAccount.bank_name" name="bank_name" placeholder="Type bank name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bankNumberOwner">Account Name</label>
+                                    <input type="text" class="form-control" id="bankNumberOwner" [(ngModel)]="bankAccount.account_name" name="account_name" placeholder="Type account name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bankNumber">Account Number</label>
+                                    <input type="text" class="form-control" id="bankNumber" [(ngModel)]="bankAccount.account_number" name="account_number" placeholder="Type account number">
+                                </div>
+                                <div class="form-group">
+                                    <br/><br/><button (click)="onCreateBank()" class="btn btn-primary">Save</button>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </form>
+                       </div>
+                   </div> 
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+
+      <!-- Control Sidebar -->
+      <app-control-sidebar></app-control-sidebar>
+      <!-- /.control-sidebar -->
+
+      <!-- Main Footer -->
+      <app-footer></app-footer>
+    </div>
+    <!-- ./wrapper -->
+
+  </body>
