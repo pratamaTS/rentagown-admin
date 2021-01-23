@@ -9,6 +9,7 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { PromoComponent } from './promo/promo.component';
 import { BankAccountComponent } from './bank-account/bank-account.component';
 import { AddBankAccountComponent } from './bank-account/add-bank-account/add-bank-account.component';
+import { AddProductComponent } from './product/add-product/add-product.component';
 import { UpdateBankAccountComponent } from './bank-account/update-bank-account/update-bank-account.component';
 import { UpdateProductCategoryComponent } from './product-category/update-product-category/update-product-category.component';
 
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'master-promo', component: PromoComponent },
   { path: 'master-bank-account', component: BankAccountComponent },
   { path: 'add-bank-account', component: AddBankAccountComponent },
+  { path: 'add-product', component: AddProductComponent },
   { path: 'update-bank-account/:id', component: UpdateBankAccountComponent },
   { path: 'update-product-category/:id', component: UpdateProductCategoryComponent }
 ];

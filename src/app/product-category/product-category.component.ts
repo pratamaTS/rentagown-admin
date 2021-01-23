@@ -22,6 +22,7 @@ export class ProductCategoryComponent implements OnInit {
   }
 
   submitted = false;
+  updated = false
   message = '';
 
   constructor(private tokenStorage: TokenStorageService, private productService: ProductService, private router: Router) { }
@@ -80,7 +81,10 @@ export class ProductCategoryComponent implements OnInit {
   }
 
   onDeleteProductcategory(id: any): void {
-    this.productService.deleteProductCategory(id, this.tokenType, this.token)
+    const data = {
+      id_product_category: id
+    };
+    this.productService.deleteProductCategory(id, data, this.tokenType, this.token)
       .subscribe(
         response => {
           console.log(response);
@@ -89,6 +93,23 @@ export class ProductCategoryComponent implements OnInit {
         error => {
           console.log(error);
         });
+  }
+
+  onUpdateProductCategory(id: any): void {
+    if(this.updated == false){
+      
+    }else{
+      this.productService.updateProductCategory(this.id, this.productCategory, this.tokenType, this.token)
+        .subscribe(
+          response => {
+            console.log(response);
+            this.message = response.message;
+            this.refreshData()
+          },
+          error => {
+            console.log(error);
+          });
+    }
   }
 
 }

@@ -21,6 +21,8 @@ import { BankAccountComponent } from './bank-account/bank-account.component';
 import { AddBankAccountComponent } from './bank-account/add-bank-account/add-bank-account.component';
 import { UpdateBankAccountComponent } from './bank-account/update-bank-account/update-bank-account.component';
 import { UpdateProductCategoryComponent } from './product-category/update-product-category/update-product-category.component';
+import { AddPromoComponent } from './promo/add-promo/add-promo.component';
+import { AddProductComponent } from './product/add-product/add-product.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { UpdateProductCategoryComponent } from './product-category/update-produc
     BankAccountComponent,
     AddBankAccountComponent,
     UpdateBankAccountComponent,
-    UpdateProductCategoryComponent
+    UpdateProductCategoryComponent,
+    AddPromoComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,
