@@ -3,7 +3,7 @@ export class Product {
     product_name?: string
     product_price?: any
     product_desc?: string
-    product_status?: any
+    product_status?: number
     product_quantity?: any
     id_product_category?: string
     name_product_category?: string

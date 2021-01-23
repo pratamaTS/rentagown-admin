@@ -150,6 +150,33 @@ export class ProductService {
     return this.http.post('api/product', data, httpOptions);
   }
 
+  createProductDetails(data: any, tokenType: String, token: String | null): Observable<any> {
+    const authorization = tokenType + ' ' + token
+    
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Authorization': authorization,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+
+    return this.http.post('api/productdetail', data, httpOptions);
+  }
+
+  uploadPhotoProduct(id_product:any, product_photo: File | undefined, tokenType: String, token: String | null): Observable<any> {
+    const authorization = tokenType + ' ' + token
+    
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Authorization': authorization,
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+
+    return this.http.post(`api/productdetail/photo/${id_product}`, product_photo, httpOptions);
+  }
+
   updateProduct(id: any, data: any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
     

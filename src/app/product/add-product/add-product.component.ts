@@ -3,6 +3,7 @@ import { TokenStorageService } from '../../_services/token-storage.service';
 import { Product } from 'src/app/_models/product.model';
 import { ProductService } from 'src/app/_services/product.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-add-product',
@@ -10,18 +11,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-product.component.css']
 })
 export class AddProductComponent implements OnInit {
-
-  id: any = ''
+  product_photo: File | undefined
+  path_photo: any = ''
+  id_selected_promo: any = ''
+  id_selected_procat: any = ''
   tokenType: String = 'Bearer'
   token: String | null = ''
   dataProductCategory: any = []
   dataPromo: any = []
   dataProcatByID: any = []
   dataPromoByID: any = []
+  dataUploadPhoto: any = []
   errorMessage = ''
   promo_name = ''
   promo_code = ''
   promo_amount = ''
+  imageSrc: string = ''
 
   product: Product = {
     id_product: '',
@@ -87,7 +92,7 @@ export class AddProductComponent implements OnInit {
   getPromoByID(): void{
     
     if(this.token != null){
-      this.productService.getPromoByID(this.id, this.tokenType, this.token).subscribe(
+      this.productService.getPromoByID(this.id_selected_promo, this.tokenType, this.token).subscribe(
         data => {
           this.dataPromoByID = data.data
 
@@ -107,7 +112,7 @@ export class AddProductComponent implements OnInit {
   getProcatByID(): void{
     
     if(this.token != null){
-      this.productService.getProductCategoryByID(this.id, this.tokenType, this.token).subscribe(
+      this.productService.getProductCategoryByID(this.id_selected_procat, this.tokenType, this.token).subscribe(
         data => {
           this.dataProcatByID = data.data
 
@@ -123,15 +128,73 @@ export class AddProductComponent implements OnInit {
   }
 
   selectedProductCategory(event: any) {
-    this.id = event.target.value
+    this.id_selected_procat = event.target.value
 
     this.getProcatByID()    
   }
 
+  selectedProductStatus(event: any) {
+    this.product.product_status = event.target.value
+    console.log("prod stat", this.product.product_status)
+  }
+
   selectedPromo(event: any) {
-    this.id = event.target.value
+    this.id_selected_promo = event.target.value
 
     this.getPromoByID()    
+  }
+
+  onFileChange(event: any) {
+    const reader = new FileReader();
+    
+    if(event.target.files && event.target.files.length) {
+      const [product_photo] = event.target.files;
+      this.product_photo = product_photo
+      reader.readAsDataURL(product_photo);
+      console.log("photo", product_photo)
+      console.log("photoprod", this.product_photo)
+      
+    
+      reader.onload = () => {
+        this.imageSrc = reader.result as string;
+        console.log("url image", this.imageSrc)
+      };
+   
+    }
+  }
+
+  onCreateProductDetails(): void {
+    const data = {
+      id_product: this.product.id_product,
+      path_photo: this.dataUploadPhoto.path_photo
+    };
+
+    this.productService.createProductDetails(data, this.tokenType, this.token)
+    .subscribe(
+      response => {
+        console.log(response);
+        this.submitted = true;
+
+        this.router.navigateByUrl('master-product');
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
+  uploadPhoto(): void {
+    console.log("photoup", this.product_photo)
+    this.productService.uploadPhotoProduct(this.product.id_product, this.product_photo, this.tokenType, this.token)
+    .subscribe(
+      response => {
+        console.log(response);
+        this.submitted = true;
+        this.dataUploadPhoto = response.data
+        this.onCreateProductDetails()
+      },
+      error => {
+        console.log(error);
+      });
   }
 
   onCreateProduct(): void {
@@ -142,7 +205,7 @@ export class AddProductComponent implements OnInit {
         product_name: this.product.product_name,
         product_price: this.product.product_price,
         product_desc: this.product.product_desc,
-        product_status: this.product.product_status,
+        product_status: Number(this.product.product_status),
         product_quantity: this.product.product_quantity,
         id_product_category: this.product.id_product_category,
         name_product_category: this.product.name_product_category,
@@ -150,8 +213,8 @@ export class AddProductComponent implements OnInit {
         promo_code: this.product.promo_code,
         promo_name: this.product.promo_name,
         promo_amount: this.product.promo_amount,
-        id_user: this.product.id_user,
-        name: this.product.name
+        id_user: '',
+        name: ''
       };
 
       this.productService.createProduct(data, this.tokenType, this.token)
@@ -159,7 +222,7 @@ export class AddProductComponent implements OnInit {
           response => {
             console.log(response);
             this.submitted = true;
-            this.router.navigateByUrl('master-product');
+            this.uploadPhoto()
           },
           error => {
             console.log(error);

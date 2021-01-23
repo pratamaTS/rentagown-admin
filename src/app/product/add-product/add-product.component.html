@@ -48,7 +48,7 @@
                                 <div class="card-body box-profile">
                                     <!-- Upload image input-->
                                     <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                                        <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
+                                        <input id="upload" type="file" (change)="onFileChange($event)" onchange="readURL(this);" name="product_picture" class="form-control border-0">
                                         <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
                                         <div class="input-group-append">
                                             <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
@@ -69,33 +69,57 @@
                                 <div class="form-row">
                                     <div class="col-md-8">
                                         <div class="form-group">
-                                            <label for="productName">Product Name</label>
-                                            <input type="text" class="form-control" id="productName" [(ngModel)]="product.product_name" name="product_name" placeholder="Type product name">
+                                            <label for="productName">Product Name</label><label for="productName" style="color:red">*</label>
+                                            <input type="text" class="form-control" id="productName" [(ngModel)]="product.product_name" name="product_name" placeholder="Type product name" required>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="productId">Product ID</label>
-                                            <input type="text" class="form-control" id="productId" [(ngModel)]="product.id_product" name="id_product" placeholder="Type product ID">
+                                            <label for="productId">Product ID</label><label for="productId" style="color:red">*</label>
+                                            <input type="text" class="form-control" id="productId" [(ngModel)]="product.id_product" name="id_product" placeholder="Type product ID" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="productCat">Product Category</label>
-                                    <select [(ngModel)]="product.id_product_category" name="id_product_category" class="form-control select2bs4" style="width: 100%;">
-                                        <option *ngFor="let procat of dataProductCategory" value="{{procat.id_product_category}}">{{procat.name_product_category}}</option>
+                                    <label for="productCat">Product Category</label><label for="productCat" style="color:red">*</label>
+                                    <select (change)="selectedProductCategory($event)" name="id_product_category" class="form-control select2bs4" style="width: 100%;" required>
+                                      <option [ngValue]="null" [disabled]="true" >-- Select Category --</option>  
+                                      <option *ngFor="let procat of dataProductCategory" value="{{procat.id_product_category}}">{{procat.name_product_category}}</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="price">Price</label>
-                                    <input type="number" class="form-control" id="price" name="product_price" placeholder="Product price">
+                                    <label for="price">Price</label><label for="price" style="color:red">*</label>
+                                    <input type="number" class="form-control" id="price" [(ngModel)]="product.product_price" name="product_price" placeholder="Product price" required>
+                                </div>
+                                <div class="form-group">
+                                  <label for="productDescription">Product Description</label><label for="productDescription" style="color:red">*</label>
+                                  <textarea type="textarea" class="form-control" id="productDesc" [(ngModel)]="product.product_desc" name="product_desc" required>Product Description</textarea>
+                              </div>
+                                <div class="form-row">
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label for="productStatus">Product Status</label><label for="productStatus" style="color:red">*</label>
+                                      <select (change)="selectedProductStatus($event)" name="product_status" class="form-control select2bs4" style="width: 100%;" required>
+                                        <option [ngValue]="null" [disabled]="true" >-- Select Product Status --</option>  
+                                        <option value="1">Available</option>
+                                        <option value="0">Not Available</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="productQuantity">Product Quantity</label><label for="productQuantity" style="color:red">*</label>
+                                        <input type="number" class="form-control" id="productQuantity" [(ngModel)]="product.product_quantity" name="product_quantity" required>
+                                    </div>
+                                  </div>
                                 </div>
                                 <div class="form-row">
                                   <div class="col-md-6">
-                                    <div *ngFor="let promo of dataPromo" class="form-group">
+                                    <div class="form-group">
                                       <label for="size">Promo group</label>
-                                      <select [(ngModel)]="product.id_promo" (change)="selectedPromo($event)" name="id_promo" class="form-control select2bs4" data-placeholder="Select Promo" style="width: 100%;">
-                                          <option value="{{promo.id_promo}}">{{promo.promo_name}}</option>
+                                      <select (change)="selectedPromo($event)" name="id_promo" class="form-control select2bs4" data-placeholder="Select Promo" style="width: 100%;">
+                                        <option [ngValue]="null" [disabled]="true" >-- Select Promo Group --</option>   
+                                        <option *ngFor="let promo of dataPromo" value="{{promo.id_promo}}">{{promo.promo_name}}</option>
                                       </select>
                                     </div>
                                   </div>
@@ -113,7 +137,7 @@
                                   </div>
                                 </div>
                                 <div class="form-group">
-                                    <br/><br/><button type="submit" class="btn btn-primary">Save</button>
+                                    <br/><br/><button (click)="onCreateProduct()" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
                             <!-- /.card-body -->
