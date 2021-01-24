@@ -14,13 +14,13 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Add Product</h1><br/>
+                <h1 class="m-0 text-dark">Update Product</h1><br/>
                 <a routerLink="/master-product" class="btn btn-primary"><i class="fas fa-long-arrow-alt-left"></i>  Back to Product List</a>
               </div><!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
-                  <li class="breadcrumb-item active">Add Product</li>
+                  <li class="breadcrumb-item active">Update Product</li>
                 </ol>
               </div><!-- /.col -->
             </div><!-- /.row -->
@@ -34,7 +34,7 @@
             <!-- Default box -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title"></h3>
+                    <h3 class="card-title">{{product.product_name}}</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
                     </div>
@@ -48,7 +48,7 @@
                                 <div class="card-body box-profile">
                                     <!-- Upload image input-->
                                     <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                                        <input id="upload" type="file" multiple (change)="onFileChange($event)" name="product_picture" class="form-control border-0" required>
+                                        <input id="upload" type="file" class="form-control border-0">
                                         <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
                                         <div class="input-group-append">
                                             <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
@@ -56,11 +56,10 @@
                                     </div>
 
                                     <!-- Uploaded image area-->
-                                    <p class="font-italic text-center">Upload product image <b style="color:red">*</b></p>
+                                    <p class="font-italic text-center">Upload product image</p>
                                     <p *ngIf="errorMessage != null" class="font-italic text-center" style="color:red">{{errorMessage}}</p>
-                                    <div *ngFor='let url of imageSrc' class="image-area mt-4"><img [src]="url" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
-                                      <p *ngIf="url != null" class="font-regular text-center">{{url.name}}</p>
-                                    </div>
+                                    <div *ngIf="imageSrc == ''" class="image-area mt-4"><img *ngFor="let productImage of dataPhoto; let i = index" [attr.data-index]="i" id="imageResult" src="http://absdigital.id:5000{{ productImage.path_photo }}" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+                                    <div *ngIf="imageSrc != ''" class="image-area mt-4"><img *ngFor="let productImage of dataPhoto" id="imageResult" [src]="'http://absdigital.id:5000{{productImage.path_photo}}'" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -140,7 +139,7 @@
                                   </div>
                                 </div>
                                 <div class="form-group">
-                                    <br/><br/><button (click)="onCreateProduct()" class="btn btn-primary">Save</button>
+                                    <br/><br/><button (click)="onUpdateProduct()" class="btn btn-primary">Update</button>
                                 </div>
                             </div>
                             <!-- /.card-body -->
@@ -158,12 +157,14 @@
       <!-- /.content-wrapper -->
 
       <!-- Control Sidebar -->
-      <app-control-sidebar></app-control-sidebar>
+      <?php require 'inc/control-sidebar.php'; ?>
       <!-- /.control-sidebar -->
 
       <!-- Main Footer -->
-      <app-footer></app-footer>
+      <?php require 'inc/footer.php'; ?>
     </div>
     <!-- ./wrapper -->
 
-</body>
+  <!-- REQUIRED SCRIPTS -->
+  <?php require 'inc/script.php'; ?>
+  </body>

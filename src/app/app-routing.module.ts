@@ -12,6 +12,7 @@ import { AddBankAccountComponent } from './bank-account/add-bank-account/add-ban
 import { AddProductComponent } from './product/add-product/add-product.component';
 import { UpdateBankAccountComponent } from './bank-account/update-bank-account/update-bank-account.component';
 import { UpdateProductCategoryComponent } from './product-category/update-product-category/update-product-category.component';
+import { UpdateProductComponent } from './product/update-product/update-product.component';
 
 const routes: Routes = [
   { path: '',  redirectTo: '/login', pathMatch: 'full' },
@@ -26,7 +27,8 @@ const routes: Routes = [
   { path: 'add-bank-account', component: AddBankAccountComponent },
   { path: 'add-product', component: AddProductComponent },
   { path: 'update-bank-account/:id', component: UpdateBankAccountComponent },
-  { path: 'update-product-category/:id', component: UpdateProductCategoryComponent }
+  { path: 'update-product-category/:id', component: UpdateProductCategoryComponent },
+  { path: 'update-product/:id', component: UpdateProductComponent }
 ];
 
 @NgModule({

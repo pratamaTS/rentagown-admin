@@ -65,7 +65,7 @@ export class ProductService {
     return this.http.get('api/promo/findall', httpOptions);
   }
 
-  getProductCategoryByID(id: any, tokenType: String, token: String | null): Observable<any> {
+  getProductByID(id: any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
     
     const httpOptions = {
@@ -164,9 +164,9 @@ export class ProductService {
     return this.http.post('api/productdetail', data, httpOptions);
   }
 
-  uploadPhotoProduct(id_product:any, product_photo: File | undefined, tokenType: String, token: String | null): Observable<any> {
+  uploadPhotoProduct(id_product:any, data: FormData, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
       headers: new HttpHeaders({ 
         'Authorization': authorization,
@@ -174,7 +174,7 @@ export class ProductService {
       })
     };
 
-    return this.http.post(`api/productdetail/photo/${id_product}`, product_photo, httpOptions);
+    return this.http.post(`api/productdetail/photo/${id_product}`, data, httpOptions);
   }
 
   updateProduct(id: any, data: any, tokenType: String, token: String | null): Observable<any> {
@@ -191,6 +191,20 @@ export class ProductService {
     return this.http.put(`api/product/${id}`, data, httpOptions);
   }
 
+  updateProductDetails(id: any, data: any, tokenType: String, token: String | null): Observable<any> {
+    const authorization = tokenType + ' ' + token
+    
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Authorization': authorization,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+
+    return this.http.put(`api/productdetail/${id}`, data, httpOptions);
+  }
+
   deleteProduct(id: any, data:any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
     
@@ -204,6 +218,21 @@ export class ProductService {
     };
 
     return this.http.delete(`api/product/${id}`, httpOptions);
+  }
+
+  deleteProductDetails(id: any, data:any, tokenType: String, token: String | null): Observable<any> {
+    const authorization = tokenType + ' ' + token
+    
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Authorization': authorization,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }),
+      body: data
+    };
+
+    return this.http.delete(`api/productdetail/${id}`, httpOptions);
   }
 
   createPromo(data: any, tokenType: String, token: String | null): Observable<any> {

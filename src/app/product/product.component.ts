@@ -35,4 +35,46 @@ export class ProductComponent implements OnInit {
     }
   }
 
+  refreshData(): void {
+    this.productService.getAllProduct(this.tokenType, this.token).subscribe(
+      data => {
+        this.dataProduct = data.data
+        console.log('data product', this.dataProduct)
+      },
+      err => {
+        this.errorMessage = err.error.message;
+      }
+    )
+  }
+  
+  onDeleteProduct(id: any): void {
+    const data = {
+      id_photo: id
+    };
+    this.productService.deleteProductDetails(id, data, this.tokenType, this.token)
+      .subscribe(
+        response => {
+          console.log(response);
+          this.onDeleteProductDetail(id)
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+  onDeleteProductDetail(id: any): void {
+    const data = {
+      id_product: id
+    };
+    this.productService.deleteProduct(id, data, this.tokenType, this.token)
+      .subscribe(
+        response => {
+          console.log(response);
+          this.refreshData()
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
 }

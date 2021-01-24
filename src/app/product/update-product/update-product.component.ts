@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../../_services/token-storage.service';
 import { Product } from 'src/app/_models/product.model';
-import { ProductService } from 'src/app/_services/product.service';
-import { Router } from '@angular/router';
+import { ProductService } from '../../_services/product.service'
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-add-product',
-  templateUrl: './add-product.component.html',
-  styleUrls: ['./add-product.component.css']
+  selector: 'app-update-product',
+  templateUrl: './update-product.component.html',
+  styleUrls: ['./update-product.component.css']
 })
-export class AddProductComponent implements OnInit {
-  product_photo!: FileList
+export class UpdateProductComponent implements OnInit {
+
   data = new FormData()
+  product_photo!: File;
   photo_name: any = null
   path_photo: any = ''
   id_selected_promo: any = ''
@@ -27,7 +28,13 @@ export class AddProductComponent implements OnInit {
   promo_name = ''
   promo_code = ''
   promo_amount = ''
+  id: any = ''
+  message = '';
+  upload = false
+  dataPhoto: any = []
   imageSrc: any = []
+
+  constructor(private tokenStorage: TokenStorageService, private productService: ProductService, private route: ActivatedRoute, private router: Router) { }
 
   product: Product = {
     id_product: '',
@@ -46,16 +53,17 @@ export class AddProductComponent implements OnInit {
     name: ''
   };
 
-  submitted = false;
-  
-
-  constructor(private tokenStorage: TokenStorageService, private productService: ProductService, private router: Router) { }
-
   ngOnInit(): void {
     console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
-    this.getAllProductCategory()
-    this.getAllPromo()
+    this.id = this.route.snapshot.params.id
+    if(this.token != null){
+      this.getProductByID(this.id)
+      this.getAllProductCategory()
+      this.getAllPromo()
+    }else{
+      this.message = 'Please login first!'
+    }
   }
 
   getAllProductCategory(): void {
@@ -90,6 +98,20 @@ export class AddProductComponent implements OnInit {
     }
   }
 
+  getProductByID(id: any): void {
+    this.productService.getProductByID(id, this.tokenType, this.token).subscribe(
+      data => {
+        this.product = data.data
+        this.dataPhoto = data.data.Photo
+        console.log('data product', this.product)
+        console.log('data foto', this.dataPhoto.path_photo)
+      },
+      err => {
+        this.errorMessage = err.error.message;
+      }
+    )
+  }
+
   selectedProductCategory(event: any): void {
     const valueProcat = JSON.parse(event.target.value)
     this.product.id_product_category = valueProcat.id
@@ -118,6 +140,7 @@ export class AddProductComponent implements OnInit {
   }
 
   onFileChange(event: any) {
+    this.upload = true
     
     if(event.target.files && event.target.files.length < 5) {
       const totalPhoto = event.target.files.length
@@ -141,7 +164,7 @@ export class AddProductComponent implements OnInit {
     }
   }
 
-  onCreateProductDetails(): void {
+  onUpdateProductDetails(): void {
     for(let i = 0; i < this.dataUploadPhoto.length; i++){
       const data = {
         id_product: this.product.id_product,
@@ -152,7 +175,6 @@ export class AddProductComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response);
-          this.submitted = true;
         },
         error => {
           console.log(error);
@@ -166,49 +188,34 @@ export class AddProductComponent implements OnInit {
     .subscribe(
       data => {
         console.log(data);
-        this.submitted = true;
         this.dataUploadPhoto = data.data
         console.log("path_foto",this.dataUploadPhoto)
-        this.onCreateProductDetails()
+        this.onUpdateProductDetails()
       },
       error => {
         console.log(error);
       });
   }
 
-  onCreateProduct(): void {
-
-    if(this.token != null){
-      const data = {
-        id_product: this.product.id_product,
-        product_name: this.product.product_name,
-        product_price: this.product.product_price,
-        product_desc: this.product.product_desc,
-        product_status: Number(this.product.product_status),
-        product_quantity: this.product.product_quantity,
-        id_product_category: this.product.id_product_category,
-        name_product_category: this.product.name_product_category,
-        id_promo: this.product.id_promo,
-        promo_code: this.product.promo_code,
-        promo_name: this.product.promo_name,
-        promo_amount: Number(this.product.promo_amount),
-        id_user: '',
-        name: ''
-      };
-
-      this.productService.createProduct(data, this.tokenType, this.token)
-        .subscribe(
-          response => {
-            console.log(response);
-            this.submitted = true;
-            this.uploadPhoto()
-          },
-          error => {
-            console.log(error);
-      });
+  onUpdateProduct(): void {
+    if(this.upload == true){
+      this.uploadPhoto()
     }else{
-      console.log('error', 'Please login first!')
+      this.onUpdate()
     }
+  }
+
+  onUpdate(): void {
+    this.productService.updateProduct(this.id, this.product, this.tokenType, this.token)
+      .subscribe(
+        response => {
+          console.log(response);
+          this.message = response.message;
+          this.router.navigateByUrl('master-product');
+        },
+        error => {
+          console.log(error);
+        });
   }
 
 }

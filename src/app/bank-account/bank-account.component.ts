@@ -49,7 +49,10 @@ export class BankAccountComponent implements OnInit {
   }
 
   onDeleteBank(id: any): void {
-    this.bankAccountService.delete(id, this.tokenType, this.token)
+    const data = {
+      id_bank: id
+    };
+    this.bankAccountService.delete(id, data, this.tokenType, this.token)
       .subscribe(
         response => {
           console.log(response);

@@ -15,7 +15,7 @@
             <div class="row mb-2">
               <div class="col-sm-6">
                 <h1 class="m-0 text-dark">Master Product</h1><br/>
-                <a routerLink="/add-product" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add New Product</a> &nbsp; <a href="master-product-category.php" class="btn btn-default"><i class="fas fa-plus-circle"></i> Add Product Category</a>
+                <a routerLink="/add-product" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add New Product</a> &nbsp; <a routerLink="/master-product-category" class="btn btn-default"><i class="fas fa-plus-circle"></i> Add Product Category</a>
               </div><!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -57,12 +57,12 @@
                                 <td><img src="http://absdigital.id:5000{{ product.path_photo }}" style="width: 150px; height: 150px;"></td>
                                 <td>{{ product.product_name }}</td>
                                 <td>{{ product.name_product_category }}</td>
-                                <td>Rp {{ product.product_price }}</td>
+                                <td>{{ product.product_price | currency:'Rp ':'symbol':'3.0' }}</td>
                                 <td class="text-center">
                                     <a id="dropdownAction2" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fas fa-ellipsis-h"></i></a>
                                     <ul aria-labelledby="dropdownAction2" class="dropdown-menu border-0 shadow">
-                                        <li><a href="master-product-update.php" class="dropdown-item">View </a></li>
-                                        <li><a href="#" class="dropdown-item">Delete</a></li>
+                                        <li><a routerLink="/update-product/{{ product.id }}" class="dropdown-item">View or Update </a></li>
+                                        <li><a (click)="onDeleteProduct(product.id)" type="button" class="dropdown-item">Delete</a></li>
                                     </ul>
                                 </td>
                             </tr>

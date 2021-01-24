@@ -15,7 +15,7 @@
             <div class="row mb-2">
               <div class="col-sm-6">
                 <h1 class="m-0 text-dark">Update Bank Number</h1><br/>
-                <a href="master-bank-number.php" class="btn btn-primary"><i class="fas fa-long-arrow-alt-left"></i>  Back to Bank Number List</a>
+                <a routerLink="/master-bank-account" class="btn btn-primary"><i class="fas fa-long-arrow-alt-left"></i>  Back to Bank Number List</a>
               </div><!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -48,7 +48,7 @@
                                 <div class="card-body box-profile">
                                     <!-- Upload image input-->
                                     <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                                        <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
+                                        <input id="upload" type="file" (change)="onFileChange($event)" name="logo_bank_photo" class="form-control border-0">
                                         <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
                                         <div class="input-group-append">
                                             <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
@@ -57,8 +57,8 @@
 
                                     <!-- Uploaded image area-->
                                     <p class="font-italic text-center">Upload bank logo</p>
-                                    <div class="image-area mt-4"><img id="imageResult" src="assets/dist/img/logo-bca.gif" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
-                                </div>
+                                    <div class="image-area mt-4"><img id="imageResult" [src]="imageSrc" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+                                  </div>
                                 <!-- /.card-body -->
                             </div>
                             <!-- /.card -->

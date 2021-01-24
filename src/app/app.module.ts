@@ -23,6 +23,7 @@ import { UpdateBankAccountComponent } from './bank-account/update-bank-account/u
 import { UpdateProductCategoryComponent } from './product-category/update-product-category/update-product-category.component';
 import { AddPromoComponent } from './promo/add-promo/add-promo.component';
 import { AddProductComponent } from './product/add-product/add-product.component';
+import { UpdateProductComponent } from './product/update-product/update-product.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { AddProductComponent } from './product/add-product/add-product.component
     UpdateBankAccountComponent,
     UpdateProductCategoryComponent,
     AddPromoComponent,
-    AddProductComponent
+    AddProductComponent,
+    UpdateProductComponent
   ],
   imports: [
     BrowserModule,

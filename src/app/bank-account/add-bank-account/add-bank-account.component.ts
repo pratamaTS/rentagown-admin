@@ -18,7 +18,8 @@ export class AddBankAccountComponent implements OnInit {
   bankAccount: BankAccount = {
     bank_name: '',
     account_name: '',
-    account_number: ''
+    account_number: '',
+    path_photo: null
   };
 
   submitted = false;

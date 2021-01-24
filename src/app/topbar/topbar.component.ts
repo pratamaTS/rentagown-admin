@@ -27,7 +27,7 @@ export class TopbarComponent implements OnInit {
             this.user = data.data
             this.name = this.user.name
             console.log('user', this.user)
-            this.tokenStorage.saveUser(this.user)
+            this.tokenStorage.saveUser(this.user.role)
           },
           err => {
             this.errorMessage = err.error.message;
