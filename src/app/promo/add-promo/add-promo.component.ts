@@ -10,10 +10,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-promo.component.css']
 })
 export class AddPromoComponent implements OnInit {
-
+ 
+  data = new FormData()
   tokenType: String = 'Bearer'
   token: String | null = ''
   errorMessage = ''
+  imageSrc: any = null
+  photo_name: any = null
 
   promo: Promo = {
     promo_name: '',
@@ -31,6 +34,27 @@ export class AddPromoComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
+  }
+
+  onFileChange(event: any) {
+    
+    const reader = new FileReader();
+    if(event.target.files && event.target.files.length < 5) {
+      const [promo] = event.target.files;
+      this.data.append("photo_detail", event.target.files)
+      this.photo_name = promo.name
+
+      reader.readAsDataURL(promo);
+      console.log("photo", promo)
+      console.log("photo name", promo.name)
+    
+      reader.onload = () => {
+        this.imageSrc = reader.result as string;
+        console.log("url image", this.imageSrc)
+      };
+    }else{
+      this.errorMessage = "Max. upload image 5"
+    }
   }
 
   onCreatePromo(): void {

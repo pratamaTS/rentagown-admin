@@ -9,11 +9,42 @@ $(function () {
   })
 });
 
-/*DATE RANGE PICKER*/
-$(function () {
-  //Date range picker
-  $('#reservation').daterangepicker()
+ //Gijgo DATE PICKER
+ $(function () {
+  var today, datepicker;
+  today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+
+  $('#si_date_id').datepicker({
+      uiLibrary: 'bootstrap4',
+      format: 'dd-mm-yyyy',
+      minDate: today
+  });
+
+  $('#so_date_id').datepicker({
+      uiLibrary: 'bootstrap4',
+      format: 'dd-mm-yyyy',
+      minDate: today
+  });
+
+  $('#rent_date_id').datepicker({
+      uiLibrary: 'bootstrap4',
+      format: 'dd-mm-yyyy',
+      minDate: today
+  });
+
+  $('#promo_start_id').datepicker({
+      uiLibrary: 'bootstrap4',
+      format: 'dd-mm-yyyy',
+      minDate: today
+  });
+
+  $('#promo_end_id').datepicker({
+      uiLibrary: 'bootstrap4',
+      format: 'dd-mm-yyyy',
+      minDate: today
+  });
 });
+  
 
 /*DATA TABLE*/
 $(function () {
@@ -62,13 +93,14 @@ $(function () {
 //   infoArea.textContent = 'File name: ' + fileName;
 // }
 
-var url = window.location;
-console.log('url', url.href);
+$(function () {
+  var url = window.location;
+  console.log('url', url.href);
+  $('ul.nav-sidebar a').filter(function() {
+    return this.href == url.href;
+  }).addClass('active');
 
-$('ul.nav-sidebar a').filter(function() {
-  return this.routeLink == url.href;
-}).addClass('active');
-
-$('ul.nav-treeview a').filter(function() {
-  return this.routeLink == url.href;
-}).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
+  $('ul.nav-treeview a').filter(function() {
+    return this.href == url.href;
+  }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
+});

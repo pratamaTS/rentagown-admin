@@ -1,0 +1,104 @@
+<body class="hold-transition sidebar-mini text-sm layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <div class="wrapper">
+      <!-- Navbar -->
+      <app-topbar></app-topbar>
+      <!-- /.navbar -->
+
+      <!-- Main Sidebar Container -->
+      <app-sidebar></app-sidebar>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Booking Order</h1><br/>
+             </div><!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+                  <li class="breadcrumb-item active">Booking Order</li>
+                </ol>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <div class="content">
+          <div class="container-fluid">
+            <!-- Default box -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Booking Order List</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="example1" class="table table-bordered table-striped" style="font-size: small;">
+                        <thead>
+                            <tr>
+                                <th>Invoice Number</th>
+                                <th>Customer Name</th>
+                                <th>Product Image</th>
+                                <th>Product Name</th>
+                                <th>Product Price</th>
+                                <th>Down Payment</th>
+                                <th>Remaining Bills</th>
+                                <th>Status Transaction</th>
+                                <th>Approve Payment</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let booking of dataBookingOrder">
+                            <tr *ngIf="booking.status_transaction == 'done'" class="table-success">
+                                <td>{{ booking.invoice }}</td>
+                                <td>{{ booking.name }}</td>
+                                <td><img *ngIf="booking.path_photo !=''" src="http://absdigital.id:5000{{ booking.path_photo }}" style="width: 150px; height: 150px;"></td>
+                                <td>{{ booking.product_name }}</td>
+                                <td>{{ booking.paid_price | currency:'Rp ':'symbol':'3.0'}}</td>
+                                <td>{{ booking.down_payment | currency:'Rp ':'symbol':'3.0' }}</td>
+                                <td>{{ booking.remaining_bills | currency:'Rp ':'symbol':'3.0' }}</td>
+                                <td>{{ booking.status_transaction }}</td>
+                                <td class="text-center">
+                                    <a href="/update-booking" class="btn btn-default"><i class="fas fa-check-circle"></i> Confirm</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Invoice Number</th>
+                                <th>Customer Name</th>
+                                <th>Product Image</th>
+                                <th>Product Name</th>
+                                <th>Product Price</th>
+                                <th>Down Payment</th>
+                                <th>Remaining Bills</th>
+                                <th>Status Transaction</th>
+                                <th>Approve Payment</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+
+      <!-- Control Sidebar -->
+      <app-control-sidebar></app-control-sidebar>
+      <!-- /.control-sidebar -->
+
+      <!-- Main Footer -->
+      <app-footer></app-footer>
+    </div>
+    <!-- ./wrapper -->
+
+  </body>

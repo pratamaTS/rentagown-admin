@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -24,6 +23,11 @@ import { UpdateProductCategoryComponent } from './product-category/update-produc
 import { AddPromoComponent } from './promo/add-promo/add-promo.component';
 import { AddProductComponent } from './product/add-product/add-product.component';
 import { UpdateProductComponent } from './product/update-product/update-product.component';
+import { BookingOrderComponent } from './booking/booking-order/booking-order.component';
+import { NewsletterComponent } from './newsletter/newsletter.component';
+import { SalesOrderComponent } from './sales-order/sales-order.component';
+import { SalesInvoiceComponent } from './sales-invoice/sales-invoice.component';
+import { SalesOrderDetailComponent } from './sales-order/sales-order-detail/sales-order-detail.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +50,12 @@ import { UpdateProductComponent } from './product/update-product/update-product.
     UpdateProductCategoryComponent,
     AddPromoComponent,
     AddProductComponent,
-    UpdateProductComponent
+    UpdateProductComponent,
+    BookingOrderComponent,
+    NewsletterComponent,
+    SalesOrderComponent,
+    SalesInvoiceComponent,
+    SalesOrderDetailComponent
   ],
   imports: [
     BrowserModule,

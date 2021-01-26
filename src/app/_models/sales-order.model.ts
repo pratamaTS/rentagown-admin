@@ -1,0 +1,34 @@
+export class SalesOrder {
+    id_transaction?: string
+    invoice?: string
+    paid_price?: any
+    id_product?: string
+    product_name?: string
+    path_photo?: string
+    id_user?: string
+    name?: string
+    address?: string
+    address_detail?: string
+    phone?: any
+    start_date?: any
+    end_date?: any
+    one_day_service?: any
+    down_payment?: any
+    forfeit?: any
+    payment_method?: any
+    status_transaction?: string
+    status?: any
+    remaining_bills?: any
+    payment_bank_name?: string
+    payment_account_number?: string
+    payment_account_name?: string
+    payment_amount?: any
+    repayment_bank_name?: string
+    repayment_account_number?: string
+    repayment_account_name?: string
+    repayment_amount?: any
+    total_bill_amount?: any
+    bookingdetails?: any
+    created_at?: any
+    updated_at?: any
+}

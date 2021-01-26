@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-danger elevation-4">
     <!-- Brand Logo -->
-    <a routerLink="/dashboard" class="brand-link navbar-rag">
+    <a href="/dashboard" class="brand-link navbar-rag">
       <img src="assets/dist/img/logo.png" alt="AdminLTE Logo" class="brand-image">
       <span class="brand-text font-weight-bold">Rent A Gown</span>
     </a>
@@ -22,7 +22,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a routerLink="/dashboard" class="nav-link">
+            <a href="#" href="/dashboard" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i> <p>Dashboard</p>
             </a>
           </li>
@@ -33,13 +33,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="sales-order.php" class="nav-link">
+                <a href="/booking-order" class="nav-link">
+                  <i class="nav-icon fas fa-cart-arrow-down"></i> 
+                  <p>Booking Order</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/sales-order" class="nav-link">
                   <i class="nav-icon fas fa-cart-arrow-down"></i> 
                   <p>Sales Order</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="sales-invoice.php" class="nav-link">
+                <a href="/sales-invoice" class="nav-link">
                   <i class="nav-icon fas fa-file-invoice"></i> 
                   <p>Sales Invoice</p>
                 </a>
@@ -58,32 +64,7 @@
               <p>Laundry</p>
             </a>
           </li> -->
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-box"></i> 
-              <p>Inventory <i class="right fas fa-angle-left"></i></p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="inventory-stock.php" class="nav-link">
-                  <i class="nav-icon fas fa-dolly-flatbed"></i> 
-                  <p>Inventory Stock</p>
-                </a>
-              </li>
-              <!-- <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-pallet"></i> 
-                  <p>Inventory Stock Opname</p>
-                </a>
-              </li> -->
-              <li class="nav-item">
-                <a href="inventory-stock-movement.php" class="nav-link">
-                  <i class="nav-icon fas fa-truck-loading"></i> 
-                  <p>Inventory Stock Movement</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+          
           <!-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-exchange-alt"></i> 
@@ -91,13 +72,13 @@
             </a>
           </li> -->
           <li class="nav-item has-treeview">
-            <a class="nav-link">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>Master <i class="right fas fa-angle-left"></i></p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a routerLink="/master-user" routerLinkActive="active" class="nav-link">
+                <a href="/master-user" class="nav-link">
                   <i class="fas fa-user nav-icon"></i>
                   <p>Master User</p>
                 </a>
@@ -109,13 +90,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a routerLink="/master-product" routerLinkActive="active" class="nav-link">
+                    <a href="/master-product" class="nav-link">
                       <i class="nav-icon fas fa-dolly-flatbed"></i> 
                       <p>Product</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a routerLink="/master-product-category" routerLinkActive="active" class="nav-link">
+                    <a href="/master-product-category" class="nav-link">
                       <i class="fas fa-boxes nav-icon"></i>
                       <p>Product Category</p>
                     </a>
@@ -123,25 +104,25 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a routerLink="/master-wishlist" routerLinkActive="active" class="nav-link">
+                <a href="/master-wishlist" class="nav-link">
                   <i class="fas fa-heart nav-icon"></i>
                   <p>Master Wishlist</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="master-newsletter.php" routerLinkActive="active" class="nav-link">
+                <a href="/master-newsletter" class="nav-link">
                   <i class="fas fa-newspaper nav-icon"></i>
                   <p>Master Newsletter</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a routerLink="/master-promo" routerLinkActive="active" class="nav-link">
+                <a href="/master-promo" class="nav-link">
                   <i class="fas fa-percentage nav-icon"></i>
                   <p>Master Promo</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a routerLink="/master-bank-account" routerLinkActive="active" class="nav-link">
+                <a href="/master-bank-account" class="nav-link">
                   <i class="fas fa-credit-card nav-icon"></i>
                   <p>Master Bank Account</p>
                 </a>

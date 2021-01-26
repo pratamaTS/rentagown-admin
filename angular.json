@@ -33,10 +33,9 @@
             "scripts": [
               "src/assets/plugins/jquery/jquery.min.js",
               "src/assets/plugins/bootstrap/js/bootstrap.bundle.min.js",
-              "src/assets/plugins/moment/moment.min.js",
-              "src/assets/plugins/daterangepicker/daterangepicker.js",
-              "src/assets/dist/js/adminlte.min.js",
               "src/assets/plugins/select2/js/select2.full.min.js",
+              "src/assets/plugins/gijgo-datepicker/gijgo.min.js",
+              "src/assets/dist/js/adminlte.min.js",
               "src/assets/plugins/datatables/jquery.dataTables.min.js",
               "src/assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js",
               "src/assets/plugins/datatables-responsive/js/dataTables.responsive.min.js",

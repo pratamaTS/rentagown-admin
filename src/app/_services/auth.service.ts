@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 const AUTH_API = 'http://absdigital.id:5000/api/v/1/';
 
@@ -16,8 +17,15 @@ const httpOptions = {
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public jwtHelper: JwtHelperService) { }
 
+  public isAuthenticated(): boolean {
+    var token: any = localStorage.getItem('token');
+    // Check whether the token is expired and return
+    // true or false
+    return !this.jwtHelper.isTokenExpired(token);
+  }
+  
   login(email: string, password: string): Observable<any> {
     const body = {email, password}
     return this.http.post<any>('/api/user/login', body, httpOptions);

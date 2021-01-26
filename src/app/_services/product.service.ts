@@ -48,7 +48,7 @@ export class ProductService {
       })
     };
 
-    return this.http.get('api/wishlist/findid', httpOptions);
+    return this.http.get('api/wishlist/findall', httpOptions);
   }
 
   getAllPromo(tokenType: String, token: String | null): Observable<any> {

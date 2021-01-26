@@ -1,0 +1,152 @@
+<body class="hold-transition sidebar-mini text-sm layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <div class="wrapper">
+      <!-- Navbar -->
+      <app-topbar></app-topbar>
+      <!-- /.navbar -->
+
+      <!-- Main Sidebar Container -->
+      <app-sidebar></app-sidebar>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Update Sales Order</h1><br/>
+                <a href="sales-order.php" class="btn btn-primary"><i class="fas fa-long-arrow-alt-left"></i>  Back to Sales Order List</a>
+              </div><!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+                  <li class="breadcrumb-item active">Update Sales Order</li>
+                </ol>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <div class="content">
+          <div class="container-fluid">
+            <!-- Default box -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Update Sales Order</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="card-body p-5">
+                    <form role="form">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h1 class="text-rag">SALES ORDER</h1>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <img src="dist/img/logo.png" width="80" />
+                            </div>
+                        </div>
+                        <div class="row mt-5">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="soNumber">SO Number</label>
+                                    <input type="text" class="form-control" id="soNumber" placeholder="Type your full name" value="SO-RAG001" disabled="disabled">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="soNumber">Customer</label>
+                                    <input type="text" class="form-control" id="soNumber" placeholder="Type your full name" value="Jhon Doel" disabled="disabled">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>SO Date</label>
+                                    <input type="text" class="form-control" id="so_date_id">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Rent Date</label>
+                                    <input type="text" class="form-control" id="rent_date_id">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="card-body table-responsive p-0 mt-5">
+                                    <table class="table table-hover text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>Category</th>
+                                                <th>Name</th>
+                                                <th>Brand</th>
+                                                <th>Size</th>
+                                                <th>Quantity</th>
+                                                <th>Special Treatment</th>
+                                                <th class="text-right">Rent Price</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Maternity Gown</td>
+                                                <td>Daisy Tulle Sabrina Dress</td>
+                                                <td>Sabrina Dress</td>
+                                                <td>L</td>
+                                                <td>1</td>
+                                                <td>One Day Services</td>
+                                                <td class="text-right">5,000,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4"></td>
+                                                <td>Sub Total</td>
+                                                <td></td>
+                                                <td class="text-right">5,000,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4"></td>
+                                                <td>Deposit Booking</td>
+                                                <td></td>
+                                                <td class="text-right">500,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4"></td>
+                                                <td><b>Balance</b></td>
+                                                <td></td>
+                                                <td class="text-right"><b>4,500,000</b></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <br/><br/>
+                                <a href="#" class="btn btn-primary">Submit Sales Order</a> &nbsp <a href="#" class="btn btn-default">Print SO Receipt</a>
+                            </div>
+                        </div>
+                    </form> 
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+
+      <!-- Control Sidebar -->
+      <app-control-sidebar></app-control-sidebar>
+      <!-- /.control-sidebar -->
+
+      <!-- Main Footer -->
+      <app-footer></app-footer>
+    </div>
+    <!-- ./wrapper -->
+
+</body>
