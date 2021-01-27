@@ -1,5 +1,5 @@
 <body class="hold-transition sidebar-mini text-sm layout-fixed layout-navbar-fixed layout-footer-fixed">
-    <div *ngIf="id" class="wrapper">
+    <div class="wrapper">
       <!-- Navbar -->
       <app-topbar></app-topbar>
       <!-- /.navbar -->
@@ -14,13 +14,13 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Update Bank Number</h1><br/>
-                <a routerLink="/master-bank-account" class="btn btn-primary"><i class="fas fa-long-arrow-alt-left"></i>  Back to Bank Number List</a>
+                <h1 class="m-0 text-dark">Add Newsletter</h1><br/>
+                <a href="/master-newsletter" class="btn btn-primary"><i class="fas fa-long-arrow-alt-left"></i>  Back to Newsletter List</a>
               </div><!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                  <li class="breadcrumb-item active">Update Bank Number</li>
+                  <li class="breadcrumb-item active">Add Newsletter</li>
                 </ol>
               </div><!-- /.col -->
             </div><!-- /.row -->
@@ -48,7 +48,7 @@
                                 <div class="card-body box-profile">
                                     <!-- Upload image input-->
                                     <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                                        <input id="upload" type="file" (change)="onFileChange($event)" name="logo_bank_photo" class="form-control border-0">
+                                        <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
                                         <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
                                         <div class="input-group-append">
                                             <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
@@ -56,9 +56,9 @@
                                     </div>
 
                                     <!-- Uploaded image area-->
-                                    <p class="font-italic text-center">Upload bank logo</p>
-                                    <div class="image-area mt-4"><img id="imageResult" [src]="imageSrc" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
-                                  </div>
+                                    <p class="font-italic text-center">The image uploaded will be rendered below.</p>
+                                    <div class="image-area mt-4"><img id="imageResult" src="dist/img/default-150x150.png" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+                                </div>
                                 <!-- /.card-body -->
                             </div>
                             <!-- /.card -->
@@ -67,19 +67,37 @@
                         <form role="form">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="bankName">Bank name</label>
-                                    <input type="text" class="form-control" id="bankName" [(ngModel)]="bankAccount.bank_name" name="bank_name" value="{{bankAccount.bank_name}}">
+                                    <label for="newletterTitle">Newsletter title</label>
+                                    <input type="text" class="form-control" id="newletterTitle" placeholder="Type newsletter title" value="Newsletter Januari 2021">
                                 </div>
-                                <div class="form-group">
-                                    <label for="bankNumberOwner">Account Name</label>
-                                    <input type="text" class="form-control" id="bankNumberOwner" [(ngModel)]="bankAccount.account_name" name="account_name" value="{{bankAccount.account_name}}">
+                                <div class="form-row">
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <label for="userEmailSelect">User Email</label>
+                                            <select class="form-control select2bs4" multiple="multiple" data-placeholder="Select Email" style="width: 100%;">
+                                                <option selected="selected">kambalya@gmail.com</option>
+                                                <option selected="selected">violepd@gmail.com</option>
+                                                <option selected="selected">emasra@gmail.com</option>
+                                                <option>hamimati@gmail.com</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group clearfix">
+                                            <br/><br/>
+                                            <div class="icheck-success d-inline">
+                                                <input type="checkbox" checked="checked" id="checkAllUser">
+                                                <label for="checkAllUser">
+                                                    All User
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                                
+                                
                                 <div class="form-group">
-                                    <label for="bankNumber">Account number</label>
-                                    <input type="text" class="form-control" id="bankNumber" [(ngModel)]="bankAccount.account_number" name="account_number" value="{{bankAccount.account_number}}">
-                                </div>
-                                <div class="form-group">
-                                    <br/><br/><button (click)="onUpdateBank()" class="btn btn-primary">Update</button>
+                                    <br/><br/><button type="submit" class="btn btn-primary">Send Newsletter</button>
                                 </div>
                             </div>
                             <!-- /.card-body -->
@@ -104,5 +122,4 @@
       <app-footer></app-footer>
     </div>
     <!-- ./wrapper -->
-
-</body>
+  </body>

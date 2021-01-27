@@ -164,6 +164,20 @@ export class ProductService {
     return this.http.post('api/productdetail', data, httpOptions);
   }
 
+  createPromoDetails(data: any, tokenType: String, token: String | null): Observable<any> {
+    const authorization = tokenType + ' ' + token
+    
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Authorization': authorization,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+
+    return this.http.post('api/promodetail', data, httpOptions);
+  }
+
   uploadPhotoProduct(id_product:any, data: FormData, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
 
@@ -175,6 +189,19 @@ export class ProductService {
     };
 
     return this.http.post(`api/productdetail/photo/${id_product}`, data, httpOptions);
+  }
+
+  uploadPhotoPromo(id_promo:any, data: FormData, tokenType: String, token: String | null): Observable<any> {
+    const authorization = tokenType + ' ' + token
+
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Authorization': authorization,
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+
+    return this.http.post(`api/productdetail/photo/${id_promo}`, data, httpOptions);
   }
 
   updateProduct(id: any, data: any, tokenType: String, token: String | null): Observable<any> {

@@ -55,8 +55,8 @@
                             <tr>
                                 <td>{{ product.id_product }}</td>
                                 <td><img src="http://absdigital.id:5000{{ product.path_photo }}" style="width: 150px; height: 150px;"></td>
-                                <td>{{ product.product_name }}</td>
-                                <td>{{ product.name_product_category }}</td>
+                                <td>{{ product.product_name | titlecase }}</td>
+                                <td>{{ product.name_product_category | titlecase }}</td>
                                 <td>{{ product.product_price | currency:'Rp ':'symbol':'3.0' }}</td>
                                 <td class="text-center">
                                     <a id="dropdownAction2" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fas fa-ellipsis-h"></i></a>

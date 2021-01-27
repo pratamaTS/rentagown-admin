@@ -28,6 +28,15 @@ import { NewsletterComponent } from './newsletter/newsletter.component';
 import { SalesOrderComponent } from './sales-order/sales-order.component';
 import { SalesInvoiceComponent } from './sales-invoice/sales-invoice.component';
 import { SalesOrderDetailComponent } from './sales-order/sales-order-detail/sales-order-detail.component';
+import { JwtModule } from "@auth0/angular-jwt";
+import { SalesInvoiceDetailComponent } from './sales-invoice/sales-invoice-detail/sales-invoice-detail.component';
+import { AddNewsletterComponent } from './newsletter/add-newsletter/add-newsletter.component';
+import { UpdateNewsletterComponent } from './newsletter/update-newsletter/update-newsletter.component';
+import { WishlistDetailComponent } from './wishlist/wishlist-detail/wishlist-detail.component';
+
+export function tokenGetter() {
+  return localStorage.getItem("access_token");
+}
 
 @NgModule({
   declarations: [
@@ -55,14 +64,25 @@ import { SalesOrderDetailComponent } from './sales-order/sales-order-detail/sale
     NewsletterComponent,
     SalesOrderComponent,
     SalesInvoiceComponent,
-    SalesOrderDetailComponent
+    SalesOrderDetailComponent,
+    SalesInvoiceDetailComponent,
+    AddNewsletterComponent,
+    UpdateNewsletterComponent,
+    WishlistDetailComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["absdigital.id"],
+        disallowedRoutes: ["http://absdigital.id/guard/"],
+      },
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

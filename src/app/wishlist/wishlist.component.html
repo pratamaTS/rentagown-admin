@@ -53,10 +53,10 @@
                     <tbody *ngFor="let wishlist of dataWishlist">
                         <tr>
                             <td><img src="http://absdigital.id:5000{{ wishlist.path_photo }}" style="width: 150px; height: 150px;"></td>
-                            <td>{{ wishlist.product_name }} </td>
-                            <td>Rp {{ wishlist.product_price }} </td>
-                            <td>09/01/2021</td>
-                            <td>{{ wishlist.nama_user }}</td>
+                            <td>{{ wishlist.product_name | titlecase }} </td>
+                            <td>{{ wishlist.product_price | currency:'Rp ':'symbol':'3.0' }} </td>
+                            <td>{{ wishlist.created_at | date: 'dd-MMM-YYYY' }}</td>
+                            <td>{{ wishlist.name_user | titlecase }}</td>
                             <td class="text-center">
                                 <a id="dropdownAction1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fas fa-ellipsis-h"></i></a>
                                 <ul aria-labelledby="dropdownAction1" class="dropdown-menu border-0 shadow">

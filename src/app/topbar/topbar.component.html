@@ -24,27 +24,15 @@
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">3</span>
+                <span class="badge badge-warning navbar-badge">{{countSalesOrder}}</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <span class="dropdown-header">3 Notifications</span>
+            <div *ngIf="countSalesOrder>0" class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <span class="dropdown-header">{{countSalesOrder}} notification</span>
                 <div class="dropdown-divider"></div>
-                <a href="sales-order-update.php" class="dropdown-item">
-                    New order from Jhon Doel
-                    <span class="float-right text-muted text-sm">3 mins</span>
+                <a (click)="readNotif()" type="button" class="dropdown-item">
+                    New sales order
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="sales-order-update.php" class="dropdown-item">
-                    New order from Jhon Doel
-                    <span class="float-right text-muted text-sm">8 mins</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="sales-order-update.php" class="dropdown-item">
-                    New order from Jhon Doel
-                    <span class="float-right text-muted text-sm">10 mins</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
         </li>
         <li class="nav-item dropdown">

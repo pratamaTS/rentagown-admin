@@ -11,12 +11,14 @@ import { Router } from '@angular/router';
 })
 export class AddPromoComponent implements OnInit {
  
+  id: any = ''
   data = new FormData()
   tokenType: String = 'Bearer'
   token: String | null = ''
   errorMessage = ''
   imageSrc: any = null
   photo_name: any = null
+  dataUploadPhoto: any = []
 
   promo: Promo = {
     promo_name: '',
@@ -71,10 +73,10 @@ export class AddPromoComponent implements OnInit {
 
       this.productService.createPromo(data, this.tokenType, this.token)
         .subscribe(
-          response => {
-            console.log(response);
+          data => {
+            this.id = data.data.id_promo
             this.submitted = true;
-            this.router.navigateByUrl('master-promo');
+            this.uploadPhoto()
           },
           error => {
             console.log(error);
@@ -82,6 +84,41 @@ export class AddPromoComponent implements OnInit {
     }else{
       console.log('error', 'Please login first!')
     }
+  }
+
+  uploadPhoto(): void {
+    this.productService.uploadPhotoPromo(this.id, this.data, this.tokenType, this.token)
+    .subscribe(
+      data => {
+        console.log(data);
+        this.submitted = true;
+        this.dataUploadPhoto = data.data
+        console.log("path_foto",this.dataUploadPhoto)
+        this.onCreatePromoDetails()
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
+  onCreatePromoDetails(): void {
+    for(let i = 0; i < this.dataUploadPhoto.length; i++){
+      const data = {
+        id_promo: this.id,
+        path_photo: this.dataUploadPhoto[i].path_photo
+      };
+      
+      this.productService.createPromoDetails(data, this.tokenType, this.token)
+      .subscribe(
+        response => {
+          console.log(response);
+          this.submitted = true;
+        },
+        error => {
+          console.log(error);
+        });
+    }
+    this.router.navigateByUrl('master-promo')
   }
 
 }

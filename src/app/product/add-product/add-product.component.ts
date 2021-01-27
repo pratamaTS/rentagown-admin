@@ -158,7 +158,7 @@ export class AddProductComponent implements OnInit {
           console.log(error);
         });
     }
-    this.router.navigateByUrl('master-product');this.router.navigateByUrl('master-product');
+    this.router.navigateByUrl('master-product')
   }
 
   uploadPhoto(): void {

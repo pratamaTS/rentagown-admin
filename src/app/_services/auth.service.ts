@@ -20,7 +20,8 @@ export class AuthService {
   constructor(private http: HttpClient, public jwtHelper: JwtHelperService) { }
 
   public isAuthenticated(): boolean {
-    var token: any = localStorage.getItem('token');
+    var token: any = localStorage.getItem('access_token');
+    console.log('token from auten', localStorage['access_token'])
     // Check whether the token is expired and return
     // true or false
     return !this.jwtHelper.isTokenExpired(token);

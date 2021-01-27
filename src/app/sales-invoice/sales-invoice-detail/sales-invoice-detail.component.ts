@@ -6,14 +6,14 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { jsPDF } from 'jspdf'
 
 @Component({
-  selector: 'app-sales-order-detail',
-  templateUrl: './sales-order-detail.component.html',
-  styleUrls: ['./sales-order-detail.component.css']
+  selector: 'app-sales-invoice-detail',
+  templateUrl: './sales-invoice-detail.component.html',
+  styleUrls: ['./sales-invoice-detail.component.css']
 })
-export class SalesOrderDetailComponent implements OnInit {
-  
-  @ViewChild("salesOrderReceipt")
-  salesOrderReceipt!: ElementRef;
+export class SalesInvoiceDetailComponent implements OnInit {
+
+  @ViewChild("salesInvoiceReceipt")
+  salesInvoiceReceipt!: ElementRef;
   id: any = ''
   tokenType: String = 'Bearer'
   token: String | null = ''
@@ -65,13 +65,13 @@ export class SalesOrderDetailComponent implements OnInit {
     console.log('token detail', this.token)
     this.id = this.route.snapshot.params.id
     if(this.token != null){
-      this.getSalesOrderByID(this.id)
+      this.getSalesInvoiceByID(this.id)
     }else{
       this.message = 'Please login first!'
     }
   }
 
-  getSalesOrderByID(id: string): void {
+  getSalesInvoiceByID(id: string): void {
     this.bookingOrderService.getSalesOrderByID(id, this.tokenType, this.token).subscribe(
       data => {
         this.salesOrder = data.data
@@ -87,12 +87,12 @@ export class SalesOrderDetailComponent implements OnInit {
   }
 
   public downloadPDF():void {
-    let DATA = this.salesOrderReceipt.nativeElement;
+    let DATA = this.salesInvoiceReceipt.nativeElement;
     let doc = new jsPDF('l','pt', 'a3');
 
     doc.html(DATA, {
       callback: (doc) => {
-        doc.save('sales-order-receipt.pdf');
+        doc.save('sales-invoice-receipt.pdf');
       }
     });
   }

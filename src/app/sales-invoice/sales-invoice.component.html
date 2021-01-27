@@ -18,7 +18,7 @@
               </div><!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                  <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+                  <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
                   <li class="breadcrumb-item active">Sales Invoice</li>
                 </ol>
               </div><!-- /.col -->
@@ -51,20 +51,20 @@
                         <th>Action</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngFor="let salesInvoice of dataSalesInvoice">
 
                     <tr>
-                        <td>SI-RAG001</td>
-                        <td>14/01/2021</td>
-                        <td>Xhildva Chiffon Dress</td>
-                        <td>01/02/2021</td>
-                        <td>5,000,000</td>
-                        <td>Yes</td>
+                        <td>{{ salesInvoice.invoice }}</td>
+                        <td>{{ salesInvoice.created_at | date: 'dd-MMM-YYYY' }}</td>
+                        <td>{{ salesInvoice.product_name | titlecase }}</td>
+                        <td>{{ salesInvoice.start_date | date: 'dd-MMM-YYYY' }}</td>
+                        <td>{{ salesInvoice.paid_price | currency:'Rp ':'symbol':'3.0' }}</td>
+                        <td *ngIf="salesInvoice.down_payment > 0 || salesInvoice.down_payment != null">Yes</td>
+                        <td *ngIf="salesInvoice.down_payment == 0 || salesInvoice.down_payment == null">No</td>
                         <td class="text-center">
                             <a id="dropdownAction1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fas fa-ellipsis-h"></i></a>
                             <ul aria-labelledby="dropdownAction1" class="dropdown-menu border-0 shadow">
-                                <li><a href="sales-invoice-update.php" class="dropdown-item">View </a></li>
-                                <li><a href="#" class="dropdown-item">Delete</a></li>
+                                <li><a routerLink="/sales-invoice-detail/{{salesInvoice.id_transaction}}" class="dropdown-item">View </a></li>
                             </ul>
                         </td>
                     </tr>

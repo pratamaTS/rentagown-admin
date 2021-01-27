@@ -1,3 +1,69 @@
+$(function () {
+
+  /* Chart.js Charts */
+  // Sales graph chart
+  var salesGraphChartCanvas = $('#line-chart').get(0).getContext('2d');
+  //$('#revenue-chart').get(0).getContext('2d');
+
+  var salesGraphChartData = {
+    labels  : ['2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+    datasets: [
+      {
+        label               : 'Total Gown Rent',
+        fill                : false,
+        borderWidth         : 2,
+        lineTension         : 0,
+        spanGaps : true,
+        borderColor         : '#c9a474',
+        pointRadius         : 3,
+        pointHoverRadius    : 7,
+        pointColor          : '#c9a474',
+        pointBackgroundColor: '#c9a474',
+        data                : [2666, 2778, 4912, 3767, 6810, 5670, 4820, 15073, 10687, 8432]
+      }
+    ]
+  }
+
+  var salesGraphChartOptions = {
+    maintainAspectRatio : false,
+    responsive : true,
+    legend: {
+      display: false,
+    },
+    scales: {
+      xAxes: [{
+        ticks : {
+          fontColor: '#c9a474',
+        },
+        gridLines : {
+          display : false,
+          color: '#c9a474',
+          drawBorder: false,
+        }
+      }],
+      yAxes: [{
+        ticks : {
+          stepSize: 5000,
+          fontColor: '#c9a474',
+        },
+        gridLines : {
+          display : true,
+          color: '#dedede',
+          drawBorder: false,
+        }
+      }]
+    }
+  }
+
+  // This will get the first returned node in the jQuery collection.
+  var salesGraphChart = new Chart(salesGraphChartCanvas, { 
+      type: 'line', 
+      data: salesGraphChartData, 
+      options: salesGraphChartOptions
+    }
+  )
+  });
+
 /*SELECT 2*/
 $(function () {
   //Initialize Select2 Elements

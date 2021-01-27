@@ -45,8 +45,7 @@
                         <th>SO Number</th>
                         <th>SO Date</th>
                         <th>Gown Name</th>
-                        <th>Rent Date From</th>
-                        <th>Rent Date To</th>
+                        <th>Rent Date</th>
                         <th>Total Price</th>
                         <th>Deposit Booking</th>
                         <th>Action</th>
@@ -57,16 +56,15 @@
                     <tr>
                         <td>{{ salesOrder.invoice }}</td>
                         <td>{{ salesOrder.created_at | date: 'dd-MMM-YYYY' }}</td>
-                        <td>{{ salesOrder.product_name }}</td>
+                        <td>{{ salesOrder.product_name | titlecase }}</td>
                         <td>{{ salesOrder.start_date | date: 'dd-MMM-YYYY' }}</td>
-                        <td>{{ salesOrder.end_date | date: 'dd-MMM-YYYY' }}</td>
-                        <td>{{ salesOrder.paid_price }}</td>
+                        <td>{{ salesOrder.paid_price | currency:'Rp ':'symbol':'3.0' }}</td>
                         <td *ngIf="salesOrder.down_payment > 0 || salesOrder.down_payment != null">Yes</td>
                         <td *ngIf="salesOrder.down_payment == 0 || salesOrder.down_payment == null">No</td>
                         <td class="text-center">
                             <a id="dropdownAction1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fas fa-ellipsis-h"></i></a>
                             <ul aria-labelledby="dropdownAction1" class="dropdown-menu border-0 shadow">
-                                <li><a href="/sales-order-detail/{{salesOrder.id_transaction}}" class="dropdown-item">View </a></li>
+                                <li><a routerLink="/sales-order-detail/{{salesOrder.id_transaction}}" class="dropdown-item">View </a></li>
                             </ul>
                         </td>
                     </tr>
@@ -77,9 +75,9 @@
                         <th>SO Number</th>
                         <th>SO Date</th>
                         <th>Gown Name</th>
-                        <th>Quantity</th>
-                        <th>Total Price</th>
                         <th>Rent Date</th>
+                        <th>Total Price</th>
+                        <th>Deposit Booking</th>
                         <th>Action</th>
                     </tr>
                     </tfoot>

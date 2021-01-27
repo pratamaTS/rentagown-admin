@@ -14,13 +14,13 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Sales Order Receipt</h1><br/>
-                <a href="/sales-order" class="btn btn-primary"><i class="fas fa-long-arrow-alt-left"></i>  Back to Sales Order List</a>
+                <h1 class="m-0 text-dark">Sales Invoice Receipt</h1><br/>
+                <a href="/sales-invoice" class="btn btn-primary"><i class="fas fa-long-arrow-alt-left"></i>  Back to Sales Invoice List</a>
               </div><!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a href="/dashboard">Dashboard</a></li>
-                  <li class="breadcrumb-item active">Sales Order Receipt</li>
+                  <li class="breadcrumb-item active">Sales Invoice Receipt</li>
                 </ol>
               </div><!-- /.col -->
             </div><!-- /.row -->
@@ -32,9 +32,9 @@
         <div class="content">
           <div class="container-fluid">
             <!-- Default box -->
-            <div id="salesOrderReceipt" #salesOrderReceipt class="card">
+            <div id="salesInvoiceReceipt" #salesInvoiceReceipt class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Sales Order Receipt</h3>
+                    <h3 class="card-title">Sales Invoice Receipt</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
                     </div>
@@ -43,7 +43,7 @@
                     <form role="form">
                         <div class="row">
                             <div class="col-md-6">
-                                <h1 class="text-rag">SALES ORDER</h1>
+                                <h1 class="text-rag">SALES INVOICE</h1>
                             </div>
                             <div class="col-md-6 text-right">
                                 <img src="assets/dist/img/logo.png" width="80" />
@@ -52,7 +52,7 @@
                         <div class="row mt-5">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="soNumber">SO Number</label>
+                                    <label for="soNumber">SI Number</label>
                                     <input type="text" class="form-control" id="soNumber" value="{{salesOrder.invoice }}" disabled="disabled">
                                 </div>
                             </div>
@@ -66,7 +66,7 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label>SO Date</label>
+                                    <label>SI Date</label>
                                     <input type="text" class="form-control" value="{{salesOrder.created_at | date: 'dd-MMMM-YYYY' }}" id="so_date_id" readonly>
                                 </div>
                             </div>
@@ -133,7 +133,7 @@
             <!-- /.card -->
             <div class="form-group col-12">
                 <br/><br/>
-                <a (click)="downloadPDF()" class="btn btn-default">Print SO Receipt</a>
+                <a (click)="downloadPDF()" class="btn btn-default">Print SI Receipt</a>
             </div>
           </div><!-- /.container-fluid -->
         </div>
