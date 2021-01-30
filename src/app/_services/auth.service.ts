@@ -6,16 +6,16 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 const AUTH_API = 'http://absdigital.id:5000/api/v/1/';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 
+  headers: new HttpHeaders({
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*'
- })
+ }),
 };
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class Auth {
 
   constructor(private http: HttpClient, public jwtHelper: JwtHelperService) { }
 
@@ -26,10 +26,10 @@ export class AuthService {
     // true or false
     return !this.jwtHelper.isTokenExpired(token);
   }
-  
+
   login(email: string, password: string): Observable<any> {
     const body = {email, password}
-    return this.http.post<any>('/api/user/login', body, httpOptions);
+    return this.http.post('api/user/login', body, httpOptions);
   }
 
   register(name: string, email: string, password: string, platform: string): Observable<any> {

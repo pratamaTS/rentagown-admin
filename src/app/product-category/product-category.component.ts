@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { ProductService } from '../_services/product.service'
 import { ProductCategory } from '../_models/product-category.model'
 import { Router } from '@angular/router';
-
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-product-category',
   templateUrl: './product-category.component.html',
   styleUrls: ['./product-category.component.css']
 })
 export class ProductCategoryComponent implements OnInit {
+
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
 
   id: any = ''
   tokenType: String = 'Bearer'
@@ -97,7 +103,7 @@ export class ProductCategoryComponent implements OnInit {
 
   onUpdateProductCategory(id: any): void {
     if(this.updated == false){
-      
+
     }else{
       this.productService.updateProductCategory(this.id, this.productCategory, this.tokenType, this.token)
         .subscribe(
@@ -111,5 +117,14 @@ export class ProductCategoryComponent implements OnInit {
           });
     }
   }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+   }
 
 }

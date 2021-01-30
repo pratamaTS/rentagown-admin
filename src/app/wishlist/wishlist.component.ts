@@ -1,13 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { ProductService } from '../_services/product.service'
-
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-wishlist',
   templateUrl: './wishlist.component.html',
   styleUrls: ['./wishlist.component.css']
 })
 export class WishlistComponent implements OnInit {
+
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
 
   tokenType: String = 'Bearer'
   token: String | null = ''
@@ -34,5 +40,14 @@ export class WishlistComponent implements OnInit {
       console.log('error', 'Please login first!')
     }
   }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+   }
 
 }

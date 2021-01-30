@@ -2,15 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../../_services/token-storage.service';
 import { Promo } from 'src/app/_models/promo.model';
 import { ProductService } from 'src/app/_services/product.service';
-import { Router } from '@angular/router';
-import { DatePipe } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-add-promo',
-  templateUrl: './add-promo.component.html',
-  styleUrls: ['./add-promo.component.css']
+  selector: 'app-update-promo',
+  templateUrl: './update-promo.component.html',
+  styleUrls: ['./update-promo.component.css']
 })
-export class AddPromoComponent implements OnInit {
+export class UpdatePromoComponent implements OnInit {
 
   id: any = ''
   data = new FormData()
@@ -20,7 +19,6 @@ export class AddPromoComponent implements OnInit {
   imageSrc: any = null
   photo_name: any = null
   dataUploadPhoto: any = []
-  pipe = new DatePipe('en-US');
 
   promo: Promo = {
     promo_name: '',
@@ -31,13 +29,37 @@ export class AddPromoComponent implements OnInit {
     promo_stock: 0
   }
 
+  message = ''
   submitted = false
+  upload = false
 
-  constructor(private tokenStorage: TokenStorageService, private productService: ProductService, private router: Router) { }
+  constructor(private tokenStorage: TokenStorageService, private productService: ProductService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
+    this.id = this.route.snapshot.params.id
+
+    if(this.token != null){
+      this.getPromoByID(this.id)
+    }else{
+      this.message = 'Please login first!'
+    }
+  }
+
+  getPromoByID(id: any): void {
+    this.productService.getPromoByID(id, this.tokenType, this.token).subscribe(
+      data => {
+        this.promo = data.data
+        if(data.data.path_photo != ""){
+            this.imageSrc = "http://absdigital.id:5000" + data.data.path_photo
+        }
+        console.log('data bank', this.promo)
+      },
+      err => {
+        this.errorMessage = err.error.message;
+      }
+    )
   }
 
   onFileChange(event: any) {
@@ -47,6 +69,7 @@ export class AddPromoComponent implements OnInit {
       const [promo] = event.target.files;
       this.data.append("photo_detail", event.target.files)
       this.photo_name = promo.name
+      this.upload = true
 
       reader.readAsDataURL(promo);
       console.log("photo", promo)
@@ -67,8 +90,15 @@ export class AddPromoComponent implements OnInit {
     console.log("value date", this.promo.promo_exp)
   }
 
-  onCreatePromo(): void {
+  onUpdatePromo(): void {
+    if(this.upload == true){
+      this.uploadPhoto()
+    }else{
+      this.onUpdate()
+    }
+  }
 
+  onUpdate(): void {
     if(this.token != null){
       const data = {
         promo_name: this.promo.promo_name,
@@ -79,12 +109,12 @@ export class AddPromoComponent implements OnInit {
         promo_stock: 12
       };
 
-      this.productService.createPromo(data, this.tokenType, this.token)
+      this.productService.updatePromo(this.id, data, this.tokenType, this.token)
         .subscribe(
           data => {
             this.id = data.data.id_promo
             this.submitted = true;
-            this.uploadPhoto()
+            this.router.navigateByUrl('master-promo')
           },
           error => {
             console.log(error);
@@ -102,14 +132,14 @@ export class AddPromoComponent implements OnInit {
         this.submitted = true;
         this.dataUploadPhoto = data.data
         console.log("path_foto",this.dataUploadPhoto)
-        this.onCreatePromoDetails()
+        this.onUpdatePromoDetails()
       },
       error => {
         console.log(error);
       });
   }
 
-  onCreatePromoDetails(): void {
+  onUpdatePromoDetails(): void {
     for(let i = 0; i < this.dataUploadPhoto.length; i++){
       const data = {
         id_promo: this.id,

@@ -48,7 +48,7 @@
                                     <label for="categoryName">Category Name</label>
                                     <input type="text" class="form-control" id="categorytName" [(ngModel)]="productCategory.name_product_category" name="name_product_category" placeholder="Type category name. ex: Wedding" >
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <br/><br/><button (click)="onCreateProductCategory()" class="btn btn-primary">Save</button>
                                 </div>
@@ -57,7 +57,7 @@
                         </form>
                        </div>
                        <div class="col-md-8">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Category Name</th>
@@ -84,7 +84,7 @@
                             </tfoot>
                         </table>
                        </div>
-                   </div> 
+                   </div>
                 </div>
                 <!-- /.card-body -->
             </div>

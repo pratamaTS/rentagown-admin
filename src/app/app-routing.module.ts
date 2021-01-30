@@ -19,6 +19,7 @@ import { AddNewsletterComponent } from './newsletter/add-newsletter/add-newslett
 import { UpdateBankAccountComponent } from './bank-account/update-bank-account/update-bank-account.component';
 import { UpdateProductCategoryComponent } from './product-category/update-product-category/update-product-category.component';
 import { UpdateProductComponent } from './product/update-product/update-product.component';
+import { UpdatePromoComponent } from './promo/update-promo/update-promo.component';
 import { UpdateNewsletterComponent } from './newsletter/update-newsletter/update-newsletter.component';
 import { SalesOrderDetailComponent } from './sales-order/sales-order-detail/sales-order-detail.component';
 import { SalesInvoiceDetailComponent } from './sales-invoice/sales-invoice-detail/sales-invoice-detail.component';
@@ -45,6 +46,7 @@ const routes: Routes = [
   { path: 'update-bank-account/:id', component: UpdateBankAccountComponent, canActivate: [AuthGuard] },
   { path: 'update-product-category/:id', component: UpdateProductCategoryComponent, canActivate: [AuthGuard] },
   { path: 'update-product/:id', component: UpdateProductComponent, canActivate: [AuthGuard] },
+  { path: 'update-promo/:id', component: UpdatePromoComponent, canActivate: [AuthGuard] },
   { path: 'update-newsletter/:id', component: UpdateNewsletterComponent, canActivate: [AuthGuard] },
   { path: 'sales-order-detail/:id', component: SalesOrderDetailComponent, canActivate: [AuthGuard] },
   { path: 'sales-invoice-detail/:id', component: SalesInvoiceDetailComponent, canActivate: [AuthGuard] }

@@ -43,11 +43,11 @@ export class UpdateBankAccountComponent implements OnInit {
     }
   }
 
-  
+
 
   onFileChange(event: any) {
     const reader = new FileReader();
-    
+
     if(event.target.files && event.target.files.length) {
       const [logo] = event.target.files;
       this.logo_bank_photo = logo
@@ -57,13 +57,13 @@ export class UpdateBankAccountComponent implements OnInit {
       console.log("photo", logo)
       console.log("photo name", logo.name)
       console.log("logo bank", this.logo_bank_photo)
-      
-    
+
+
       reader.onload = () => {
         this.imageSrc = reader.result as string;
         console.log("url image", this.imageSrc)
       };
-   
+
     }
   }
 

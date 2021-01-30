@@ -79,6 +79,7 @@
                                         <div class="form-group">
                                             <label for="userEmailSelect">User Email</label>
                                             <select class="form-control select2bs4" multiple="multiple" data-placeholder="Select Email" style="width: 100%;">
+                                                <option>hardianto_jp@yahoo.com</option>
                                                 <option>kambalya@gmail.com</option>
                                                 <option>violepd@gmail.com</option>
                                                 <option>emasra@gmail.com</option>
@@ -98,16 +99,16 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                                
+
+
                                 <div class="form-group">
-                                    <br/><br/><button type="submit" class="btn btn-primary">Send Newsletter</button>
+                                    <br/><br/><button (click)="onCreateNewsletter()" type="submit" class="btn btn-primary">Send Newsletter</button>
                                 </div>
                             </div>
                             <!-- /.card-body -->
                         </form>
                        </div>
-                   </div> 
+                   </div>
                 </div>
                 <!-- /.card-body -->
             </div>

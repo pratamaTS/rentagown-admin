@@ -1,13 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { ProductService } from '../_services/product.service'
-
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
+
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
 
   tokenType: String = 'Bearer'
   token: String | null = ''
@@ -46,7 +52,7 @@ export class ProductComponent implements OnInit {
       }
     )
   }
-  
+
   onDeleteProduct(id: any): void {
     const data = {
       id_photo: id
@@ -76,5 +82,14 @@ export class ProductComponent implements OnInit {
           console.log(error);
         });
   }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+   }
 
 }

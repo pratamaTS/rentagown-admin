@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { DataTablesModule } from 'angular-datatables';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -33,6 +34,7 @@ import { SalesInvoiceDetailComponent } from './sales-invoice/sales-invoice-detai
 import { AddNewsletterComponent } from './newsletter/add-newsletter/add-newsletter.component';
 import { UpdateNewsletterComponent } from './newsletter/update-newsletter/update-newsletter.component';
 import { WishlistDetailComponent } from './wishlist/wishlist-detail/wishlist-detail.component';
+import { UpdatePromoComponent } from './promo/update-promo/update-promo.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -68,13 +70,15 @@ export function tokenGetter() {
     SalesInvoiceDetailComponent,
     AddNewsletterComponent,
     UpdateNewsletterComponent,
-    WishlistDetailComponent
+    WishlistDetailComponent,
+    UpdatePromoComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    DataTablesModule,
     AppRoutingModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     JwtModule.forRoot({
       config: {

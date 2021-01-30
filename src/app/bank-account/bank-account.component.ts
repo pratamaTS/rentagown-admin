@@ -1,14 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { BankAccountService } from '../_services/bank-account.service'
 import { ActivatedRoute, Router } from '@angular/router'
-
+import { DataTableDirective } from 'angular-datatables';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-bank-account',
   templateUrl: './bank-account.component.html',
   styleUrls: ['./bank-account.component.css']
 })
 export class BankAccountComponent implements OnInit {
+
+  @ViewChild(DataTableDirective)
+  dtElement!: DataTableDirective;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
 
   tokenType: String = 'Bearer'
   token: String | null = ''
@@ -25,6 +31,8 @@ export class BankAccountComponent implements OnInit {
       this.bankAccountService.getAllBankAccount(this.tokenType, this.token).subscribe(
         data => {
           this.dataBank = data.data
+          this.dtTrigger.next();
+
           console.log('data bank', this.dataBank)
         },
         err => {
@@ -62,5 +70,14 @@ export class BankAccountComponent implements OnInit {
           console.log(error);
         });
   }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      // Destroy the table first
+      dtInstance.destroy();
+      // Call the dtTrigger to rerender again
+      this.dtTrigger.next();
+    });
+   }
 
 }

@@ -29,10 +29,4 @@ export class AppComponent implements OnInit {
       // this.email = user.data.email;
     }
   }
-
-  logout(): void {
-    this.tokenStorageService.signOut();
-    window.location.reload();
-  }
-
 }

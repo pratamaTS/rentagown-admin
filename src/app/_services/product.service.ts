@@ -11,9 +11,9 @@ export class ProductService {
 
   getAllProduct(tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -25,9 +25,9 @@ export class ProductService {
 
   getAllProductCategory(tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -39,9 +39,9 @@ export class ProductService {
 
   getAllWishlist(tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -53,9 +53,9 @@ export class ProductService {
 
   getAllPromo(tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -67,9 +67,9 @@ export class ProductService {
 
   getProductByID(id: any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -81,9 +81,9 @@ export class ProductService {
 
   getPromoByID(id: any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -95,9 +95,9 @@ export class ProductService {
 
   createProductCategory(data: any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -109,9 +109,9 @@ export class ProductService {
 
   updateProductCategory(id: any, data: any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -123,9 +123,9 @@ export class ProductService {
 
   deleteProductCategory(id: any, data:any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -138,9 +138,9 @@ export class ProductService {
 
   createProduct(data: any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -152,9 +152,9 @@ export class ProductService {
 
   createProductDetails(data: any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -166,9 +166,9 @@ export class ProductService {
 
   createPromoDetails(data: any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -182,7 +182,7 @@ export class ProductService {
     const authorization = tokenType + ' ' + token
 
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Access-Control-Allow-Origin': '*'
       })
@@ -195,20 +195,20 @@ export class ProductService {
     const authorization = tokenType + ' ' + token
 
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Access-Control-Allow-Origin': '*'
       })
     };
 
-    return this.http.post(`api/productdetail/photo/${id_promo}`, data, httpOptions);
+    return this.http.post(`api/promo/photo/${id_promo}`, data, httpOptions);
   }
 
   updateProduct(id: any, data: any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -220,9 +220,9 @@ export class ProductService {
 
   updateProductDetails(id: any, data: any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -234,9 +234,9 @@ export class ProductService {
 
   deleteProduct(id: any, data:any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -249,9 +249,9 @@ export class ProductService {
 
   deleteProductDetails(id: any, data:any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -264,9 +264,9 @@ export class ProductService {
 
   createPromo(data: any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -278,9 +278,9 @@ export class ProductService {
 
   updatePromo(id: any, data: any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
@@ -290,11 +290,11 @@ export class ProductService {
     return this.http.put(`api/promo/update/${id}`, data, httpOptions);
   }
 
-  deletePromo(id: any, tokenType: String, token: String | null): Observable<any> {
+  deletePromo(id: any, data: any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
-    
+
     const httpOptions = {
-      headers: new HttpHeaders({ 
+      headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'

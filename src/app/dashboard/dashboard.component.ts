@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
   constructor(private tokenStorage: TokenStorageService, private bookingOrderService: BookingOrderService, private productService: ProductService) { }
 
   ngOnInit(): void {
-    
+
     console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
 
@@ -42,7 +42,9 @@ export class DashboardComponent implements OnInit {
     this.bookingOrderService.getAllSalesOrder(this.tokenType, this.token).subscribe(
       data => {
         this.dataSalesOrder = data.data
-        this.countSalesOrder = this.dataSalesOrder.length
+        if(data.data != null){
+          this.countSalesOrder = this.dataSalesOrder.length | 0
+        }
         console.log('count sales', this.countSalesOrder)
       },
       err => {
@@ -55,7 +57,7 @@ export class DashboardComponent implements OnInit {
     this.productService.getAllProduct(this.tokenType, this.token).subscribe(
       data => {
         this.dataProduct = data.data
-        this.countProduct = this.dataProduct.length
+        this.countProduct = this.dataProduct.length | 0
         console.log('count product', this.countProduct)
       },
       err => {
@@ -68,7 +70,7 @@ export class DashboardComponent implements OnInit {
     this.productService.getAllPromo(this.tokenType, this.token).subscribe(
       data => {
         this.dataPromo = data.data
-        this.countPromo = this.dataPromo.length
+        this.countPromo = this.dataPromo.length | 0
         console.log('count promo', this.countPromo)
       },
       err => {
