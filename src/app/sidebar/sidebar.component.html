@@ -1,137 +1,138 @@
 <aside class="main-sidebar sidebar-dark-danger elevation-4">
-    <!-- Brand Logo -->
-    <a href="/dashboard" class="brand-link navbar-rag">
-      <img src="assets/dist/img/logo.png" alt="AdminLTE Logo" class="brand-image">
-      <span class="brand-text font-weight-bold">Rent A Gown</span>
-    </a>
+  <!-- Brand Logo -->
+  <a routerLink="/dashboard" class="brand-link navbar-rag">
+    <img src="assets/dist/img/logo.png" alt="AdminLTE Logo" class="brand-image">
+    <span class="brand-text font-weight-bold">Rent A Gown</span>
+  </a>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
+  <!-- Sidebar -->
+  <div class="sidebar">
 
-      <!-- Sidebar user panel (optional) -->
-      <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <!-- Sidebar user panel (optional) -->
+    <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce </a>
+          <a class="d-block">Alexander Pierce </a>
         </div>
       </div> -->
 
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <li class="nav-item">
-            <a href="#" href="/dashboard" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i> <p>Dashboard</p>
-            </a>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-shopping-cart"></i> 
-              <p>Sales <i class="right fas fa-angle-left"></i></p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/booking-order" class="nav-link">
-                  <i class="nav-icon fas fa-cart-arrow-down"></i> 
-                  <p>Booking Order</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/sales-order" class="nav-link">
-                  <i class="nav-icon fas fa-cart-arrow-down"></i> 
-                  <p>Sales Order</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/sales-invoice" class="nav-link">
-                  <i class="nav-icon fas fa-file-invoice"></i> 
-                  <p>Sales Invoice</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!-- <li class="nav-item">
-            <a href="#" class="nav-link">
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+          <a routerLink="/dashboard" class="nav-link">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>Dashboard {{url}}</p>
+          </a>
+        </li>
+        <li class="nav-item has-treeview {{  MenuOpen(['booking-order','sales-order','sales-invoice'])}}">
+          <a class="nav-link ">
+            <i class="nav-icon fas fa-shopping-cart"></i>
+            <p>Sales <i class="right fas fa-angle-left"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a routerLink="/booking-order" class="nav-link {{  ActiveClass('booking-order')}}">
+                <i class="nav-icon fas fa-cart-arrow-down"></i>
+                <p>Booking Order</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/sales-order" class="nav-link {{  ActiveClass('sales-order')}}">
+                <i class="nav-icon fas fa-cart-arrow-down"></i>
+                <p>Sales Order</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/sales-invoice" class="nav-link {{  ActiveClass('sales-invoice')}}">
+                <i class="nav-icon fas fa-file-invoice"></i>
+                <p>Sales Invoice</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <!-- <li class="nav-item">
+            <a class="nav-link">
               <i class="nav-icon fas fa-truck"></i> 
               <p>Delivery Order</p>
             </a>
           </li> -->
-          <!-- <li class="nav-item">
-            <a href="#" class="nav-link">
+        <!-- <li class="nav-item">
+            <a class="nav-link">
               <i class="nav-icon fas fa-soap"></i> 
               <p>Laundry</p>
             </a>
           </li> -->
-          
-          <!-- <li class="nav-item">
-            <a href="#" class="nav-link">
+
+        <!-- <li class="nav-item">
+            <a class="nav-link">
               <i class="nav-icon fas fa-exchange-alt"></i> 
               <p>Return</p>
             </a>
           </li> -->
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>Master <i class="right fas fa-angle-left"></i></p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="/master-user" class="nav-link">
-                  <i class="fas fa-user nav-icon"></i>
-                  <p>Master User</p>
-                </a>
-              </li>
-              <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                  <i class="fas fa-box-open nav-icon"></i>
-                  <p>Master Product <i class="right fas fa-angle-left"></i></p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="/master-product" class="nav-link">
-                      <i class="nav-icon fas fa-dolly-flatbed"></i> 
-                      <p>Product</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="/master-product-category" class="nav-link">
-                      <i class="fas fa-boxes nav-icon"></i>
-                      <p>Product Category</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a href="/master-wishlist" class="nav-link">
-                  <i class="fas fa-heart nav-icon"></i>
-                  <p>Master Wishlist</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/master-newsletter" class="nav-link">
-                  <i class="fas fa-newspaper nav-icon"></i>
-                  <p>Master Newsletter</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/master-promo" class="nav-link">
-                  <i class="fas fa-percentage nav-icon"></i>
-                  <p>Master Promo</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="/master-bank-account" class="nav-link">
-                  <i class="fas fa-credit-card nav-icon"></i>
-                  <p>Master Bank Account</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
+        <li class="nav-item has-treeview">
+          <a class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
+            <p>Master <i class="right fas fa-angle-left"></i></p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a routerLink="/master-user" class="nav-link">
+                <i class="fas fa-user nav-icon"></i>
+                <p>Master User</p>
+              </a>
+            </li>
+            <li class="nav-item has-treeview">
+              <a class="nav-link">
+                <i class="fas fa-box-open nav-icon"></i>
+                <p>Master Product <i class="right fas fa-angle-left"></i></p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a routerLink="/master-product" class="nav-link">
+                    <i class="nav-icon fas fa-dolly-flatbed"></i>
+                    <p>Product</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="/master-product-category" class="nav-link">
+                    <i class="fas fa-boxes nav-icon"></i>
+                    <p>Product Category</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/master-wishlist" class="nav-link">
+                <i class="fas fa-heart nav-icon"></i>
+                <p>Master Wishlist</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/master-newsletter" class="nav-link">
+                <i class="fas fa-newspaper nav-icon"></i>
+                <p>Master Newsletter</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/master-promo" class="nav-link">
+                <i class="fas fa-percentage nav-icon"></i>
+                <p>Master Promo</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/master-bank-account" class="nav-link">
+                <i class="fas fa-credit-card nav-icon"></i>
+                <p>Master Bank Account</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
 </aside>
