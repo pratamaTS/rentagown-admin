@@ -20,28 +20,35 @@ export class SalesOrderComponent implements OnInit {
   token: String | null = ''
   dataSalesOrder: any = []
   errorMessage = ''
-
+  Realdata: any = []
   constructor(private tokenStorage: TokenStorageService, private bookingOrderService: BookingOrderService) { }
 
   ngOnInit(): void {
-    console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
 
-    if(this.token != null){
+    if (this.token != null) {
       this.bookingOrderService.getAllSalesOrder(this.tokenType, this.token).subscribe(
         data => {
           this.dataSalesOrder = data.data
-          console.log('data sales order', this.dataSalesOrder)
+          this.Realdata = data.data
         },
         err => {
           this.errorMessage = err.error.message;
         }
       )
-    }else{
+    } else {
       console.log('error', 'Please login first!')
     }
   }
 
+  filterData(test: any): void {
+    let f = test.target.value.trim()
+    this.dataSalesOrder = this.Realdata.filter((d: any) => {
+      if (f == '') return true
+      return (d.product_name.includes(f) || d.invoice.includes(f))
+    })
+  }
+  
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
@@ -49,5 +56,5 @@ export class SalesOrderComponent implements OnInit {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
-   }
+  }
 }

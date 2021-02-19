@@ -22,6 +22,7 @@ export class BookingOrderComponent implements OnInit {
   token: String | null = ''
   dataBookingOrder: any = []
   errorMessage = ''
+  Realdata: any = []
 
   constructor(private tokenStorage: TokenStorageService, private bookingOrderService: BookingOrderService, private route: ActivatedRoute, private router: Router) { }
 
@@ -33,6 +34,7 @@ export class BookingOrderComponent implements OnInit {
       this.bookingOrderService.getAllBookingOrder(this.tokenType, this.token).subscribe(
         data => {
           this.dataBookingOrder = data.data
+          this.Realdata = data.data
           this.dtTrigger.next();
           console.log("booking", this.dataBookingOrder)
         },
@@ -44,7 +46,13 @@ export class BookingOrderComponent implements OnInit {
       console.log('error', 'Please login first!')
     }
   }
-
+  filterData(test: any): void {
+    let f = test.target.value.trim()
+    this.dataBookingOrder = this.Realdata.filter((d: any) => {
+      if (f == '') return true
+      return (d.name.includes(f) ||d.product_name.includes(f) || d.invoice.includes(f))
+    })
+  }
   processBooking(id: any) {
     console.log("id book", id)
     const data = {
