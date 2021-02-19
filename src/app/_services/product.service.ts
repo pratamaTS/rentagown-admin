@@ -48,9 +48,27 @@ export class ProductService {
       })
     };
 
-    return this.http.get('api/wishlist/findall', httpOptions);
+    // return this.http.get('api/wishlist/findall', httpOptions);
+    return this.http.get('api/wishlist/findall/1/20', httpOptions);
   }
 
+  postAllWishlist(tokenType: String, token: String | null): Observable<any> {
+    const authorization = tokenType + ' ' + token
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': authorization,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+    const body = {
+       "from":"01-02-2021",
+       "to":"20-02-2021"
+    }
+
+    return this.http.post('api/wishlist/find/between',body, httpOptions);
+  }
   getAllPromo(tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
 

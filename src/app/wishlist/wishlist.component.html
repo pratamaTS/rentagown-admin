@@ -54,7 +54,8 @@
                         <tr>
                             <td>
                               <img *ngIf="wishlist.path_photo != ''" src="http://absdigital.id:5000{{ wishlist.path_photo }}" style="width: 150px; height: 50px;">
-                              <p *ngIf="wishlist.path_photo == ''" class="text-center">Wishlist Image not available</p>
+                              <img *ngIf="wishlist.path_photo == ''" src="http://absdigital.id:5000{{'/home/edproot/rag.absdigital.id/rentagown/cmd/rentagown/public/product_detail/0_20210130140548_WG2001_10-1-770x513.jpg' }}" style="width: 150px; height: 50px;">
+                              <!-- <p *ngIf="wishlist.path_photo == ''" class="text-center">Wishlist Image not available</p> -->
                             </td>
                             <td>{{ wishlist.product_name | titlecase }} </td>
                             <td>{{ wishlist.product_price | currency:'Rp ':'symbol':'3.0' }} </td>
