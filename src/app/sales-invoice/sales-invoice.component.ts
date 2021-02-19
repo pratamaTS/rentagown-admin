@@ -18,6 +18,8 @@ export class SalesInvoiceComponent implements OnInit {
   tokenType: String = 'Bearer'
   token: String | null = ''
   dataSalesInvoice: any = []
+  RealdataSalesInvoice: any = []
+  filterText: any = ''
   errorMessage = ''
 
   constructor(private tokenStorage: TokenStorageService, private bookingOrderService: BookingOrderService) { }
@@ -26,10 +28,11 @@ export class SalesInvoiceComponent implements OnInit {
     console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
 
-    if(this.token != null){
+    if (this.token != null) {
       this.bookingOrderService.getAllSalesInvoice(this.tokenType, this.token).subscribe(
         data => {
           this.dataSalesInvoice = data.data
+          this.RealdataSalesInvoice = data.data
           this.dtTrigger.next();
           console.log('data sales invoice', this.dataSalesInvoice)
         },
@@ -37,11 +40,26 @@ export class SalesInvoiceComponent implements OnInit {
           this.errorMessage = err.error.message;
         }
       )
-    }else{
+    } else {
       console.log('error', 'Please login first!')
     }
   }
+  filterData(test: any): void {
+    console.log(test.target.value)
+    //let f = this.filterText.trim()
+    let f = test.target.value.trim()
+    console.log(f)
+    this.dataSalesInvoice = this.RealdataSalesInvoice.filter((d: any) => {
+      if (f == '') return true
+      // if(d.invoice== f) return true
+      // if(d.product_name== f) return true
+      console.log(d.product_name.includes(f))
 
+      return (d.product_name.includes(f) || d.invoice.includes(f))
+
+    })
+
+  }
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first
@@ -49,6 +67,6 @@ export class SalesInvoiceComponent implements OnInit {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
-   }
+  }
 
 }

@@ -35,11 +35,13 @@
                 <div class="card-header">
                     <h3 class="card-title">Sales Invoice List</h3>
                     <div class="card-tools">
+                        <!-- <input  [(ngModel)]='filterText' (change)="filterData()" /> -->
+                        <input   (input)="filterData($event)" />
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
                     </div>
                 </div>
                 <div class="card-body">
-                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped">
+                    <table   class="table table-bordered table-striped">
                     <thead>
                     <tr>
                         <th>SI Number</th>

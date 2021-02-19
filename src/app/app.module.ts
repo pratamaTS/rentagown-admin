@@ -35,6 +35,7 @@ import { AddNewsletterComponent } from './newsletter/add-newsletter/add-newslett
 import { UpdateNewsletterComponent } from './newsletter/update-newsletter/update-newsletter.component';
 import { WishlistDetailComponent } from './wishlist/wishlist-detail/wishlist-detail.component';
 import { UpdatePromoComponent } from './promo/update-promo/update-promo.component';
+import { InventoryStock } from './inventory-stock/product.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -71,7 +72,8 @@ export function tokenGetter() {
     AddNewsletterComponent,
     UpdateNewsletterComponent,
     WishlistDetailComponent,
-    UpdatePromoComponent
+    UpdatePromoComponent,
+    InventoryStock
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,83 @@
+<body class="hold-transition sidebar-mini text-sm layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <div class="wrapper">
+      <!-- Navbar -->
+      <app-topbar></app-topbar>
+      <!-- /.navbar -->
+
+      <!-- Main Sidebar Container -->
+      <app-sidebar></app-sidebar>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Inventory Stock</h1><br/>
+              </div><!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+                  <li class="breadcrumb-item active">Inventory Stock</li>
+                </ol>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <div class="content">
+          <div class="container-fluid">
+            <!-- Default box -->
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Product Stock</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <input name="date" [(ngModel)]="myDate" type="date" (change)="onChangeDate()">
+                    <br/>
+                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Product ID</th>
+                                <th>Product Name</th>
+                                <th>Booked</th>
+                                <th>Available</th>
+                                <th>Total Stock</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let product of dataProduct">
+                            <tr>
+                                <td>{{ product.id_product }}</td>
+                                <td>{{ product.product_name   }}</td>
+                                <td>{{ product.qty_book   }}</td>
+                                <td>{{ product.stock_available   }}</td>
+                                <td>{{ product.product_quantity   }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+
+      <!-- Control Sidebar -->
+      <app-control-sidebar></app-control-sidebar>
+      <!-- /.control-sidebar -->
+
+      <!-- Main Footer -->
+      <app-footer></app-footer>
+    </div>
+    <!-- ./wrapper -->
+
+  </body>

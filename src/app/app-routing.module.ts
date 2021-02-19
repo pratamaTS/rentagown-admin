@@ -23,6 +23,7 @@ import { UpdatePromoComponent } from './promo/update-promo/update-promo.componen
 import { UpdateNewsletterComponent } from './newsletter/update-newsletter/update-newsletter.component';
 import { SalesOrderDetailComponent } from './sales-order/sales-order-detail/sales-order-detail.component';
 import { SalesInvoiceDetailComponent } from './sales-invoice/sales-invoice-detail/sales-invoice-detail.component';
+import { InventoryStock } from './inventory-stock/product.component';
 import { AuthGuardService as AuthGuard } from './_services/auth-guard.service';
 
 const routes: Routes = [
@@ -49,7 +50,8 @@ const routes: Routes = [
   { path: 'update-promo/:id', component: UpdatePromoComponent, canActivate: [AuthGuard] },
   { path: 'update-newsletter/:id', component: UpdateNewsletterComponent, canActivate: [AuthGuard] },
   { path: 'sales-order-detail/:id', component: SalesOrderDetailComponent, canActivate: [AuthGuard] },
-  { path: 'sales-invoice-detail/:id', component: SalesInvoiceDetailComponent, canActivate: [AuthGuard] }
+  { path: 'sales-invoice-detail/:id', component: SalesInvoiceDetailComponent, canActivate: [AuthGuard] },
+  { path: 'inventory-stock', component: InventoryStock, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
