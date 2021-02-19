@@ -22,6 +22,7 @@ export class InventoryStock implements OnInit {
   dataProduct: any = []
   errorMessage = ''
   myDate: any = ''
+  Realdata: any = []
 
   constructor(private tokenStorage: TokenStorageService, private productService: ProductService, private http: HttpClient) { }
 
@@ -76,13 +77,20 @@ export class InventoryStock implements OnInit {
     this.http.get('api/booking/checkinvstock?date=' + this.toGolangDate(d), httpOptions).subscribe(
       (data: any) => {
         this.dataProduct = data.data.data
+        this.Realdata = data.data.data
       },
       err => {
         this.errorMessage = err.error.message;
       }
     )
   }
-
+  filterData(test: any): void {
+    let f = test.target.value.trim()
+    this.dataProduct = this.Realdata.filter((d: any) => {
+      if (f == '') return true
+      return (d.id_product.includes(f) || d.product_name.includes(f))
+    })
+  }
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {

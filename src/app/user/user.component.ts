@@ -20,6 +20,7 @@ export class UserComponent implements OnInit {
   token: String | null = ''
   dataUser: any = []
   errorMessage = ''
+  Realdata: any = []
 
   constructor(private tokenStorage: TokenStorageService, private userService: UserService) { }
 
@@ -31,6 +32,7 @@ export class UserComponent implements OnInit {
       this.userService.getAllUser(this.tokenType, this.token).subscribe(
         data => {
           this.dataUser = data.data
+          this.Realdata = data.data
           this.dtTrigger.next();
 
           console.log('data user', this.dataUser)
@@ -42,6 +44,14 @@ export class UserComponent implements OnInit {
     }else{
       console.log('error', 'Please login first!')
     }
+  }
+
+  filterData(test: any): void {
+    let f = test.target.value.trim()
+    this.dataUser = this.Realdata.filter((d: any) => {
+      if (f == '') return true
+      return (d.name.includes(f) ||d.email.includes(f) || d.role.includes(f))
+    })
   }
 
   rerender(): void {

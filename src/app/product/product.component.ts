@@ -19,6 +19,7 @@ export class ProductComponent implements OnInit {
   token: String | null = ''
   dataProduct: any = []
   errorMessage = ''
+  Realdata: any = []
 
   constructor(private tokenStorage: TokenStorageService, private productService: ProductService) { }
 
@@ -30,6 +31,7 @@ export class ProductComponent implements OnInit {
       this.productService.getAllProduct(this.tokenType, this.token).subscribe(
         data => {
           this.dataProduct = data.data
+          this.Realdata = data.data
           console.log('data product', this.dataProduct)
         },
         err => {
@@ -40,7 +42,13 @@ export class ProductComponent implements OnInit {
       console.log('error', 'Please login first!')
     }
   }
-
+  filterData(test: any): void {
+    let f = test.target.value.trim()
+    this.dataProduct = this.Realdata.filter((d: any) => {
+      if (f == '') return true
+      return (d.id_product.includes(f) ||d.product_name.includes(f) || d.name_product_category.includes(f))
+    })
+  }
   refreshData(): void {
     this.productService.getAllProduct(this.tokenType, this.token).subscribe(
       data => {

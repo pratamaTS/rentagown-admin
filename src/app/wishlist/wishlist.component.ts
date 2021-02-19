@@ -19,6 +19,7 @@ export class WishlistComponent implements OnInit {
   token: String | null = ''
   dataWishlist: any = []
   errorMessage = ''
+  Realdata: any = []
 
   constructor(private tokenStorage: TokenStorageService, private productService: ProductService) { }
 
@@ -30,6 +31,7 @@ export class WishlistComponent implements OnInit {
       this.productService.getAllWishlist(this.tokenType, this.token).subscribe(
         data => {
           this.dataWishlist = data.data
+          this.Realdata = data.data
           console.log('data wishlist', this.dataWishlist)
         },
         err => {
@@ -40,7 +42,13 @@ export class WishlistComponent implements OnInit {
       console.log('error', 'Please login first!')
     }
   }
-
+  filterData(test: any): void {
+    let f = test.target.value.trim()
+    this.dataWishlist = this.Realdata.filter((d: any) => {
+      if (f == '') return true
+      return (d.product_name.includes(f))
+    })
+  }
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first

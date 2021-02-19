@@ -19,6 +19,7 @@ export class PromoComponent implements OnInit {
   token: String | null = ''
   dataPromo: any = []
   errorMessage = ''
+  Realdata: any = []
 
   constructor(private tokenStorage: TokenStorageService, private productService: ProductService) { }
 
@@ -26,25 +27,29 @@ export class PromoComponent implements OnInit {
     console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
 
-    if(this.token != null){
+    if (this.token != null) {
       this.productService.getAllPromo(this.tokenType, this.token).subscribe(
         data => {
           this.dataPromo = data.data
-          this.dtTrigger.next();
-
-          console.log('data promo', this.dataPromo)
+          this.Realdata = data.data
         },
         err => {
           this.errorMessage = err.error.message;
         }
       )
-    }else{
+    } else {
       console.log('error', 'Please login first!')
     }
   }
-
+  filterData(test: any): void {
+    let f = test.target.value.trim()
+    this.dataPromo = this.Realdata.filter((d: any) => {
+      if (f == '') return true
+      return (d.promo_name.includes(f) || d.promo_code.includes(f))
+    })
+  }
   refreshData(): void {
-    if(this.token != null){
+    if (this.token != null) {
       this.productService.getAllPromo(this.tokenType, this.token).subscribe(
         data => {
           this.dataPromo = data.data
@@ -54,7 +59,7 @@ export class PromoComponent implements OnInit {
           this.errorMessage = err.error.message;
         }
       )
-    }else{
+    } else {
       console.log('error', 'Please login first!')
     }
   }
@@ -81,5 +86,5 @@ export class PromoComponent implements OnInit {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
-   }
+  }
 }

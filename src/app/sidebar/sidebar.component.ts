@@ -26,8 +26,6 @@ export class SidebarComponent implements OnInit {
     return ""
   }
   MenuOpen(arr: any): String {
-    console.log(arr)
-    console.log(this.url,"   ", arr.includes(this.url))
     if (arr.includes(this.url))
       return "menu-open"
     return ""

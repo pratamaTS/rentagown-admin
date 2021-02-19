@@ -20,6 +20,7 @@ export class BankAccountComponent implements OnInit {
   token: String | null = ''
   dataBank: any = []
   errorMessage = ''
+  Realdata: any = []
 
   constructor(private tokenStorage: TokenStorageService, private bankAccountService: BankAccountService, private route: ActivatedRoute, private router: Router) { }
 
@@ -31,6 +32,8 @@ export class BankAccountComponent implements OnInit {
       this.bankAccountService.getAllBankAccount(this.tokenType, this.token).subscribe(
         data => {
           this.dataBank = data.data
+          this.Realdata = data.data
+
           this.dtTrigger.next();
 
           console.log('data bank', this.dataBank)
@@ -43,7 +46,13 @@ export class BankAccountComponent implements OnInit {
       console.log('error', 'Please login first!')
     }
   }
-
+  filterData(test: any): void {
+    let f = test.target.value.trim()
+    this.dataBank = this.Realdata.filter((d: any) => {
+      if (f == '') return true
+      return (d.bank_name.includes(f) || d.account_number.includes(f))
+    })
+  }
   refreshData(): void {
     this.bankAccountService.getAllBankAccount(this.tokenType, this.token).subscribe(
       data => {
