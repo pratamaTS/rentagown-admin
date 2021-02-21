@@ -56,7 +56,12 @@
                                     </div>
 
                                     <!-- Uploaded image area-->
-                                    <p class="font-italic text-center">Upload product image</p>
+                                    <p class="font-italic">
+                                      Upload product image <b style="color:red">*</b><br><br>
+                                      Image Size<br>
+                                      Min  : 418 pixel x 618 pixel (Portrait)<br>
+                                      Max : 836 pixel x 1,236 pixel (Portrait)  
+                                    </p>
                                     <p *ngIf="errorMessage != null" class="font-italic text-center" style="color:red">{{errorMessage}}</p>
                                     <div *ngIf="imageSrc == ''" class="image-area mt-4"><img *ngFor="let productImage of dataPhoto; let i = index" [attr.data-index]="i" id="imageResult" src="http://absdigital.id:5000{{ productImage.path_photo }}" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
                                     <div *ngIf="imageSrc != ''" class="image-area mt-4"><img *ngFor="let productImage of dataPhoto" id="imageResult" [src]="'http://absdigital.id:5000{{productImage.path_photo}}'" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
