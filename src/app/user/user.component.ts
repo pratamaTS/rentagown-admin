@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { UserService } from '../_services/user.service'
+import { ApiHelper } from '../_services/api-helper'
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
@@ -28,7 +29,7 @@ export class UserComponent implements OnInit {
     console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
 
-    if(this.token != null){
+    if (this.token != null) {
       this.userService.getAllUser(this.tokenType, this.token).subscribe(
         data => {
           this.dataUser = data.data
@@ -41,7 +42,7 @@ export class UserComponent implements OnInit {
           this.errorMessage = err.error.message;
         }
       )
-    }else{
+    } else {
       console.log('error', 'Please login first!')
     }
   }
@@ -50,8 +51,12 @@ export class UserComponent implements OnInit {
     let f = test.target.value.trim()
     this.dataUser = this.Realdata.filter((d: any) => {
       if (f == '') return true
-      return (d.name.includes(f) ||d.email.includes(f) || d.role.includes(f))
+      return (d.name.includes(f) || d.email.includes(f) || d.role.includes(f))
     })
+  }
+
+  DeleteUser(id: string): void {
+    console.log("test >>>>>>>>>>> ", id)
   }
 
   rerender(): void {
@@ -61,6 +66,6 @@ export class UserComponent implements OnInit {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
-   }
+  }
 
 }
