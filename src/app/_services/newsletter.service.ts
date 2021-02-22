@@ -5,11 +5,24 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class NewsletterService {
 
   constructor(private http: HttpClient) { }
 
-  getAllUser(tokenType: String, token: String | null): Observable<any> {
+  uploadPhotoNewsletter(data: FormData, tokenType: String, token: String | null): Observable<any> {
+    const authorization = tokenType + ' ' + token
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': authorization,
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+
+    return this.http.post(`api/newsletter/photo`, data, httpOptions);
+  }
+
+  createNewsletterAllUser(data: any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
 
     const httpOptions = {
@@ -20,21 +33,6 @@ export class UserService {
       })
     };
 
-    return this.http.get('api/user/findall', httpOptions);
-  }
-
-  deleteUser(data:any, tokenType: String, token: String | null): Observable<any> {
-    const authorization = tokenType + ' ' + token
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Authorization': authorization,
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      }),
-      body: data
-    };
-
-    return this.http.delete(`api/user/account`, httpOptions);
+    return this.http.post('api/newsletter/alluser', data, httpOptions);
   }
 }
