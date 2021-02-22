@@ -24,10 +24,13 @@ import { UpdateNewsletterComponent } from './newsletter/update-newsletter/update
 import { SalesOrderDetailComponent } from './sales-order/sales-order-detail/sales-order-detail.component';
 import { SalesInvoiceDetailComponent } from './sales-invoice/sales-invoice-detail/sales-invoice-detail.component';
 import { InventoryStock } from './inventory-stock/product.component';
+import { SignupComponent } from './signup/signup.component';
+import { ForgotComponent } from './forgotpass/forgotpass.component';
+
 import { AuthGuardService as AuthGuard } from './_services/auth-guard.service';
 
 const routes: Routes = [
-  { path: '',  redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'master-user', component: UserComponent, canActivate: [AuthGuard] },
@@ -51,7 +54,9 @@ const routes: Routes = [
   { path: 'update-newsletter/:id', component: UpdateNewsletterComponent, canActivate: [AuthGuard] },
   { path: 'sales-order-detail/:id', component: SalesOrderDetailComponent, canActivate: [AuthGuard] },
   { path: 'sales-invoice-detail/:id', component: SalesInvoiceDetailComponent, canActivate: [AuthGuard] },
-  { path: 'inventory-stock', component: InventoryStock, canActivate: [AuthGuard] }
+  { path: 'inventory-stock', component: InventoryStock, canActivate: [AuthGuard] },
+  { path: 'sign-up', component: SignupComponent },
+  { path: 'forgot', component: ForgotComponent }
 ];
 
 @NgModule({

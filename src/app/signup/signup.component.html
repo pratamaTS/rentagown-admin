@@ -4,20 +4,14 @@
             <a href="#"><img src="assets/dist/img/logo-200.png" width="150" /></a>
         </div>
         <br />
-        <div *ngIf="!isLoggedIn" class="card">
+        <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg">Sign up</p>
 
-                <form name="form" novalidate>
-                    <div class="form-group">
-                        <div class="alert alert-danger" role="alert" *ngIf="errorMessage!=''">
-                            Login failed: {{ errorMessage }}
-                        </div>
-                    </div>
-
+                <form *ngIf="!isLoggedIn" name="form" novalidate>
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" name="email" [(ngModel)]="form.email" required
-                            #email="ngModel" placeholder="Email">
+                        <input type="email" class="form-control" name="email" [(ngModel)]="form.email"
+                            placeholder="Email">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -25,33 +19,42 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" name="password" [(ngModel)]="form.password" required
-                            minlength="6" #password="ngModel" placeholder="Password">
+                        <input type="password" class="form-control" name="password" [(ngModel)]="form.password"
+                            placeholder="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
                     </div>
+                    <div class="input-group mb-3">
+                        <input class="form-control" [(ngModel)]="form.name" name="name" placeholder="Name">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input class="form-control" [(ngModel)]="form.phone" name="phone" placeholder="Phone">
+                    </div>
+                    <div class="row">
+                        <div class="col-12 alert alert-danger" role="alert" *ngIf="errorMessage!=''">
+                            Signup failed: {{ errorMessage }}
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-8">
                         </div>
                         <div class="col-4">
-                            <button (click)="doLogin()" class="btn btn-primary btn-block">Sign In</button>
+                            <button (click)="doLogin()" class="btn btn-primary btn-block">Sign Up</button>
                         </div>
                     </div>
-
                 </form>
                 <div class="row">
                     <div class="col-6">
                         <a (click)="router.navigateByUrl('forgot')" type="button">Forgot Password</a>
                     </div>
                     <div class="col-6" style="text-align: end;">
-                        <a (click)="router.navigateByUrl('sign-up')" type="button">Sign Up</a>
+                        <a (click)="router.navigateByUrl('login')" type="button">Login</a>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </body>

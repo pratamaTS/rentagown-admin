@@ -1,0 +1,46 @@
+<body class="hold-transition login-page bg-white">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="#"><img src="assets/dist/img/logo-200.png" width="150" /></a>
+        </div>
+        <br />
+        <div class="card">
+            <div class="card-body login-card-body">
+                <p class="login-box-msg">Reset My Password</p>
+
+                <form *ngIf="!isLoggedIn" name="form" novalidate>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" name="email" [(ngModel)]="form.email"
+                            placeholder="Email">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 alert alert-danger" role="alert" *ngIf="errorMessage!=''">
+                            Reset failed: {{ errorMessage }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                        </div>
+                        <div class="col-4">
+                            <button (click)="doLogin()" class="btn btn-primary btn-block">Reset</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-6">
+                        <a (click)="router.navigateByUrl('sign-up')" type="button">Sign Up</a>
+                    </div>
+                    <div class="col-6" style="text-align: end;">
+                        <a (click)="router.navigateByUrl('login')" type="button">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
