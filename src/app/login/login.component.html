@@ -5,11 +5,11 @@
             <a href="#"><img src="assets/dist/img/logo-200.png" width="150"/></a>
         </div>
         <br/>
-        <div class="card">
+        <div *ngIf="!isLoggedIn" class="card">
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
 
-                <form *ngIf="!isLoggedIn" name="form"  novalidate>
+                <form  name="form"  novalidate>
                     <div class="form-group">
                         <div class="alert alert-danger" role="alert" *ngIf="isLoginFailed">
                         Login failed: {{ errorMessage }}
@@ -34,14 +34,23 @@
                     </div>
                     <div class="row">
                         <div class="col-8">
-
                         </div>
                         <div class="col-4">
                             <button  (click)="doLogin()" class="btn btn-primary btn-block">Sign In</button>
                         </div>
                     </div>
+                    
                 </form>
+                <div class="row">
+                    <div class="col-6">
+                        forgot password
+                    </div>
+                    <div class="col-6" style="text-align: end;">
+                        sign up
+                    </div>
+                </div>
             </div>
+            
         </div>
     </div>
 </body>

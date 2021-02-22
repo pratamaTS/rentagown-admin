@@ -39,7 +39,8 @@ export class LoginComponent implements OnInit {
         this.tokenStorage.saveRefreshToken(data.data.refresh_token);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.router.navigateByUrl('dashboard');
+        window.location.href = "dashboard"; //kadang error navigation gak bisa di klik dropdown
+        // this.router.navigateByUrl('dashboard');
       },
       err => {
         this.errorMessage = err.error.error;
