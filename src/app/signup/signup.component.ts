@@ -24,7 +24,7 @@ export class SignupComponent implements OnInit {
   constructor(
     private authService: Auth,
     private tokenStorage: TokenStorageService,
-    private router: Router,
+    public router: Router,
     private helper: ApiHelper
   ) { }
 

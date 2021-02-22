@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   roles: string = '';
 
-  constructor(private authService: Auth, private tokenStorage: TokenStorageService, private router: Router) { }
+  constructor(private authService: Auth, private tokenStorage: TokenStorageService, public router: Router) { }
 
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {

@@ -38,8 +38,10 @@
                             Signup failed: {{ errorMessage }}
                         </div>
                     </div>
+                    
                     <div class="row">
-                        <div class="col-8">
+                        <div  class="col-8 tombol" style="text-align: end;padding: 7px 0;">
+                           <a type="button" (click)="router.navigateByUrl('login')" >Login</a> 
                         </div>
                         <div class="col-4">
                             <button (click)="doLogin()" class="btn btn-primary btn-block">Sign Up</button>
