@@ -33,6 +33,14 @@ export class ApiHelper {
     return this.http.post(url, data, httpOptions);
   }
 
+  ApiDate(d: any): string {
+    let MyDate = new Date(d)
+    let MyDateString = ('0' + MyDate.getDate()).slice(-2) + '-'
+      + ('0' + (MyDate.getMonth() + 1)).slice(-2) + '-'
+      + MyDate.getFullYear();
+    return MyDateString
+  }
+
   // DELETE(url: string, data: any, tokenType: String, token: String | null): Observable<any> {
   //   const authorization = tokenType + ' ' + token
   //   const httpOptions = {
