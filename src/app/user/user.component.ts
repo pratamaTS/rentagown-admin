@@ -22,8 +22,12 @@ export class UserComponent implements OnInit {
   dataUser: any = []
   errorMessage = ''
   Realdata: any = []
+  EditMode: boolean = false
+  adduser: any = {}
 
-  constructor(private tokenStorage: TokenStorageService, private userService: UserService) { }
+  constructor(private tokenStorage: TokenStorageService,
+    private helper: ApiHelper,
+    private userService: UserService) { }
 
   ngOnInit(): void {
     console.log(this.tokenStorage.getToken())
@@ -57,6 +61,28 @@ export class UserComponent implements OnInit {
 
   DeleteUser(id: string): void {
     console.log("test >>>>>>>>>>> ", id)
+  }
+
+  Createuser(): void {
+    const { email, password, name, phone } = this.adduser;
+    if (!email || !password || !name || !phone) {
+      this.errorMessage = "Please Fill All Form";
+      return
+    }
+
+    this.helper.POST("api/user", this.adduser, "", "")
+      // this.authService.login(email, password)
+      .subscribe(
+        (d: any) => {
+          this.errorMessage = '';
+          this.EditMode = false
+          this.ngOnInit()
+          alert("Success Add User")
+        },
+        (err: any) => {
+          this.errorMessage = err.error.error;
+        }
+      );
   }
 
   rerender(): void {
