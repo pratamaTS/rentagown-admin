@@ -10,7 +10,7 @@
 
                 <form name="form" novalidate>
                     <div class="form-group">
-                        <div class="alert alert-danger" role="alert" *ngIf="isLoginFailed">
+                        <div class="alert alert-danger" role="alert" *ngIf="errorMessage!=''">
                             Login failed: {{ errorMessage }}
                         </div>
                     </div>
