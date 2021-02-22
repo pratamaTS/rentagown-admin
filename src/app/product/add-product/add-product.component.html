@@ -62,7 +62,6 @@
                                       Min  : 418 pixel x 618 pixel (Portrait)<br>
                                       Max : 836 pixel x 1,236 pixel (Portrait)  
                                     </p>
-                                    <p *ngIf="errorMessage != null" class="font-italic text-center" style="color:red">{{errorMessage}}</p>
                                     <div *ngFor='let url of imageSrc' class="image-area mt-4"><img [src]="url" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
                                       <p *ngIf="url != null" class="font-regular text-center">{{url.name}}</p>
                                     </div>
@@ -144,6 +143,7 @@
                                     </div>
                                   </div>
                                 </div>
+                                <p *ngIf="errorMessage != '' " class="font-italic text-center" style="color:red">{{errorMessage}}</p>
                                 <div class="form-group">
                                     <br/><br/><button (click)="onCreateProduct()" class="btn btn-primary">Save</button>
                                 </div>
