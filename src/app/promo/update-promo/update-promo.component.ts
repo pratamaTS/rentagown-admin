@@ -20,7 +20,7 @@ export class UpdatePromoComponent implements OnInit {
   imageSrc: any = null
   photo_name: any = null
   dataUploadPhoto: any = []
-
+  isLoading: any;
   promo: Promo = {
     promo_name: '',
     promo_code: '',
@@ -100,6 +100,7 @@ export class UpdatePromoComponent implements OnInit {
   }
 
   onUpdate(): void {
+    this.isLoading = true
     if (this.token != null) {
       const data = {
         promo_name: this.promo.promo_name,
@@ -115,9 +116,11 @@ export class UpdatePromoComponent implements OnInit {
           data => {
             this.id = data.data.id_promo
             this.submitted = true;
+            this.isLoading = false
             this.router.navigateByUrl('master-promo')
           },
           error => {
+
             this.errorMessage = error.error.error;
           });
     } else {

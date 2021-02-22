@@ -96,6 +96,9 @@
                                   <label for="termCondition">Term and condition</label>
                                   <textarea rows="3" class="form-control" [(ngModel)]="promo.terms_conditions" name="terms_conditions" placeholder="Type your term and condition" value=""></textarea>
                               </div>
+                              <div class="alert alert-info" role="alert" *ngIf="errorMessage==''&&isLoading">
+                                Processing Data, Please Wait...
+                              </div>
                               <div class="alert alert-danger" role="alert" *ngIf="errorMessage!=''">
                                 Update failed: {{ errorMessage }}
                               </div>
