@@ -5,9 +5,9 @@ import { Router } from '@angular/router';
 import { ApiHelper } from '../_services/api-helper'
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
 

@@ -36,7 +36,7 @@ import { UpdateNewsletterComponent } from './newsletter/update-newsletter/update
 import { WishlistDetailComponent } from './wishlist/wishlist-detail/wishlist-detail.component';
 import { UpdatePromoComponent } from './promo/update-promo/update-promo.component';
 import { InventoryStock } from './inventory-stock/product.component';
-import { SignupComponent } from './signup/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 
 export function tokenGetter() {

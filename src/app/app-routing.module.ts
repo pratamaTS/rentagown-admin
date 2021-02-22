@@ -24,7 +24,7 @@ import { UpdateNewsletterComponent } from './newsletter/update-newsletter/update
 import { SalesOrderDetailComponent } from './sales-order/sales-order-detail/sales-order-detail.component';
 import { SalesInvoiceDetailComponent } from './sales-invoice/sales-invoice-detail/sales-invoice-detail.component';
 import { InventoryStock } from './inventory-stock/product.component';
-import { SignupComponent } from './signup/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 import { AuthGuardService as AuthGuard } from './_services/auth-guard.service';
 
