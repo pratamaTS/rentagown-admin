@@ -40,6 +40,9 @@
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
                     </div>
                 </div>
+                <div class="alert alert-danger" role="alert" *ngIf="errorMessage!=''">
+                 Delete failed: {{ errorMessage }}
+                </div>
                 <div class="card-body">
                     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped">
                         <thead>

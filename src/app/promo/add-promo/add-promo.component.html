@@ -95,6 +95,9 @@
                                     <label for="termCondition">Term and condition</label>
                                     <textarea rows="3" class="form-control" [(ngModel)]="promo.terms_conditions" name="terms_conditions" placeholder="Type your term and condition" value=""></textarea>
                                 </div>
+                                <div class="alert alert-danger" role="alert" *ngIf="errorMessage!=''">
+                                  Add Promo failed: {{ errorMessage }}
+                                </div>
                                 <div class="form-group">
                                     <br/><br/><button (click)="onCreatePromo()" type="submit" class="btn btn-primary">Save Promo</button>
                                 </div>

@@ -56,7 +56,7 @@ export class PromoComponent implements OnInit {
           console.log('data promo', this.dataPromo)
         },
         err => {
-          this.errorMessage = err.error.message;
+          this.errorMessage = err.error.error;
         }
       )
     } else {
@@ -74,8 +74,8 @@ export class PromoComponent implements OnInit {
           console.log(response);
           this.refreshData()
         },
-        error => {
-          console.log(error);
+        err => {
+          this.errorMessage = err.error.error;
         });
   }
 

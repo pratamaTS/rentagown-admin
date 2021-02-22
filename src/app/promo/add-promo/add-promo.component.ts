@@ -87,7 +87,7 @@ export class AddPromoComponent implements OnInit {
             this.uploadPhoto()
           },
           error => {
-            console.log(error);
+            this.errorMessage = error.error.error;
       });
     }else{
       console.log('error', 'Please login first!')
@@ -105,7 +105,7 @@ export class AddPromoComponent implements OnInit {
         this.onCreatePromoDetails()
       },
       error => {
-        console.log(error);
+        this.errorMessage = error.error.error;
       });
   }
 
@@ -123,7 +123,7 @@ export class AddPromoComponent implements OnInit {
           this.submitted = true;
         },
         error => {
-          console.log(error);
+          this.errorMessage = error.error.error;
         });
     }
     this.router.navigateByUrl('master-promo')

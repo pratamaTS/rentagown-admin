@@ -57,7 +57,7 @@ export class UpdatePromoComponent implements OnInit {
         console.log('data bank', this.promo)
       },
       err => {
-        this.errorMessage = err.error.message;
+        this.errorMessage = err.error.error;
       }
     )
   }
@@ -117,7 +117,7 @@ export class UpdatePromoComponent implements OnInit {
             this.router.navigateByUrl('master-promo')
           },
           error => {
-            console.log(error);
+            this.errorMessage = error.error.error;
       });
     }else{
       console.log('error', 'Please login first!')
@@ -135,7 +135,7 @@ export class UpdatePromoComponent implements OnInit {
         this.onUpdatePromoDetails()
       },
       error => {
-        console.log(error);
+        this.errorMessage = error.error.error;
       });
   }
 
@@ -153,7 +153,7 @@ export class UpdatePromoComponent implements OnInit {
           this.submitted = true;
         },
         error => {
-          console.log(error);
+          this.errorMessage = error.error.error;
         });
     }
     this.router.navigateByUrl('master-promo')
