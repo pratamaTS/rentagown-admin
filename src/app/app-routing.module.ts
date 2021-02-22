@@ -25,6 +25,7 @@ import { SalesOrderDetailComponent } from './sales-order/sales-order-detail/sale
 import { SalesInvoiceDetailComponent } from './sales-invoice/sales-invoice-detail/sales-invoice-detail.component';
 import { InventoryStock } from './inventory-stock/product.component';
 import { SignupComponent } from './signup/signup.component';
+import { ForgotComponent } from './forgotpass/forgotpass.component';
 
 import { AuthGuardService as AuthGuard } from './_services/auth-guard.service';
 
@@ -54,7 +55,8 @@ const routes: Routes = [
   { path: 'sales-order-detail/:id', component: SalesOrderDetailComponent, canActivate: [AuthGuard] },
   { path: 'sales-invoice-detail/:id', component: SalesInvoiceDetailComponent, canActivate: [AuthGuard] },
   { path: 'inventory-stock', component: InventoryStock, canActivate: [AuthGuard] },
-  { path: 'sign-up', component: SignupComponent }
+  { path: 'sign-up', component: SignupComponent },
+  { path: 'forgot', component: ForgotComponent }
 ];
 
 @NgModule({

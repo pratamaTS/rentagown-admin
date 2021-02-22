@@ -37,6 +37,7 @@ import { WishlistDetailComponent } from './wishlist/wishlist-detail/wishlist-det
 import { UpdatePromoComponent } from './promo/update-promo/update-promo.component';
 import { InventoryStock } from './inventory-stock/product.component';
 import { SignupComponent } from './signup/signup.component';
+import { ForgotComponent } from './forgotpass/forgotpass.component';
 
 
 export function tokenGetter() {
@@ -76,7 +77,8 @@ export function tokenGetter() {
     WishlistDetailComponent,
     UpdatePromoComponent,
     InventoryStock,
-    SignupComponent
+    SignupComponent,
+    ForgotComponent
   ],
   imports: [
     BrowserModule,
