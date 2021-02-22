@@ -44,11 +44,12 @@ export class AddBankAccountComponent implements OnInit {
         .subscribe(
           response => {
             console.log(response);
+            this.errorMessage = '';
             this.submitted = true;
             this.router.navigateByUrl('master-bank-account');
           },
           error => {
-            console.log(error);
+            this.errorMessage = error.error.error;
       });
     }else{
       console.log('error', 'Please login first!')

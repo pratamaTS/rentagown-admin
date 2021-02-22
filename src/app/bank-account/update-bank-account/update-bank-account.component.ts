@@ -79,7 +79,7 @@ export class UpdateBankAccountComponent implements OnInit {
         this.onUpdate()
       },
       error => {
-        console.log(error);
+        this.errorMessage = error.error.error;
       });
   }
 
@@ -93,7 +93,7 @@ export class UpdateBankAccountComponent implements OnInit {
         console.log('data bank', this.bankAccount)
       },
       err => {
-        this.errorMessage = err.error.message;
+        this.errorMessage = err.error.error;
       }
     )
   }
@@ -115,7 +115,7 @@ export class UpdateBankAccountComponent implements OnInit {
           this.router.navigateByUrl('master-bank-account');
         },
         error => {
-          console.log(error);
+          this.errorMessage = error.error.error;
         });
   }
 

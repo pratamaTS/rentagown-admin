@@ -28,7 +28,7 @@ export class BankAccountComponent implements OnInit {
     console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
 
-    if(this.token != null){
+    if (this.token != null) {
       this.bankAccountService.getAllBankAccount(this.tokenType, this.token).subscribe(
         data => {
           this.dataBank = data.data
@@ -39,13 +39,14 @@ export class BankAccountComponent implements OnInit {
           console.log('data bank', this.dataBank)
         },
         err => {
-          this.errorMessage = err.error.message;
+          this.errorMessage = err.error.error;
         }
       )
-    }else{
+    } else {
       console.log('error', 'Please login first!')
     }
   }
+
   filterData(test: any): void {
     let f = test.target.value.trim()
     this.dataBank = this.Realdata.filter((d: any) => {
@@ -60,7 +61,7 @@ export class BankAccountComponent implements OnInit {
         console.log('data bank', this.dataBank)
       },
       err => {
-        this.errorMessage = err.error.message;
+        this.errorMessage = err.error.error;
       }
     )
   }
@@ -72,11 +73,11 @@ export class BankAccountComponent implements OnInit {
     this.bankAccountService.delete(id, data, this.tokenType, this.token)
       .subscribe(
         response => {
-          console.log(response);
           this.refreshData()
+          this.errorMessage = '';
         },
-        error => {
-          console.log(error);
+        err => {
+          this.errorMessage = err.error.error;
         });
   }
 
@@ -87,6 +88,6 @@ export class BankAccountComponent implements OnInit {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
-   }
+  }
 
 }
