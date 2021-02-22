@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         this.router.navigateByUrl('dashboard');
       },
       err => {
-        this.errorMessage = err.error.message;
+        this.errorMessage = err.error.error;
         this.isLoginFailed = true;
       }
     );
