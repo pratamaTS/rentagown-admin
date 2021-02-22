@@ -47,6 +47,21 @@ export class UserComponent implements OnInit {
     }
   }
 
+  refreshData(): void {
+    this.userService.getAllUser(this.tokenType, this.token).subscribe(
+      data => {
+        this.dataUser = data.data
+        this.Realdata = data.data
+        this.dtTrigger.next();
+
+        console.log('data user', this.dataUser)
+      },
+      err => {
+        this.errorMessage = err.error.message;
+      }
+    )
+  }
+
   filterData(test: any): void {
     let f = test.target.value.trim()
     this.dataUser = this.Realdata.filter((d: any) => {
@@ -56,7 +71,18 @@ export class UserComponent implements OnInit {
   }
 
   DeleteUser(id: string): void {
-    console.log("test >>>>>>>>>>> ", id)
+    const data = {
+      id_user: id
+    };
+    this.userService.deleteUser(data, this.tokenType, this.token)
+      .subscribe(
+        response => {
+          console.log(response);
+          this.refreshData()
+        },
+        error => {
+          this.errorMessage = error.error.error;
+        });
   }
 
   rerender(): void {
