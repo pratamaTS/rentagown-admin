@@ -9,9 +9,9 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
 
-                <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+                <form *ngIf="!isLoggedIn" name="form"  novalidate>
                     <div class="form-group">
-                        <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
+                        <div class="alert alert-danger" role="alert" *ngIf="isLoginFailed">
                         Login failed: {{ errorMessage }}
                         </div>
                     </div>
@@ -37,7 +37,7 @@
 
                         </div>
                         <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                            <button  (click)="doLogin()" class="btn btn-primary btn-block">Sign In</button>
                         </div>
                     </div>
                 </form>

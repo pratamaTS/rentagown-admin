@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
+  doLogin(): void {
     const { email, password } = this.form;
 
     this.authService.login(email, password).subscribe(
