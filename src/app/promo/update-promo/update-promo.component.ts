@@ -34,7 +34,7 @@ export class UpdatePromoComponent implements OnInit {
   submitted = false
   upload = false
 
-  constructor(private tokenStorage: TokenStorageService, private productService: ProductService, private route: ActivatedRoute, private router: Router, private helper: ApiHelper,) { }
+  constructor(private tokenStorage: TokenStorageService, private productService: ProductService, private route: ActivatedRoute, private router: Router, private helper: ApiHelper) { }
 
   ngOnInit(): void {
     console.log(this.tokenStorage.getToken())

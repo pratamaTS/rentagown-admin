@@ -4,6 +4,7 @@ import { Promo } from 'src/app/_models/promo.model';
 import { ProductService } from 'src/app/_services/product.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { ApiHelper } from '../../_services/api-helper'
 
 @Component({
   selector: 'app-add-promo',
@@ -33,7 +34,7 @@ export class AddPromoComponent implements OnInit {
 
   submitted = false
 
-  constructor(private tokenStorage: TokenStorageService, private productService: ProductService, private router: Router) { }
+  constructor(private tokenStorage: TokenStorageService, private productService: ProductService, private router: Router, private helper: ApiHelper) { }
 
   ngOnInit(): void {
     console.log(this.tokenStorage.getToken())
@@ -74,7 +75,7 @@ export class AddPromoComponent implements OnInit {
         promo_name: this.promo.promo_name,
         promo_code: this.promo.promo_code,
         promo_amount: Number(this.promo.promo_amount),
-        promo_exp: this.promo.promo_exp,
+        promo_exp: this.helper.ApiDate(this.promo.promo_exp),
         terms_conditions: this.promo.terms_conditions,
         promo_stock: 12
       };
