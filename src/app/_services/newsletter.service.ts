@@ -9,6 +9,20 @@ export class NewsletterService {
 
   constructor(private http: HttpClient) { }
 
+  getAllNewsletter(tokenType: String, token: String | null): Observable<any> {
+    const authorization = tokenType + ' ' + token
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': authorization,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+
+    return this.http.get('api/newsletter/findall', httpOptions);
+  }
+
   uploadPhotoNewsletter(data: FormData, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
 

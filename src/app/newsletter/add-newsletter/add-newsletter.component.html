@@ -48,7 +48,7 @@
                                 <div class="card-body box-profile">
                                     <!-- Upload image input-->
                                     <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                                        <input id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
+                                        <input id="upload" type="file" (change)="onFileChange($event)" name="newsletter_picture" class="form-control border-0" required>
                                         <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
                                         <div class="input-group-append">
                                             <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
@@ -56,8 +56,10 @@
                                     </div>
 
                                     <!-- Uploaded image area-->
-                                    <p class="font-italic text-center">The image uploaded will be rendered below.</p>
-                                    <div class="image-area mt-4"><img id="imageResult" src="#" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+                                    <p *ngIf="errorMessage != null" class="font-italic text-center" style="color:red">{{errorMessage}}</p>
+                                    <div *ngFor='let url of imageSrc' class="image-area mt-4"><img [src]="url" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
+                                      <p *ngIf="url != null" class="font-regular text-center">{{url.name}}</p>
+                                    </div>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -68,41 +70,26 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="newletterTitle">Newsletter title</label>
-                                    <input type="text" class="form-control" id="newletterTitle" placeholder="Type newsletter title" value="">
+                                    <input type="text" class="form-control" id="newletterTitle" [(ngModel)]="newsletter.title" name="title" placeholder="Type newsletter title" value="">
                                 </div>
                                 <div class="form-group">
                                     <label for="newletterContent">Newsletter content</label>
-                                    <textarea type="text" class="form-control" id="newletterContent" placeholder="Type newsletter content"></textarea>
+                                    <textarea type="text" class="form-control" id="newletterContent" [(ngModel)]="newsletter.content" name="content" placeholder="Type newsletter content"></textarea>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-9">
                                         <div class="form-group">
                                             <label for="userEmailSelect">User Email</label>
                                             <select class="form-control select2bs4" multiple="multiple" data-placeholder="Select Email" style="width: 100%;">
-                                                <option>hardianto_jp@yahoo.com</option>
-                                                <option>kambalya@gmail.com</option>
-                                                <option>violepd@gmail.com</option>
-                                                <option>emasra@gmail.com</option>
-                                                <option>hamimati@gmail.com</option>
+                                                <option>All User</option>
                                             </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group clearfix">
-                                            <br/><br/>
-                                            <div class="icheck-success d-inline">
-                                                <input type="checkbox" id="checkAllUser">
-                                                <label for="checkAllUser">
-                                                    All User
-                                                </label>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
 
                                 <div class="form-group">
-                                    <br/><br/><button (click)="onCreateNewsletter()" type="submit" class="btn btn-primary">Send Newsletter</button>
+                                    <br/><br/><button (click)="uploadPhoto()" type="submit" class="btn btn-primary">Send Newsletter</button>
                                 </div>
                             </div>
                             <!-- /.card-body -->

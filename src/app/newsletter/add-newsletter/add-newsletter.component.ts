@@ -54,12 +54,26 @@ export class AddNewsletterComponent implements OnInit {
     }
   }
 
+  uploadPhoto(): void {
+    this.newsletterService.uploadPhotoNewsletter(this.data, this.tokenType, this.token)
+    .subscribe(
+      data => {
+        console.log(data);
+        this.dataUploadPhoto = data.data
+        console.log("path_foto",this.dataUploadPhoto)
+        this.onCreateNewsletter()
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
   onCreateNewsletter(): void {
     if(this.token != null){
       const data = {
         title: this.newsletter.title,
-        content:this.newsletter.content,
-        path_photo:this.newsletter.path_photo
+        content: this.newsletter.content,
+        path_photo: this.dataUploadPhoto[0].path_photo
       };
 
       this.newsletterService.createNewsletterAllUser(data, this.tokenType, this.token)
