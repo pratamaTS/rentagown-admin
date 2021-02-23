@@ -57,7 +57,9 @@
                   </tr>
                 </thead>
                 <tbody *ngFor="let booking of dataBookingOrder">
-                  <tr *ngIf="booking.status == 1" class="table-danger">
+                  <tr *ngIf="booking.status !=5"  [ngClass]="(booking.status == 1)?'table-danger':
+                  (booking.status == 2)?'table-warning':'table-success'
+                  ">
                     <td>{{ booking.invoice }}</td>
                     <td>{{ booking.name | titlecase }}</td>
                     <td><img *ngIf="booking.path_photo !=''" src="http://absdigital.id:5000{{ booking.path_photo }}"
@@ -70,35 +72,6 @@
                     <td class="text-center">
                       <a (click)="processBooking(booking.id_transaction)" class="btn btn-default"><i
                           class="fas fa-check-circle"></i> Process</a>
-                    </td>
-                  </tr>
-                  <tr *ngIf="booking.status == 2" class="table-warning">
-                    <td>{{ booking.invoice }}</td>
-                    <td>{{ booking.name | titlecase }}</td>
-                    <td><img *ngIf="booking.path_photo !=''" src="http://absdigital.id:5000{{ booking.path_photo }}"
-                        style="width: 150px; height: 150px;"></td>
-                    <td>{{ booking.product_name | titlecase }}</td>
-                    <td>{{ booking.paid_price | currency:'Rp ':'symbol':'3.0'}}</td>
-                    <td>{{ booking.down_payment | currency:'Rp ':'symbol':'3.0' }}</td>
-                    <td>{{ booking.remaining_bills | currency:'Rp ':'symbol':'3.0' }}</td>
-                    <td>{{ booking.status_transaction | titlecase }}</td>
-                    <td class="text-center">
-                      <a (click)="doneBooking(booking.id_transaction)" class="btn btn-default"><i
-                          class="fas fa-check-circle"></i> Finish</a>
-                    </td>
-                  </tr>
-                  <tr *ngIf="booking.status == 3" class="table-success">
-                    <td>{{ booking.invoice }}</td>
-                    <td>{{ booking.name | titlecase }}</td>
-                    <td><img *ngIf="booking.path_photo !=''" src="http://absdigital.id:5000{{ booking.path_photo }}"
-                        style="width: 150px; height: 150px;"></td>
-                    <td>{{ booking.product_name | titlecase }}</td>
-                    <td>{{ booking.paid_price | currency:'Rp ':'symbol':'3.0'}}</td>
-                    <td>{{ booking.down_payment | currency:'Rp ':'symbol':'3.0' }}</td>
-                    <td>{{ booking.remaining_bills | currency:'Rp ':'symbol':'3.0' }}</td>
-                    <td>{{ booking.status_transaction | titlecase }}</td>
-                    <td class="text-center">
-                      <p>Done</p>
                     </td>
                   </tr>
                 </tbody>
