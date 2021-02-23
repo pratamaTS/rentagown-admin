@@ -33,6 +33,18 @@ export class ApiHelper {
     return this.http.post(url, data, httpOptions);
   }
 
+  PUT(url: string, data: any, tokenType: String, token: String | null): Observable<any> {
+    const authorization = tokenType + ' ' + token
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': authorization,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+    return this.http.put(url, data, httpOptions);
+  }
+
   ApiDate(d: any): string {
     let MyDate = new Date(d)
     let MyDateString = ('0' + MyDate.getDate()).slice(-2) + '-'

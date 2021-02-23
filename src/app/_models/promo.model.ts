@@ -5,4 +5,5 @@ export class Promo {
     promo_exp?: string
     terms_conditions?: string
     promo_stock?: any
+    id_product_category?:any
 }

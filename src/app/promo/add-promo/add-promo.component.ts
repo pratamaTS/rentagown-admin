@@ -12,6 +12,7 @@ import { ApiHelper } from '../../_services/api-helper'
   styleUrls: ['./add-promo.component.css']
 })
 export class AddPromoComponent implements OnInit {
+  dataProductCategory: any;
 
   id: any = ''
   data = new FormData()
@@ -29,7 +30,8 @@ export class AddPromoComponent implements OnInit {
     promo_amount: 0,
     promo_exp: '',
     terms_conditions: '',
-    promo_stock: 0
+    promo_stock: 0,
+    id_product_category: ''
   }
 
   submitted = false
@@ -37,6 +39,7 @@ export class AddPromoComponent implements OnInit {
   constructor(private tokenStorage: TokenStorageService, private productService: ProductService, private router: Router, private helper: ApiHelper) { }
 
   ngOnInit(): void {
+    this.getAllProductCategory()
     console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
   }
@@ -77,7 +80,8 @@ export class AddPromoComponent implements OnInit {
         promo_amount: Number(this.promo.promo_amount),
         promo_exp: this.helper.ApiDate(this.promo.promo_exp),
         terms_conditions: this.promo.terms_conditions,
-        promo_stock: 12
+        promo_stock: Number(this.promo.promo_stock),
+        id_product_category: this.promo.id_product_category,
       };
 
       this.productService.createPromo(data, this.tokenType, this.token)
@@ -95,6 +99,26 @@ export class AddPromoComponent implements OnInit {
     }
   }
 
+  getAllProductCategory(): void {
+    if (this.token != null) {
+      this.productService.getAllProductCategory(this.tokenType, this.token).subscribe(
+        data => {
+          this.dataProductCategory = data.data
+          console.log('data product category', this.dataProductCategory)
+        },
+        err => {
+          this.errorMessage = err.error.error;
+        }
+      )
+    } else {
+      console.log('error', 'Please login first!')
+    }
+  }
+  selectedProductCategory(event: any): void {
+    const valueProcat = JSON.parse(event.target.value)
+    this.promo.id_product_category = valueProcat.id
+
+  }
   uploadPhoto(): void {
     this.productService.uploadPhotoPromo(this.id, this.data, this.tokenType, this.token)
     .subscribe(

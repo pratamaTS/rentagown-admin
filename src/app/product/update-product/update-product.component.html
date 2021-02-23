@@ -123,29 +123,6 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div class="form-row">
-                                  <div class="col-md-6">
-                                    <div class="form-group">
-                                      <label for="promoGroup">Promo group</label>
-                                      <select (change)="selectedPromo($event)" name="id_promo" class="form-control select2bs4" style="width: 100%;">
-                                        <option [ngValue]="null" [disabled]="true" >-- Select Promo Group --</option>   
-                                        <option *ngFor="let promo of dataPromo" value='{"id": "{{promo.id_promo}}","name": "{{promo.promo_name}}","code": "{{promo.promo_code}}","disc": "{{promo.promo_amount}}"}'>{{promo.promo_name}}</option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="discount">Promo Code</label>
-                                        <input type="text" class="form-control" id="promo_code" [(ngModel)]="product.promo_code" name="promo_code" readonly>
-                                    </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="discount">Discount (%)</label>
-                                        <input type="text" class="form-control" id="discount" [(ngModel)]="product.promo_amount" name="promo_amount" readonly>
-                                    </div>
-                                  </div>
-                                </div>
                                 <div class="form-group">
                                     <br/><br/><button (click)="onUpdateProduct()" class="btn btn-primary">Update</button>
                                 </div>

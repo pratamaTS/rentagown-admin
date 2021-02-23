@@ -81,12 +81,33 @@ export class UserComponent implements OnInit {
     this.userService.deleteUser(data, this.tokenType, this.token)
       .subscribe(
         response => {
-          console.log(response);
           this.refreshData()
+          alert("User Deleted")
         },
         error => {
           this.errorMessage = error.error.error;
         });
+  }
+
+  ChangeRole(uData: any): void {
+    console.log(uData)
+    // let mydata = {
+    //   "name": uData.name,
+    //   "role": (uData.role == 'Admin') ? 'User' : 'Admin'
+    // }
+    // this.helper.PUT("api/user/update", mydata, "", "")
+    //   // this.authService.login(email, password)
+    //   .subscribe(
+    //     (d: any) => {
+    //       this.errorMessage = '';
+    //       this.EditMode = false
+    //       this.refreshData()
+    //       alert("Success Edit User")
+    //     },
+    //     (err: any) => {
+    //       this.errorMessage = err.error.error;
+    //     }
+    //   );
   }
 
   Createuser(): void {
@@ -102,7 +123,7 @@ export class UserComponent implements OnInit {
         (d: any) => {
           this.errorMessage = '';
           this.EditMode = false
-          this.ngOnInit()
+          this.refreshData()
           alert("Success Add User")
         },
         (err: any) => {
