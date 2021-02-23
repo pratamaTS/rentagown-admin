@@ -49,4 +49,19 @@ export class NewsletterService {
 
     return this.http.post('api/newsletter/alluser', data, httpOptions);
   }
+
+  deleteNewsletter(id: any, data:any, tokenType: String, token: String | null): Observable<any> {
+    const authorization = tokenType + ' ' + token
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': authorization,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }),
+      body: data
+    };
+
+    return this.http.delete(`api/newsletter/delete/${id}`, httpOptions);
+  }
 }

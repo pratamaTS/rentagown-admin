@@ -57,17 +57,17 @@ export class NewsletterComponent implements OnInit {
 
   onDeleteNewsletter(id: any): void {
     const data = {
-      id_photo: id
+      newsletter_id: id
     };
-    // this.productService.deleteProductDetails(id, data, this.tokenType, this.token)
-    //   .subscribe(
-    //     response => {
-    //       console.log(response);
-    //       this.onDeleteProductDetail(id)
-    //     },
-    //     error => {
-    //       console.log(error);
-    //     });
+    this.newsletterService.deleteNewsletter(id, data, this.tokenType, this.token)
+      .subscribe(
+        response => {
+          console.log(response);
+          this.refreshData()
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   rerender(): void {
