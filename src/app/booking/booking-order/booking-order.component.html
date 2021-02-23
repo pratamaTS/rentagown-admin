@@ -31,7 +31,39 @@
       <div class="content">
         <div class="container-fluid">
           <!-- Default box -->
-          <div class="card">
+          <div *ngIf="viewMode" class="row">
+            <div class="col">
+              <div class="card">
+                <div class="card-header">
+                  <a (click)="viewMode=false" class="btn btn-primary">Back</a>
+                </div>
+                <div class="card-header">
+                  <h5 class="card-title">Booking Detail</h5>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">Customer Name : {{BookingSingle.name}}</p>
+                  <p class="card-text">Invoice Number : {{BookingSingle.invoice}}</p>
+                  <p class="card-text">Account Name : {{BookingSingle.account_name}}</p>
+                  <p class="card-text">Account Number : {{BookingSingle.account_number}}</p>
+                  <p class="card-text">Address : {{BookingSingle.address}}</p>
+                  <p class="card-text">Status : {{BookingSingle.status_transaction}}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <div class="card-header">
+                  Product Image
+                </div>
+                <img *ngIf="BookingSingle.path_photo !=''" src="http://absdigital.id:5000{{ BookingSingle.path_photo }}"
+                  style="width: 100%;">
+                <p class="card-text" *ngIf="BookingSingle.path_photo ==''"> No Image</p>
+              </div>
+            </div>
+          </div>
+
+
+          <div *ngIf="!viewMode" class="card">
             <div class="card-header">
               <h3 class="card-title">Booking Order List</h3>
               <div class="card-tools">
@@ -54,10 +86,11 @@
                     <th>Remaining Bills</th>
                     <th>Status Transaction</th>
                     <th>Approve Payment</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody *ngFor="let booking of dataBookingOrder">
-                  <tr *ngIf="booking.status !=5"  [ngClass]="(booking.status == 1)?'table-danger':
+                  <tr *ngIf="booking.status !=5" [ngClass]="(booking.status == 1)?'table-danger':
                   (booking.status == 2)?'table-warning':'table-success'
                   ">
                     <td>{{ booking.invoice }}</td>
@@ -70,8 +103,12 @@
                     <td>{{ booking.remaining_bills | currency:'Rp ':'symbol':'3.0' }}</td>
                     <td>{{ booking.status_transaction | titlecase }}</td>
                     <td class="text-center">
-                      <a (click)="processBooking(booking.id_transaction)" class="btn btn-default"><i
-                          class="fas fa-check-circle"></i> Process</a>
+                      <a *ngIf="booking.status !=3" (click)="processBooking(booking.id_transaction)"
+                        class="btn btn-default"><i class="fas fa-check-circle"></i> Process</a>
+                      <p *ngIf="booking.status ==3">Done</p>
+                    </td>
+                    <td class="text-center">
+                      <a (click)="viewData(booking)" type="button"> View </a>
                     </td>
                   </tr>
                 </tbody>
@@ -86,6 +123,7 @@
                     <th>Remaining Bills</th>
                     <th>Status Transaction</th>
                     <th>Approve Payment</th>
+                    <th></th>
                   </tr>
                 </tfoot>
               </table>

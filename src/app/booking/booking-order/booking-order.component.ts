@@ -23,6 +23,8 @@ export class BookingOrderComponent implements OnInit {
   dataBookingOrder: any = []
   errorMessage = ''
   Realdata: any = []
+  viewMode:boolean=false;
+  BookingSingle:any={}
 
   constructor(private tokenStorage: TokenStorageService, private bookingOrderService: BookingOrderService, private route: ActivatedRoute, private router: Router) { }
 
@@ -70,7 +72,11 @@ export class BookingOrderComponent implements OnInit {
             console.log(error);
       });
   }
-
+viewData(a:any) {
+  this.viewMode=true
+  console.log(a)
+  this.BookingSingle=a
+}
   doneBooking(id: any) {
     console.log("id book", id)
     const data = {
