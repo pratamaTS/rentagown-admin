@@ -114,11 +114,11 @@ export class UpdatePromoComponent implements OnInit {
         promo_name: this.promo.promo_name,
         promo_code: this.promo.promo_code,
         promo_amount: Number(this.promo.promo_amount),
-        promo_exp: this.helper.ApiDate(this.promo.promo_exp),
+        promo_exp: this.helper.ApiDate(this.promo.promo_exp)+" 00:00:00",
         terms_conditions: this.promo.terms_conditions,
-        promo_stock:  this.promo.promo_stock,
+        promo_stock: Number(this.promo.promo_stock),
         id_product_category: this.promo.id_product_category,
-        promo_start: this.helper.ApiDate(this.promo.promo_start),
+        promo_start: this.helper.ApiDate(this.promo.promo_start)+" 00:00:00",
       };
 
       this.productService.updatePromo(this.id, data, this.tokenType, this.token)
