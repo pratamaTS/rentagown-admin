@@ -48,7 +48,7 @@
                                 <div class="card-body box-profile">
                                     <!-- Upload image input-->
                                     <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-                                        <input id="upload" type="file" class="form-control border-0">
+                                        <input id="upload" type="file"  multiple (change)="onFileChange($event)" class="form-control border-0">
                                         <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
                                         <div class="input-group-append">
                                             <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i class="fa fa-cloud-upload mr-2 text-muted"></i><small class="text-uppercase font-weight-bold text-muted">Choose file</small></label>
@@ -62,6 +62,9 @@
                                       Min  : 418 pixel x 618 pixel (Portrait)<br>
                                       Max : 836 pixel x 1,236 pixel (Portrait)  
                                     </p>
+                                    <div *ngFor='let url of imageSrc' class="image-area mt-4"><img [src]="url" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
+                                      <p *ngIf="url != null" class="font-regular text-center">{{url.name}}</p>
+                                    </div>
                                     <p *ngIf="errorMessage != null" class="font-italic text-center" style="color:red">{{errorMessage}}</p>
                                     <div *ngIf="imageSrc == ''" class="image-area mt-4"><img *ngFor="let productImage of dataPhoto; let i = index" [attr.data-index]="i" id="imageResult" src="http://absdigital.id:5000{{ productImage.path_photo }}" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
                                     <div *ngIf="imageSrc != ''" class="image-area mt-4"><img *ngFor="let productImage of dataPhoto" id="imageResult" [src]="'http://absdigital.id:5000{{productImage.path_photo}}'" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
@@ -91,7 +94,10 @@
                                     <label for="productCat">Product Category</label><label for="productCat" style="color:red">*</label>
                                     <select (change)="selectedProductCategory($event)" name="id_product_category" class="form-control select2bs4" style="width: 100%;" required>
                                       <option [ngValue]="null" [disabled]="true" >-- Select Category --</option>  
-                                      <option *ngFor="let procat of dataProductCategory" value='{"id": "{{procat.id_product_category}}","name": "{{procat.name_product_category}}"}'>{{procat.name_product_category}}</option>
+                                      <option *ngFor="let procat of dataProductCategory"
+                                      [selected]="procat.name_product_category == product.name_product_category" 
+                                       value='{"id": "{{procat.id_product_category}}","name": "{{procat.name_product_category}}"}'
+                                      >{{procat.name_product_category}}</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -108,8 +114,8 @@
                                       <label for="productStatus">Product Status</label><label for="productStatus" style="color:red">*</label>
                                       <select (change)="selectedProductStatus($event)" name="product_status" class="form-control select2bs4" style="width: 100%;" required>
                                         <option [ngValue]="null" [disabled]="true" >-- Select Product Status --</option>  
-                                        <option value="1">Available</option>
-                                        <option value="0">Not Available</option>
+                                        <option value="1" [selected]="product.product_status==1" > Available</option>
+                                        <option value="0" [selected]="product.product_status==0">Not Available</option>
                                       </select>
                                     </div>
                                   </div>
@@ -120,29 +126,6 @@
                                     </div>
                                   </div>
                                 </div>
-                                <div class="form-row">
-                                  <div class="col-md-6">
-                                    <div class="form-group">
-                                      <label for="promoGroup">Promo group</label>
-                                      <select (change)="selectedPromo($event)" name="id_promo" class="form-control select2bs4" style="width: 100%;">
-                                        <option [ngValue]="null" [disabled]="true" >-- Select Promo Group --</option>   
-                                        <option *ngFor="let promo of dataPromo" value='{"id": "{{promo.id_promo}}","name": "{{promo.promo_name}}","code": "{{promo.promo_code}}","disc": "{{promo.promo_amount}}"}'>{{promo.promo_name}}</option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="discount">Promo Code</label>
-                                        <input type="text" class="form-control" id="promo_code" [(ngModel)]="product.promo_code" name="promo_code" readonly>
-                                    </div>
-                                  </div>
-                                  <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="discount">Discount (%)</label>
-                                        <input type="text" class="form-control" id="discount" [(ngModel)]="product.promo_amount" name="promo_amount" readonly>
-                                    </div>
-                                  </div>
-                                </div>
                                 <div class="form-group">
                                     <br/><br/><button (click)="onUpdateProduct()" class="btn btn-primary">Update</button>
                                 </div>
@@ -150,6 +133,21 @@
                             <!-- /.card-body -->
                         </form>
                        </div>
+                       <div class="col-md-3">
+                         <h4>Product Rating</h4>
+                         <span  *ngIf="product.Rating && product.Rating.length>0" >
+                         <div class="card"  *ngFor="let rat of product.Rating">
+                          <h5 class="card-header">Rating: {{rat.rating_score}}</h5>
+                          <div class="card-body">
+                            <p class="card-text">{{rat.rating_desc}}</p>
+                            <p class="card-text">{{rat.name}}</p>
+                          </div>
+                        </div>
+                      </span>
+                        <div   *ngIf="product.Rating && product.Rating.length < 1"  class="card"  >
+                          <h5 class="card-header">No Rating Yet</h5>
+                        </div>
+                    </div>
                    </div> 
                 </div>
                 <!-- /.card-body -->
@@ -159,17 +157,5 @@
         </div>
         <!-- /.content -->
       </div>
-      <!-- /.content-wrapper -->
-
-      <!-- Control Sidebar -->
-      <?php require 'inc/control-sidebar.php'; ?>
-      <!-- /.control-sidebar -->
-
-      <!-- Main Footer -->
-      <?php require 'inc/footer.php'; ?>
     </div>
-    <!-- ./wrapper -->
-
-  <!-- REQUIRED SCRIPTS -->
-  <?php require 'inc/script.php'; ?>
   </body>

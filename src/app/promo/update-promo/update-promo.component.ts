@@ -11,7 +11,7 @@ import { ApiHelper } from '../../_services/api-helper'
   styleUrls: ['./update-promo.component.css']
 })
 export class UpdatePromoComponent implements OnInit {
-
+  dataProductCategory: any;
   id: any = ''
   data = new FormData()
   tokenType: String = 'Bearer'
@@ -27,7 +27,8 @@ export class UpdatePromoComponent implements OnInit {
     promo_amount: 0,
     promo_exp: '',
     terms_conditions: '',
-    promo_stock: 0
+    promo_stock: 0,
+    id_product_category: ''
   }
 
   message = ''
@@ -37,6 +38,7 @@ export class UpdatePromoComponent implements OnInit {
   constructor(private tokenStorage: TokenStorageService, private productService: ProductService, private route: ActivatedRoute, private router: Router, private helper: ApiHelper) { }
 
   ngOnInit(): void {
+    this.getAllProductCategory()
     console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
     this.id = this.route.snapshot.params.id
@@ -55,14 +57,18 @@ export class UpdatePromoComponent implements OnInit {
         if (data.data.path_photo != "") {
           this.imageSrc = "http://absdigital.id:5000" + data.data.path_photo
         }
-        console.log('data bank', this.promo)
+        console.log('data PRomo >>>>>>', this.promo)
       },
       err => {
         this.errorMessage = err.error.error;
       }
     )
   }
+  selectedProductCategory(event: any): void {
+    const valueProcat = JSON.parse(event.target.value)
+    this.promo.id_product_category = valueProcat.id
 
+  }
   onFileChange(event: any) {
 
     const reader = new FileReader();
@@ -87,10 +93,12 @@ export class UpdatePromoComponent implements OnInit {
 
   dateInput(event: any): void {
     const valueDate = event.target.value
-    this.promo.promo_exp = '06-02-2021'
-    console.log("value date", this.promo.promo_exp)
+    this.promo.promo_exp = valueDate
   }
-
+  StartdateInput(event: any): void {
+    const valueDate = event.target.value
+    this.promo.promo_start = valueDate
+  }
   onUpdatePromo(): void {
     if (this.upload == true) {
       this.uploadPhoto()
@@ -106,9 +114,11 @@ export class UpdatePromoComponent implements OnInit {
         promo_name: this.promo.promo_name,
         promo_code: this.promo.promo_code,
         promo_amount: Number(this.promo.promo_amount),
-        promo_exp: this.helper.ApiDate(this.promo.promo_exp),
+        promo_exp: this.helper.ApiDate(this.promo.promo_exp)+" 00:00:00",
         terms_conditions: this.promo.terms_conditions,
-        promo_stock: 12
+        promo_stock: Number(this.promo.promo_stock),
+        id_product_category: this.promo.id_product_category,
+        promo_start: this.helper.ApiDate(this.promo.promo_start)+" 00:00:00",
       };
 
       this.productService.updatePromo(this.id, data, this.tokenType, this.token)
@@ -120,14 +130,31 @@ export class UpdatePromoComponent implements OnInit {
             this.router.navigateByUrl('master-promo')
           },
           error => {
-
-            this.errorMessage = error.error.error;
+            this.isLoading = false
+            if (error.error)
+              this.errorMessage = error.error.error;
+            else
+              this.errorMessage = "Server Error";
           });
     } else {
       console.log('error', 'Please login first!')
     }
   }
-
+  getAllProductCategory(): void {
+    if (this.token != null) {
+      this.productService.getAllProductCategory(this.tokenType, this.token).subscribe(
+        data => {
+          this.dataProductCategory = data.data
+          console.log('data product category', this.dataProductCategory)
+        },
+        err => {
+          this.errorMessage = err.error.error;
+        }
+      )
+    } else {
+      console.log('error', 'Please login first!')
+    }
+  }
   uploadPhoto(): void {
     this.productService.uploadPhotoPromo(this.id, this.data, this.tokenType, this.token)
       .subscribe(

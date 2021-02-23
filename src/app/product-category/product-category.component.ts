@@ -37,7 +37,7 @@ export class ProductCategoryComponent implements OnInit {
     console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
 
-    if(this.token != null){
+    if (this.token != null) {
       this.productService.getAllProductCategory(this.tokenType, this.token).subscribe(
         data => {
           this.dataProductCategory = data.data
@@ -47,7 +47,7 @@ export class ProductCategoryComponent implements OnInit {
           this.errorMessage = err.error.message;
         }
       )
-    }else{
+    } else {
       console.log('error', 'Please login first!')
     }
   }
@@ -66,7 +66,7 @@ export class ProductCategoryComponent implements OnInit {
 
   onCreateProductCategory(): void {
 
-    if(this.token != null){
+    if (this.token != null) {
       const data = {
         name_product_category: this.productCategory.name_product_category
       };
@@ -74,14 +74,14 @@ export class ProductCategoryComponent implements OnInit {
       this.productService.createProductCategory(data, this.tokenType, this.token)
         .subscribe(
           response => {
-            console.log(response);
+            this.errorMessage = '';
             this.submitted = true;
             this.refreshData()
           },
           error => {
-            console.log(error);
-      });
-    }else{
+            this.errorMessage = error.error.error;
+          });
+    } else {
       console.log('error', 'Please login first!')
     }
   }
@@ -102,9 +102,9 @@ export class ProductCategoryComponent implements OnInit {
   }
 
   onUpdateProductCategory(id: any): void {
-    if(this.updated == false){
+    if (this.updated == false) {
 
-    }else{
+    } else {
       this.productService.updateProductCategory(this.id, this.productCategory, this.tokenType, this.token)
         .subscribe(
           response => {
@@ -125,6 +125,6 @@ export class ProductCategoryComponent implements OnInit {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
-   }
+  }
 
 }

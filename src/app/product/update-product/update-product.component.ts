@@ -54,46 +54,43 @@ export class UpdateProductComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
     this.id = this.route.snapshot.params.id
-    if(this.token != null){
+    if (this.token != null) {
       this.getProductByID(this.id)
       this.getAllProductCategory()
       this.getAllPromo()
-    }else{
+    } else {
       this.message = 'Please login first!'
     }
   }
 
   getAllProductCategory(): void {
-    if(this.token != null){
+    if (this.token != null) {
       this.productService.getAllProductCategory(this.tokenType, this.token).subscribe(
         data => {
           this.dataProductCategory = data.data
-          console.log('data product category', this.dataProductCategory)
         },
         err => {
           this.errorMessage = err.error.message;
         }
       )
-    }else{
+    } else {
       console.log('error', 'Please login first!')
     }
   }
 
   getAllPromo(): void {
-    if(this.token != null){
+    if (this.token != null) {
       this.productService.getAllPromo(this.tokenType, this.token).subscribe(
         data => {
           this.dataPromo = data.data
-          console.log('data promo', this.dataPromo)
         },
         err => {
           this.errorMessage = err.error.message;
         }
       )
-    }else{
+    } else {
       console.log('error', 'Please login first!')
     }
   }
@@ -102,9 +99,43 @@ export class UpdateProductComponent implements OnInit {
     this.productService.getProductByID(id, this.tokenType, this.token).subscribe(
       data => {
         this.product = data.data
+        // this.product.Rating = [
+        //   {
+        //     "id_rating": "8b110ae0-a0b1-4030-b96a-43679f459c96",
+        //     "id_transaction": "19c93da4-6452-41ef-af17-65b99289e333",
+        //     "id_product": "rag1",
+        //     "id_user": "4162feb0-fc17-493a-aa52-4dc5fd5bc7e7",
+        //     "name": "Pranadipa",
+        //     "rating_score": 5,
+        //     "rating_desc": "mantap gan",
+        //     "created_at": "2021-02-23T20:44:11.179624962+07:00",
+        //     "updated_at": "2021-02-23T20:44:11.179624962+07:00"
+        //   },
+        //   {
+        //     "id_rating": "8b110ae0-a0b1-4030-b96a-43679f459c96",
+        //     "id_transaction": "19c93da4-6452-41ef-af17-65b99289e333",
+        //     "id_product": "rag1",
+        //     "id_user": "4162feb0-fc17-493a-aa52-4dc5fd5bc7e7",
+        //     "name": "Pranadipa",
+        //     "rating_score": 5,
+        //     "rating_desc": "mantap gan",
+        //     "created_at": "2021-02-23T20:44:11.179624962+07:00",
+        //     "updated_at": "2021-02-23T20:44:11.179624962+07:00"
+        //   },
+        //   {
+        //     "id_rating": "8b110ae0-a0b1-4030-b96a-43679f459c96",
+        //     "id_transaction": "19c93da4-6452-41ef-af17-65b99289e333",
+        //     "id_product": "rag1",
+        //     "id_user": "4162feb0-fc17-493a-aa52-4dc5fd5bc7e7",
+        //     "name": "Pranadipa",
+        //     "rating_score": 5,
+        //     "rating_desc": "mantap gan",
+        //     "created_at": "2021-02-23T20:44:11.179624962+07:00",
+        //     "updated_at": "2021-02-23T20:44:11.179624962+07:00"
+        //   }
+        // ]
+        // console.log(">>>>>>> ", this.product)
         this.dataPhoto = data.data.Photo
-        console.log('data product', this.product)
-        console.log('data foto', this.dataPhoto.path_photo)
       },
       err => {
         this.errorMessage = err.error.message;
@@ -116,91 +147,73 @@ export class UpdateProductComponent implements OnInit {
     const valueProcat = JSON.parse(event.target.value)
     this.product.id_product_category = valueProcat.id
     this.product.name_product_category = valueProcat.name
-    console.log("procat id", this.id_selected_procat)
-    console.log("procat name", this.product.name_product_category)
   }
 
   selectedProductStatus(event: any): void {
     this.product.product_status = event.target.value
-    console.log("prod stat", this.product.product_status)
   }
 
   selectedPromo(event: any): void {
     const valuePromo = JSON.parse(event.target.value)
-    
     this.product.id_promo = valuePromo.id
     this.product.promo_name = valuePromo.name
     this.product.promo_code = valuePromo.code
     this.product.promo_amount = valuePromo.disc
-
-    console.log("promo id", this.product.id_promo)
-    console.log("promo name", this.product.promo_name)
-    console.log("promo code", this.product.promo_code)
-    console.log("promo amount", this.product.promo_amount)
   }
 
   onFileChange(event: any) {
     this.upload = true
-    
-    if(event.target.files && event.target.files.length < 5) {
+
+    if (event.target.files && event.target.files.length < 5) {
       const totalPhoto = event.target.files.length
-      
       for (let i = 0; i < totalPhoto; i++) {
-        
         const reader = new FileReader();
-        
         this.data.append("photo_detail", event.target.files[i])
-        
-        console.log("photo", event.target.files)
-        
-        reader.onload = (event:any) => {
+        reader.onload = (event: any) => {
           this.imageSrc.push(event.target.result)
         };
-
         reader.readAsDataURL(event.target.files[i])
       }
-    }else{
+    } else {
       this.errorMessage = "Max. upload image 5"
     }
   }
 
   onUpdateProductDetails(): void {
-    for(let i = 0; i < this.dataUploadPhoto.length; i++){
+    for (let i = 0; i < this.dataUploadPhoto.length; i++) {
       const data = {
         id_product: this.product.id_product,
         path_photo: this.dataUploadPhoto[i].path_photo
       };
-      
+
       this.productService.createProductDetails(data, this.tokenType, this.token)
-      .subscribe(
-        response => {
-          console.log(response);
-        },
-        error => {
-          console.log(error);
-        });
+        .subscribe(
+          response => {
+            console.log(response);
+          },
+          error => {
+            this.errorMessage = error.error.message;
+          });
     }
-    this.router.navigateByUrl('master-product');this.router.navigateByUrl('master-product');
+    this.router.navigateByUrl('master-product'); this.router.navigateByUrl('master-product');
   }
 
   uploadPhoto(): void {
     this.productService.uploadPhotoProduct(this.product.id_product, this.data, this.tokenType, this.token)
-    .subscribe(
-      data => {
-        console.log(data);
-        this.dataUploadPhoto = data.data
-        console.log("path_foto",this.dataUploadPhoto)
-        this.onUpdateProductDetails()
-      },
-      error => {
-        console.log(error);
-      });
+      .subscribe(
+        data => {
+          this.dataUploadPhoto = data.data
+          this.onUpdateProductDetails()
+        },
+        error => {
+          this.errorMessage = error.error.message;
+        });
   }
 
   onUpdateProduct(): void {
-    if(this.upload == true){
+    if (this.upload == true) {
       this.uploadPhoto()
-    }else{
+    } else {
       this.onUpdate()
     }
   }
@@ -209,12 +222,11 @@ export class UpdateProductComponent implements OnInit {
     this.productService.updateProduct(this.id, this.product, this.tokenType, this.token)
       .subscribe(
         response => {
-          console.log(response);
           this.message = response.message;
           this.router.navigateByUrl('master-product');
         },
         error => {
-          console.log(error);
+          this.errorMessage = error.error.message;
         });
   }
 

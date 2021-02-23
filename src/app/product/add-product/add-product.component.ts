@@ -66,7 +66,7 @@ export class AddProductComponent implements OnInit {
           console.log('data product category', this.dataProductCategory)
         },
         err => {
-          this.errorMessage = err.error.message;
+          this.errorMessage = err.error.error;
         }
       )
     }else{
@@ -82,7 +82,7 @@ export class AddProductComponent implements OnInit {
           console.log('data promo', this.dataPromo)
         },
         err => {
-          this.errorMessage = err.error.message;
+          this.errorMessage = err.error.error;
         }
       )
     }else{
@@ -155,7 +155,7 @@ export class AddProductComponent implements OnInit {
           this.submitted = true;
         },
         error => {
-          console.log(error);
+          this.errorMessage = error.error.error;
         });
     }
     this.router.navigateByUrl('master-product')
@@ -195,6 +195,17 @@ export class AddProductComponent implements OnInit {
         id_user: '',
         name: ''
       };
+      if (!data.product_name || 
+        !data.id_product  || 
+        !data.id_product || 
+        !data.id_product_category ||
+        !data.product_status ||
+        !data.product_quantity ||
+        !data.product_price
+        ) {
+        this.errorMessage = "Please Fill All Required Form";
+        return
+      }
 
       this.productService.createProduct(data, this.tokenType, this.token)
         .subscribe(
@@ -204,7 +215,7 @@ export class AddProductComponent implements OnInit {
             this.uploadPhoto()
           },
           error => {
-            console.log(error);
+            this.errorMessage = error.error.error;
       });
     }else{
       console.log('error', 'Please login first!')

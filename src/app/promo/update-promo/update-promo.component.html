@@ -81,9 +81,30 @@
                                   <input type="text" class="form-control" id="newletterTitle" [(ngModel)]="promo.promo_code" name="promo_code" placeholder="Type code" value="">
                               </div>
                               <div class="form-group">
+                                <label for="productCat">Product Category</label>
+                                <select (change)="selectedProductCategory($event)" name="id_product_category" class="form-control select2bs4" style="width: 100%;">
+                                  <option [ngValue]="null" [disabled]="true" >-- Select Category --</option>  
+                                  <option *ngFor="let procat of dataProductCategory" 
+                                  [selected]="procat.id_product_category == promo.id_product_category" 
+                                  value='{"id": "{{procat.id_product_category}}","name": "{{procat.name_product_category}}"}'>{{procat.name_product_category}}</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
                                   <label for="discount">Discount (%)</label>
                                   <input type="text" class="form-control" id="discount" [(ngModel)]="promo.promo_amount" name="promo_amount" placeholder="Type discount ex: 30" value="">
                               </div>
+                              <div class="form-group">
+                                <label for="promo_stock">Promo Stock</label>
+                                <input type="text" class="form-control" id="promo_stock" [(ngModel)]="promo.promo_stock" name="promo_stock" placeholder="Promo Stock" value="">
+                              </div>
+                              <div class="form-row">
+                                <div class="col-md-12">
+                                  <div class="form-group">
+                                      <label>Promo Period Start</label>
+                                      <input type="date" class="form-control" [ngModel]="promo.promo_start | date:'yyyy-MM-dd'"  (change)="StartdateInput($event)"     name="promo_start" >
+                                  </div>
+                                </div>
+                            </div>
                               <div class="form-row">
                                   <div class="col-md-12">
                                     <div class="form-group">
@@ -92,6 +113,7 @@
                                     </div>
                                   </div>
                               </div>
+                              
                               <div class="form-group">
                                   <label for="termCondition">Term and condition</label>
                                   <textarea rows="3" class="form-control" [(ngModel)]="promo.terms_conditions" name="terms_conditions" placeholder="Type your term and condition" value=""></textarea>

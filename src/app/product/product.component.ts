@@ -68,11 +68,10 @@ export class ProductComponent implements OnInit {
     this.productService.deleteProductDetails(id, data, this.tokenType, this.token)
       .subscribe(
         response => {
-          console.log(response);
           this.onDeleteProductDetail(id)
         },
         error => {
-          console.log(error);
+          console.log("Delete product Error >>>>",error);
         });
   }
 
@@ -83,10 +82,11 @@ export class ProductComponent implements OnInit {
     this.productService.deleteProduct(id, data, this.tokenType, this.token)
       .subscribe(
         response => {
-          console.log(response);
+          alert("Success, Product Deleted")
           this.refreshData()
         },
         error => {
+          alert("Error Delete")
           console.log(error);
         });
   }
