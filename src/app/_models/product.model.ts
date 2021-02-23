@@ -13,4 +13,6 @@ export class Product {
     promo_amount?: any
     id_user?: string
     name?: string
+    Rating?: any=[]
+
 }

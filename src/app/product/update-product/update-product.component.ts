@@ -99,6 +99,42 @@ export class UpdateProductComponent implements OnInit {
     this.productService.getProductByID(id, this.tokenType, this.token).subscribe(
       data => {
         this.product = data.data
+        // this.product.Rating = [
+        //   {
+        //     "id_rating": "8b110ae0-a0b1-4030-b96a-43679f459c96",
+        //     "id_transaction": "19c93da4-6452-41ef-af17-65b99289e333",
+        //     "id_product": "rag1",
+        //     "id_user": "4162feb0-fc17-493a-aa52-4dc5fd5bc7e7",
+        //     "name": "Pranadipa",
+        //     "rating_score": 5,
+        //     "rating_desc": "mantap gan",
+        //     "created_at": "2021-02-23T20:44:11.179624962+07:00",
+        //     "updated_at": "2021-02-23T20:44:11.179624962+07:00"
+        //   },
+        //   {
+        //     "id_rating": "8b110ae0-a0b1-4030-b96a-43679f459c96",
+        //     "id_transaction": "19c93da4-6452-41ef-af17-65b99289e333",
+        //     "id_product": "rag1",
+        //     "id_user": "4162feb0-fc17-493a-aa52-4dc5fd5bc7e7",
+        //     "name": "Pranadipa",
+        //     "rating_score": 5,
+        //     "rating_desc": "mantap gan",
+        //     "created_at": "2021-02-23T20:44:11.179624962+07:00",
+        //     "updated_at": "2021-02-23T20:44:11.179624962+07:00"
+        //   },
+        //   {
+        //     "id_rating": "8b110ae0-a0b1-4030-b96a-43679f459c96",
+        //     "id_transaction": "19c93da4-6452-41ef-af17-65b99289e333",
+        //     "id_product": "rag1",
+        //     "id_user": "4162feb0-fc17-493a-aa52-4dc5fd5bc7e7",
+        //     "name": "Pranadipa",
+        //     "rating_score": 5,
+        //     "rating_desc": "mantap gan",
+        //     "created_at": "2021-02-23T20:44:11.179624962+07:00",
+        //     "updated_at": "2021-02-23T20:44:11.179624962+07:00"
+        //   }
+        // ]
+        // console.log(">>>>>>> ", this.product)
         this.dataPhoto = data.data.Photo
       },
       err => {

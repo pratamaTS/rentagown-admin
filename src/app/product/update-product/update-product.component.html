@@ -133,6 +133,21 @@
                             <!-- /.card-body -->
                         </form>
                        </div>
+                       <div class="col-md-3">
+                         <h4>Product Rating</h4>
+                         <span  *ngIf="product.Rating && product.Rating.length>0" >
+                         <div class="card"  *ngFor="let rat of product.Rating">
+                          <h5 class="card-header">Rating: {{rat.rating_score}}</h5>
+                          <div class="card-body">
+                            <p class="card-text">{{rat.rating_desc}}</p>
+                            <p class="card-text">{{rat.name}}</p>
+                          </div>
+                        </div>
+                      </span>
+                        <div   *ngIf="product.Rating && product.Rating.length < 1"  class="card"  >
+                          <h5 class="card-header">No Rating Yet</h5>
+                        </div>
+                    </div>
                    </div> 
                 </div>
                 <!-- /.card-body -->
@@ -142,17 +157,5 @@
         </div>
         <!-- /.content -->
       </div>
-      <!-- /.content-wrapper -->
-
-      <!-- Control Sidebar -->
-      <?php require 'inc/control-sidebar.php'; ?>
-      <!-- /.control-sidebar -->
-
-      <!-- Main Footer -->
-      <?php require 'inc/footer.php'; ?>
     </div>
-    <!-- ./wrapper -->
-
-  <!-- REQUIRED SCRIPTS -->
-  <?php require 'inc/script.php'; ?>
   </body>
