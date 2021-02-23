@@ -91,23 +91,23 @@ export class UserComponent implements OnInit {
 
   ChangeRole(uData: any): void {
     console.log(uData)
-    // let mydata = {
-    //   "name": uData.name,
-    //   "role": (uData.role == 'Admin') ? 'User' : 'Admin'
-    // }
-    // this.helper.PUT("api/user/update", mydata, "", "")
-    //   // this.authService.login(email, password)
-    //   .subscribe(
-    //     (d: any) => {
-    //       this.errorMessage = '';
-    //       this.EditMode = false
-    //       this.refreshData()
-    //       alert("Success Edit User")
-    //     },
-    //     (err: any) => {
-    //       this.errorMessage = err.error.error;
-    //     }
-    //   );
+    let mydata = {
+      "role": (uData.role == 'Admin') ? 'User' : 'Admin'
+    }
+    this.helper.PUT("api/user/admin/update/" + uData.id_user, mydata, this.tokenType, this.token)
+      // this.authService.login(email, password)
+      .subscribe(
+        (d: any) => {
+          console.log("update ROle >>>> ", d)
+          this.errorMessage = '';
+          this.EditMode = false
+          this.refreshData()
+          alert("Success Update User Role")
+        },
+        (err: any) => {
+          this.errorMessage = err.error.error;
+        }
+      );
   }
 
   Createuser(): void {

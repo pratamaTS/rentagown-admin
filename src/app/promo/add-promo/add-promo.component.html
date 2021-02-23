@@ -95,6 +95,14 @@
                                   <input type="text" class="form-control" id="promo_stock" [(ngModel)]="promo.promo_stock" name="promo_stock" placeholder="Promo Stock" value="">
                                 </div>
                                 <div class="form-row">
+                                  <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Promo Period Start</label>
+                                        <input type="date" class="form-control" [ngModel]="promo.promo_start | date:'yyyy-MM-dd'"  (change)="StartdateInput($event)"     name="promo_start" >
+                                    </div>
+                                  </div>
+                              </div>
+                                <div class="form-row">
                                     <div class="col-md-12">
                                       <div class="form-group">
                                           <label>Promo period Expired</label>

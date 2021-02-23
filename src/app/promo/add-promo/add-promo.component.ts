@@ -82,6 +82,7 @@ export class AddPromoComponent implements OnInit {
         terms_conditions: this.promo.terms_conditions,
         promo_stock: Number(this.promo.promo_stock),
         id_product_category: this.promo.id_product_category,
+        promo_start: this.helper.ApiDate(this.promo.promo_start),
       };
 
       this.productService.createPromo(data, this.tokenType, this.token)
@@ -98,7 +99,10 @@ export class AddPromoComponent implements OnInit {
       console.log('error', 'Please login first!')
     }
   }
-
+  StartdateInput(event: any): void {
+    const valueDate = event.target.value
+    this.promo.promo_start = valueDate
+  }
   getAllProductCategory(): void {
     if (this.token != null) {
       this.productService.getAllProductCategory(this.tokenType, this.token).subscribe(

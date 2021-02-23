@@ -82,9 +82,11 @@ export class ProductComponent implements OnInit {
     this.productService.deleteProduct(id, data, this.tokenType, this.token)
       .subscribe(
         response => {
+          alert("Success, Product Deleted")
           this.refreshData()
         },
         error => {
+          alert("Error Delete")
           console.log(error);
         });
   }

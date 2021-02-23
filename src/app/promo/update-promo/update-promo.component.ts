@@ -57,7 +57,7 @@ export class UpdatePromoComponent implements OnInit {
         if (data.data.path_photo != "") {
           this.imageSrc = "http://absdigital.id:5000" + data.data.path_photo
         }
-        console.log('data bank', this.promo)
+        console.log('data PRomo >>>>>>', this.promo)
       },
       err => {
         this.errorMessage = err.error.error;
@@ -93,10 +93,12 @@ export class UpdatePromoComponent implements OnInit {
 
   dateInput(event: any): void {
     const valueDate = event.target.value
-    this.promo.promo_exp = '06-02-2021'
-    console.log("value date", this.promo.promo_exp)
+    this.promo.promo_exp = valueDate
   }
-
+  StartdateInput(event: any): void {
+    const valueDate = event.target.value
+    this.promo.promo_start = valueDate
+  }
   onUpdatePromo(): void {
     if (this.upload == true) {
       this.uploadPhoto()
@@ -116,6 +118,7 @@ export class UpdatePromoComponent implements OnInit {
         terms_conditions: this.promo.terms_conditions,
         promo_stock:  this.promo.promo_stock,
         id_product_category: this.promo.id_product_category,
+        promo_start: this.helper.ApiDate(this.promo.promo_start),
       };
 
       this.productService.updatePromo(this.id, data, this.tokenType, this.token)
