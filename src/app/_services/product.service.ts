@@ -316,7 +316,8 @@ export class ProductService {
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
-      })
+      }),
+      body: data
     };
 
     return this.http.delete(`api/promo/${id}`, httpOptions);
