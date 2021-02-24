@@ -130,8 +130,10 @@
                     <td>{{ booking.remaining_bills | currency:'Rp ':'symbol':'3.0' }}</td>
                     <td>{{ booking.status_transaction | titlecase }}</td>
                     <td class="text-center">
-                      <a *ngIf="booking.status !=3" (click)="processBooking(booking.id_transaction)"
+                      <a *ngIf="booking.status ==1" (click)="processBooking(booking.id_transaction)"
                         class="btn btn-default"><i class="fas fa-check-circle"></i> Process</a>
+                      <a *ngIf="booking.status ==2" (click)="doneBooking(booking.id_transaction)"
+                        class="btn btn-default"><i class="fas fa-check-circle"></i> Finish</a>
                       <p *ngIf="booking.status ==3">Done</p>
                     </td>
                     <td class="text-center">
