@@ -4,6 +4,7 @@ import { BookingOrderService } from '../../_services/booking-order.service'
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ApiHelper } from '../../_services/api-helper'
 
 @Component({
   selector: 'app-booking-order',
@@ -26,7 +27,11 @@ export class BookingOrderComponent implements OnInit {
   viewMode: boolean = false;
   BookingSingle: any = {}
 
-  constructor(private tokenStorage: TokenStorageService, private bookingOrderService: BookingOrderService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private tokenStorage: TokenStorageService,
+    private helper: ApiHelper,
+    private bookingOrderService: BookingOrderService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.tokenStorage.getToken())
@@ -72,11 +77,29 @@ export class BookingOrderComponent implements OnInit {
           console.log(error);
         });
   }
+
   viewData(a: any) {
     this.viewMode = true
-    console.log(a)
     this.BookingSingle = a
+    this.helper.GET("api/fitting/" + a.id_fitting, "", "")
+      .subscribe(
+        data => {
+          let f = data.data
+          this.BookingSingle.bust = f.bust
+          this.BookingSingle.arm_hole = f.arm_hole
+          this.BookingSingle.waist = f.waist
+          this.BookingSingle.hip = f.hip
+        },
+        err => {
+          this.errorMessage = err.error.error;
+        }
+      );
   }
+  
+  DisplayDate(d: any) {
+    return this.helper.ApiDate(d)
+  }
+
   doneBooking(id: any) {
     console.log("id book", id)
     const data = {

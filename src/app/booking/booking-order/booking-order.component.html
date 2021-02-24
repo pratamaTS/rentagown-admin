@@ -45,8 +45,35 @@
                   <p class="card-text">Invoice Number : {{BookingSingle.invoice}}</p>
                   <p class="card-text">Account Name : {{BookingSingle.account_name}}</p>
                   <p class="card-text">Account Number : {{BookingSingle.account_number}}</p>
+                  <p class="card-text">Date Created : {{DisplayDate(BookingSingle.created_at)}}</p>
+                  <p class="card-text">Start Booking : {{DisplayDate(BookingSingle.start_date)}}</p>
+                  <p class="card-text">End Booking : {{DisplayDate(BookingSingle.end_date)}}</p>
                   <p class="card-text">Address : {{BookingSingle.address}}</p>
                   <p class="card-text">Status : {{BookingSingle.status_transaction}}</p>
+                </div>
+                <div class="card-header">
+                  <h5 class="card-title">Booking Payment Detail</h5>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">Payment Deadline : {{DisplayDate(BookingSingle.payment_deadline)}}</p>
+                  <p class="card-text">Payment Bank Name : {{BookingSingle.payment_bank_name}}</p>
+                  <p class="card-text">Payment Account Name : {{BookingSingle.payment_account_name}}</p>
+                  <p class="card-text">Payment Account Number : {{BookingSingle.payment_account_number}}</p>
+                  <p class="card-text">Payment Amount : {{BookingSingle.payment_amount}}</p>
+                  <p class="card-text">Repayment Bank Name : {{BookingSingle.repayment_bank_name}}</p>
+                  <p class="card-text">Repayment Account Name : {{BookingSingle.repayment_account_name}}</p>
+                  <p class="card-text">Repayment Account Number : {{BookingSingle.repayment_account_number}}</p>
+                  <p class="card-text">Repayment Amount : {{BookingSingle.repayment_amount}}</p>
+                  <p class="card-text">Total Bill Amount : {{BookingSingle.total_bill_amount}}</p>
+                </div>
+                <div class="card-header">
+                  <h5 class="card-title">Fitting</h5>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">Bust : {{BookingSingle.bust}}</p>
+                  <p class="card-text">Arm Hole : {{BookingSingle.arm_hole}}</p>
+                  <p class="card-text">Waist : {{BookingSingle.waist}}</p>
+                  <p class="card-text">Hip : {{BookingSingle.hip}}</p>
                 </div>
               </div>
             </div>
