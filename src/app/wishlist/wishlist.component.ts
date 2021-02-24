@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { ProductService } from '../_services/product.service'
+import { ApiHelper } from '../_services/api-helper'
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 @Component({
@@ -21,24 +22,40 @@ export class WishlistComponent implements OnInit {
   errorMessage = ''
   Realdata: any = []
 
-  constructor(private tokenStorage: TokenStorageService, private productService: ProductService) { }
+  constructor(private tokenStorage: TokenStorageService,
+    private helper: ApiHelper,
+    private productService: ProductService) { }
 
   ngOnInit(): void {
     console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
-
-    if(this.token != null){
-      this.productService.getAllWishlist(this.tokenType, this.token).subscribe(
-        data => {
-          this.dataWishlist = data.data
-          this.Realdata = data.data
-          console.log('data wishlist', this.dataWishlist)
-        },
-        err => {
-          this.errorMessage = err.error.message;
-        }
-      )
-    }else{
+    let body = {
+      "from": "01-02-1900",
+      "to": "28-02-2050"
+    }
+    if (this.token != null) {
+      this.helper.POST("api/wishlist/find/between", body, this.tokenType, this.token)
+        .subscribe(
+          data => {
+            this.dataWishlist = data.data
+            this.Realdata = data.data
+            //     console.log('data wishlist', this.dataWishlist)
+          },
+          err => {
+            this.errorMessage = err.error.error;
+          }
+        );
+      // this.productService.getAllWishlist(this.tokenType, this.token).subscribe(
+      //   data => {
+      //     this.dataWishlist = data.data
+      //     this.Realdata = data.data
+      //     console.log('data wishlist', this.dataWishlist)
+      //   },
+      //   err => {
+      //     this.errorMessage = err.error.message;
+      //   }
+      // )
+    } else {
       console.log('error', 'Please login first!')
     }
   }
@@ -56,6 +73,6 @@ export class WishlistComponent implements OnInit {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
-   }
+  }
 
 }
