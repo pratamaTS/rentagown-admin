@@ -112,6 +112,7 @@
                     <th>Down Payment</th>
                     <th>Remaining Bills</th>
                     <th>Status Transaction</th>
+                    <th>Status Payment</th>
                     <th>Approve Payment</th>
                     <th></th>
                   </tr>
@@ -129,6 +130,7 @@
                     <td>{{ booking.down_payment | currency:'Rp ':'symbol':'3.0' }}</td>
                     <td>{{ booking.remaining_bills | currency:'Rp ':'symbol':'3.0' }}</td>
                     <td>{{ booking.status_transaction | titlecase }}</td>
+                    <td>{{ booking.status_payment | titlecase }}</td>
                     <td class="text-center">
                       <a *ngIf="booking.status ==1" (click)="processBooking(booking.id_transaction)"
                         class="btn btn-default"><i class="fas fa-check-circle"></i> Process</a>
