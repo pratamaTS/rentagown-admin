@@ -116,7 +116,7 @@ export class UserComponent implements OnInit {
       this.errorMessage = "Please Fill All Form";
       return
     }
-
+    this.adduser.phone = this.adduser.phone.toString()
     this.helper.POST("api/user", this.adduser, "", "")
       // this.authService.login(email, password)
       .subscribe(

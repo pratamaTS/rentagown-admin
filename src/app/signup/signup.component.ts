@@ -42,6 +42,7 @@ export class SignupComponent implements OnInit {
       this.errorMessage = "Please Fill All Form";
       return
     }
+    this.form.phone = this.form.phone.toString()
     this.form.platform = "WEB"
     this.helper.POST("api/user", this.form, "", "")
       // this.authService.login(email, password)

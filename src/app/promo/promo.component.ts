@@ -66,13 +66,13 @@ export class PromoComponent implements OnInit {
 
   onDelete(id: any): void {
     const data = {
-      id_bank: id
+      id_promo: id
     };
     this.productService.deletePromo(id, data, this.tokenType, this.token)
       .subscribe(
         response => {
-          console.log(response);
           this.refreshData()
+          alert("Promo Deleted")
         },
         err => {
           this.errorMessage = err.error.error;

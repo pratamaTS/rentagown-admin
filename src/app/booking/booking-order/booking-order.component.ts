@@ -4,6 +4,7 @@ import { BookingOrderService } from '../../_services/booking-order.service'
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ApiHelper } from '../../_services/api-helper'
 
 @Component({
   selector: 'app-booking-order',
@@ -23,16 +24,20 @@ export class BookingOrderComponent implements OnInit {
   dataBookingOrder: any = []
   errorMessage = ''
   Realdata: any = []
-  viewMode:boolean=false;
-  BookingSingle:any={}
+  viewMode: boolean = false;
+  BookingSingle: any = {}
 
-  constructor(private tokenStorage: TokenStorageService, private bookingOrderService: BookingOrderService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private tokenStorage: TokenStorageService,
+    private helper: ApiHelper,
+    private bookingOrderService: BookingOrderService,
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
 
-    if(this.token != null){
+    if (this.token != null) {
       this.bookingOrderService.getAllBookingOrder(this.tokenType, this.token).subscribe(
         data => {
           this.dataBookingOrder = data.data
@@ -44,7 +49,7 @@ export class BookingOrderComponent implements OnInit {
           this.errorMessage = err.error.message;
         }
       )
-    }else{
+    } else {
       console.log('error', 'Please login first!')
     }
   }
@@ -52,7 +57,7 @@ export class BookingOrderComponent implements OnInit {
     let f = test.target.value.trim()
     this.dataBookingOrder = this.Realdata.filter((d: any) => {
       if (f == '') return true
-      return (d.name.includes(f) ||d.product_name.includes(f) || d.invoice.includes(f))
+      return (d.name.includes(f) || d.product_name.includes(f) || d.invoice.includes(f))
     })
   }
   processBooking(id: any) {
@@ -63,20 +68,38 @@ export class BookingOrderComponent implements OnInit {
     };
 
     this.bookingOrderService.updateBooking(id, data, this.tokenType, this.token)
-        .subscribe(
-          data => {
-            this.id = data.data.id_transaction
-            this.refreshData()
-          },
-          error => {
-            console.log(error);
-      });
+      .subscribe(
+        data => {
+          this.id = data.data.id_transaction
+          this.refreshData()
+        },
+        error => {
+          console.log(error);
+        });
   }
-viewData(a:any) {
-  this.viewMode=true
-  console.log(a)
-  this.BookingSingle=a
-}
+
+  viewData(a: any) {
+    this.viewMode = true
+    this.BookingSingle = a
+    this.helper.GET("api/fitting/" + a.id_fitting, "", "")
+      .subscribe(
+        data => {
+          let f = data.data
+          this.BookingSingle.bust = f.bust
+          this.BookingSingle.arm_hole = f.arm_hole
+          this.BookingSingle.waist = f.waist
+          this.BookingSingle.hip = f.hip
+        },
+        err => {
+          this.errorMessage = err.error.error;
+        }
+      );
+  }
+  
+  DisplayDate(d: any) {
+    return this.helper.ApiDate(d)
+  }
+
   doneBooking(id: any) {
     console.log("id book", id)
     const data = {
@@ -85,14 +108,14 @@ viewData(a:any) {
     };
 
     this.bookingOrderService.updateBooking(id, data, this.tokenType, this.token)
-        .subscribe(
-          data => {
-            this.id = data.data.id_transaction
-            this.refreshData()
-          },
-          error => {
-            console.log(error);
-      });
+      .subscribe(
+        data => {
+          this.id = data.data.id_transaction
+          this.refreshData()
+        },
+        error => {
+          console.log(error);
+        });
   }
 
   rerender(): void {
@@ -102,10 +125,10 @@ viewData(a:any) {
       // Call the dtTrigger to rerender again
       this.dtTrigger.next();
     });
-   }
+  }
 
-   refreshData(): void {
-    if(this.token != null){
+  refreshData(): void {
+    if (this.token != null) {
       this.bookingOrderService.getAllBookingOrder(this.tokenType, this.token).subscribe(
         data => {
           this.dataBookingOrder = data.data
@@ -115,7 +138,7 @@ viewData(a:any) {
           this.errorMessage = err.error.message;
         }
       )
-    }else{
+    } else {
       console.log('error', 'Please login first!')
     }
   }
