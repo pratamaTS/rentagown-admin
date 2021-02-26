@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../../_services/token-storage.service';
 import { Newsletter } from 'src/app/_models/newsletter.model';
+import { Email } from 'src/app/_models/email.model';
 import { NewsletterService } from 'src/app/_services/newsletter.service';
+import { UserService } from 'src/app/_services/user.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-newsletter',
@@ -15,7 +17,10 @@ export class AddNewsletterComponent implements OnInit {
   errorMessage = ''
   imageSrc: any = []
   dataUploadPhoto: any = []
+  dataUser: any = []
+  dataEmail: any = []
   data = new FormData()
+  allUser = false
 
   newsletter: Newsletter = {
     title: '',
@@ -23,11 +28,37 @@ export class AddNewsletterComponent implements OnInit {
     path_photo: ''
   };
 
-  constructor(private tokenStorage: TokenStorageService, private newsletterService: NewsletterService, private router: Router) { }
+  email = []
+
+  constructor(private tokenStorage: TokenStorageService, private newsletterService: NewsletterService, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
+    this.getAllUser();
+  }
+
+  selectedEmail(event: any): void {
+    const valueUserEmail = JSON.parse(event.target.value)
+    if(valueUserEmail.email != "alluser"){
+      this.dataEmail.push(valueUserEmail.email)
+      this.allUser = false
+      console.log("email", this.dataEmail)
+    }else{
+      this.allUser = true
+      console.log("alluser", true)
+    }
+  }
+
+  getAllUser(): void {
+    this.userService.getAllUser(this.tokenType, this.token).subscribe(
+      data => {
+        this.dataUser = data.data
+      },
+      err => {
+        this.errorMessage = err.error.message;
+      }
+    )
   }
 
   onFileChange(event: any) {
@@ -70,21 +101,41 @@ export class AddNewsletterComponent implements OnInit {
 
   onCreateNewsletter(): void {
     if(this.token != null){
-      const data = {
-        title: this.newsletter.title,
-        content: this.newsletter.content,
-        path_photo: this.dataUploadPhoto[0].path_photo
-      };
 
-      this.newsletterService.createNewsletterAllUser(data, this.tokenType, this.token)
-        .subscribe(
-          response => {
-            console.log(response);
-            this.router.navigateByUrl('master-newsletter')
-          },
-          error => {
-            this.errorMessage = error.error.error;
-      });
+      if(this.allUser == true){
+
+        const data = {
+          title: this.newsletter.title,
+          content: this.newsletter.content,
+          path_photo: this.dataUploadPhoto[0].path_photo
+        };
+        this.newsletterService.createNewsletterAllUser(data, this.tokenType, this.token)
+          .subscribe(
+            response => {
+              console.log(response);
+              this.router.navigateByUrl('master-newsletter')
+            },
+            error => {
+              this.errorMessage = error.error.error;
+        });
+
+      }else{
+        const data = {
+          title: this.newsletter.title,
+          content: this.newsletter.content,
+          path_photo: this.dataUploadPhoto[0].path_photo,
+          emails: this.dataEmail
+        };
+        this.newsletterService.createNewsletterSelectedUser(data, this.tokenType, this.token)
+          .subscribe(
+            response => {
+              console.log(response);
+              this.router.navigateByUrl('master-newsletter')
+            },
+            error => {
+              this.errorMessage = error.error.error;
+        });
+      }
     }else{
       console.log('error', 'Please login first!')
     }

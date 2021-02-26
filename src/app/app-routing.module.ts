@@ -21,6 +21,7 @@ import { UpdateProductCategoryComponent } from './product-category/update-produc
 import { UpdateProductComponent } from './product/update-product/update-product.component';
 import { UpdatePromoComponent } from './promo/update-promo/update-promo.component';
 import { UpdateNewsletterComponent } from './newsletter/update-newsletter/update-newsletter.component';
+import { UserUpdateComponent } from './user/user-update/user-update.component';
 import { SalesOrderDetailComponent } from './sales-order/sales-order-detail/sales-order-detail.component';
 import { SalesInvoiceDetailComponent } from './sales-invoice/sales-invoice-detail/sales-invoice-detail.component';
 import { InventoryStock } from './inventory-stock/product.component';
@@ -34,6 +35,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'master-user', component: UserComponent, canActivate: [AuthGuard] },
+  { path: 'update-profile', component: UserUpdateComponent, canActivate: [AuthGuard] },
   { path: 'master-product', component: ProductComponent, canActivate: [AuthGuard] },
   { path: 'master-product-category', component: ProductCategoryComponent, canActivate: [AuthGuard] },
   { path: 'master-wishlist', component: WishlistComponent, canActivate: [AuthGuard] },

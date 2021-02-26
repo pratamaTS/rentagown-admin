@@ -50,16 +50,17 @@
                 <i class="far fa-user-circle"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <a href="master-user-update.php" class="dropdown-item">
+            <a routerLink="/update-profile" class="dropdown-item">
                 <!-- Message Start -->
                 <div class="media">
-                <img src="assets/dist/img/user7-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                <img *ngIf="user.path_photo == ''" src="assets/dist/img/user7-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                <img *ngIf="user.path_photo != ''" src="http://absdigital.id:5000{{ user.path_photo }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
                 <div class="media-body">
                     <h3 class="dropdown-item-title text-rag">
                         {{ name }}
                     <!-- <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span> -->
                     </h3>
-                    <p class="text-xs">Administrator</p>
+                    <p class="text-xs">{{ user.role | titlecase }}</p>
                 </div>
                 </div>
                 <!-- Message End -->

@@ -38,6 +38,7 @@ import { UpdatePromoComponent } from './promo/update-promo/update-promo.componen
 import { InventoryStock } from './inventory-stock/product.component';
 import { SignupComponent } from './signup/signup.component';
 import { ForgotComponent } from './forgotpass/forgotpass.component';
+import { UserUpdateComponent } from './user/user-update/user-update.component';
 
 
 export function tokenGetter() {
@@ -78,7 +79,8 @@ export function tokenGetter() {
     UpdatePromoComponent,
     InventoryStock,
     SignupComponent,
-    ForgotComponent
+    ForgotComponent,
+    UserUpdateComponent
   ],
   imports: [
     BrowserModule,
