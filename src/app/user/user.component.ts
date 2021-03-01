@@ -24,6 +24,7 @@ export class UserComponent implements OnInit {
   Realdata: any = []
   EditMode: boolean = false
   adduser: any = {}
+  SearchObj: any = {}
 
   constructor(private tokenStorage: TokenStorageService,
     private helper: ApiHelper,
@@ -54,11 +55,9 @@ export class UserComponent implements OnInit {
   refreshData(): void {
     this.userService.getAllUser(this.tokenType, this.token).subscribe(
       data => {
-        this.dataUser = data.data
         this.Realdata = data.data
-        this.dtTrigger.next();
-
-        console.log('data user', this.dataUser)
+        this.dataUser = data.data
+        this.filterBytext(this.SearchObj.text || '')
       },
       err => {
         this.errorMessage = err.error.message;
@@ -68,7 +67,12 @@ export class UserComponent implements OnInit {
 
   filterData(test: any): void {
     let f = test.target.value.trim()
-    this.dataUser = this.Realdata.filter((d: any) => {
+    this.filterBytext(f)
+  }
+
+  filterBytext(f: any): void {
+    let myRealdata = JSON.parse(JSON.stringify(this.Realdata));
+    this.dataUser = myRealdata.filter((d: any) => {
       if (f == '') return true
       return (d.name.includes(f) || d.email.includes(f) || d.role.includes(f))
     })
