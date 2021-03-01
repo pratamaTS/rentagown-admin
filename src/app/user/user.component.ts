@@ -78,6 +78,8 @@ export class UserComponent implements OnInit {
     const data = {
       id_user: id
     };
+    let myconfirm = confirm("Are You Sure?");
+    if(!myconfirm) return
     this.userService.deleteUser(data, this.tokenType, this.token)
       .subscribe(
         response => {
@@ -95,7 +97,6 @@ export class UserComponent implements OnInit {
       "role": (uData.role == 'Admin') ? 'User' : 'Admin'
     }
     this.helper.PUT("api/user/admin/update/" + uData.id_user, mydata, this.tokenType, this.token)
-      // this.authService.login(email, password)
       .subscribe(
         (d: any) => {
           console.log("update ROle >>>> ", d)
@@ -110,6 +111,25 @@ export class UserComponent implements OnInit {
       );
   }
 
+  ChangeStatus(uData: any): void {
+    console.log(uData)
+    let mydata = {
+      "id_user": uData.id_user
+    }
+    this.helper.PUT("api/user/update/status", mydata, this.tokenType, this.token)
+      .subscribe(
+        (d: any) => {
+
+          this.errorMessage = '';
+          this.EditMode = false
+          this.refreshData()
+          alert("Success Change Status User")
+        },
+        (err: any) => {
+          this.errorMessage = err.error.error;
+        }
+      );
+  }
   Createuser(): void {
     const { email, password, name, phone } = this.adduser;
     if (!email || !password || !name || !phone) {
