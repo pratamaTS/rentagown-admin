@@ -79,7 +79,7 @@ export class UserComponent implements OnInit {
       id_user: id
     };
     let myconfirm = confirm("Are You Sure?");
-    if(!myconfirm) return
+    if (!myconfirm) return
     this.userService.deleteUser(data, this.tokenType, this.token)
       .subscribe(
         response => {

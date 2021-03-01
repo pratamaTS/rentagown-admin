@@ -115,8 +115,10 @@
                       <a id="dropdownAction1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                         class="nav-link dropdown-toggle"><i class="fas fa-ellipsis-h"></i></a>
                       <ul aria-labelledby="dropdownAction1" class="dropdown-menu border-0 shadow">
-                        <li><a type="button" class="dropdown-item" (click)="ChangeStatus(user)">{{ user.status==1?'Deactivate User':'Activate User' }}</a></li>
-                        <li><a type="button" class="dropdown-item" (click)="ChangeRole(user)">{{ user.role=='Admin'?'Demote to User':'Promote To Admin' }}</a></li>
+                        <li><a type="button" class="dropdown-item" (click)="ChangeStatus(user)">{{
+                            user.status==1?'Deactivate User':'Activate User' }}</a></li>
+                        <li><a type="button" class="dropdown-item" (click)="ChangeRole(user)">{{
+                            user.role=='Admin'?'Demote to User':'Promote To Admin' }}</a></li>
                         <li><a type="button" class="dropdown-item" (click)="DeleteUser(user.id_user)">Delete</a></li>
                       </ul>
                     </td>
