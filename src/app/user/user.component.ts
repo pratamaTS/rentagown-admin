@@ -67,17 +67,72 @@ export class UserComponent implements OnInit {
 
   filterData(test: any): void {
     let f = test.target.value.trim()
+    this.SearchObj = {}
     this.filterBytext(f)
   }
 
   filterBytext(f: any): void {
     let myRealdata = JSON.parse(JSON.stringify(this.Realdata));
     this.dataUser = myRealdata.filter((d: any) => {
+      let txtBool = d.name.includes(f) || d.email.includes(f) || d.role.includes(f)
+      let roleBool = false
+      let statusBool = false
+      if (this.SearchObj.role) {
+        roleBool = (d.role == this.SearchObj.role)
+        return roleBool
+      }
+      if (this.SearchObj.status === 1 || this.SearchObj.status === 0) {
+        statusBool = (d.status === this.SearchObj.status)
+        return statusBool
+      }
+      // console.log("roleBool", roleBool)
+      // if (roleBool || statusBool) {
+      // return  (roleBool || statusBool)
+      // }
+      // if (statusBool) {
+      //   return statusBool
+      // }
+      // if (roleBool) {
+      //   return roleBool
+      // }
+
       if (f == '') return true
-      return (d.name.includes(f) || d.email.includes(f) || d.role.includes(f))
+
+      // return txtBool && (roleBool || statusBool)
+      return txtBool
     })
   }
 
+  RefreshFilter() {
+    this.filterBytext(this.SearchObj.text || '')
+
+  }
+  FilterMode(x: any): void {
+    if (x == 'all') {
+      this.SearchObj = {}
+      this.filterBytext('')
+    }
+    if (x == 'admin') {
+      this.SearchObj.role = 'Admin'
+      delete this.SearchObj.status
+      this.RefreshFilter()
+    }
+    if (x == 'user') {
+      this.SearchObj.role = 'User'
+      delete this.SearchObj.status
+      this.RefreshFilter()
+    }
+    if (x == 'active') {
+      this.SearchObj.status = 1
+      delete this.SearchObj.role
+      this.RefreshFilter()
+    }
+    if (x == 'inactive') {
+      this.SearchObj.status = 0
+      delete this.SearchObj.role
+      this.RefreshFilter()
+    }
+  }
   DeleteUser(id: string): void {
     const data = {
       id_user: id

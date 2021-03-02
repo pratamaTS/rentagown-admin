@@ -95,6 +95,12 @@
               </div>
             </div>
             <div class="card-body">
+              <a class="btn btn-primary" (click)="FilterMode('all')"> Show ALL </a>&nbsp;
+              <a class="btn btn-primary" (click)="FilterMode('admin')">Admin</a>&nbsp;
+              <a class="btn btn-primary" (click)="FilterMode('user')">User</a>&nbsp;
+              <a class="btn btn-primary" (click)="FilterMode('active')">Active</a>&nbsp;
+              <a class="btn btn-primary" (click)="FilterMode('inactive')">Inactive</a>&nbsp;
+
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
