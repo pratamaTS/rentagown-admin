@@ -50,6 +50,20 @@ export class NewsletterService {
     return this.http.post('api/newsletter/alluser', data, httpOptions);
   }
 
+  createNewsletterSelectedUser(data: any, tokenType: String, token: String | null): Observable<any> {
+    const authorization = tokenType + ' ' + token
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': authorization,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+
+    return this.http.post('api/newsletter', data, httpOptions);
+  }
+
   deleteNewsletter(id: any, data:any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
 

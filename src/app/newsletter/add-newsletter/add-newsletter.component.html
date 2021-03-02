@@ -80,8 +80,9 @@
                                     <div class="col-md-9">
                                         <div class="form-group">
                                             <label for="userEmailSelect">User Email</label>
-                                            <select class="form-control select2bs4" multiple="multiple" data-placeholder="Select Email" style="width: 100%;">
-                                                <option>All User</option>
+                                            <select (change)="selectedEmail($event)" class="form-control" multiple data-placeholder="Select Email" style="width: 100%;">
+                                                <option value='{"email": "alluser"}'>All User</option>
+                                                <option *ngFor="let user of dataUser" value='{"email": "{{user.email}}"}'>{{user.email}}</option>
                                             </select>
                                         </div>
                                     </div>
