@@ -76,6 +76,8 @@ export class ProductComponent implements OnInit {
   }
 
   onDeleteProductDetail(id: any): void {
+    let myconfirm = confirm("Delete this data, Are You Sure?");
+    if (!myconfirm) return
     const data = {
       id_product: id
     };

@@ -137,7 +137,7 @@ export class UserComponent implements OnInit {
     const data = {
       id_user: id
     };
-    let myconfirm = confirm("Are You Sure?");
+    let myconfirm = confirm("Delete this data, Are You Sure?");
     if (!myconfirm) return
     this.userService.deleteUser(data, this.tokenType, this.token)
       .subscribe(

@@ -56,6 +56,8 @@ export class NewsletterComponent implements OnInit {
   }
 
   onDeleteNewsletter(id: any): void {
+    let myconfirm = confirm("Delete this data, Are You Sure?");
+    if (!myconfirm) return
     const data = {
       newsletter_id: id
     };

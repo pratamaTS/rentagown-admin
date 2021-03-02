@@ -67,6 +67,8 @@ export class BankAccountComponent implements OnInit {
   }
 
   onDeleteBank(id: any): void {
+    let myconfirm = confirm("Delete this data, Are You Sure?");
+    if (!myconfirm) return
     const data = {
       id_bank: id
     };

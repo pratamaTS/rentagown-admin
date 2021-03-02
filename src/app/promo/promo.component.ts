@@ -65,6 +65,8 @@ export class PromoComponent implements OnInit {
   }
 
   onDelete(id: any): void {
+    let myconfirm = confirm("Delete this data, Are You Sure?");
+    if (!myconfirm) return
     const data = {
       id_promo: id
     };
