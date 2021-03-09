@@ -21,23 +21,23 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
+        <li (click)="readNotif()" class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">{{count}}</span>
+                <span *ngIf="count > 0" class="badge badge-warning navbar-badge">{{count}}</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <span class="dropdown-header">{{count}} notification</span>
                 <div *ngIf="countBookingOrder > 0" >
                   <div class="dropdown-divider"></div>
-                  <a (click)="readNotif()" type="button" class="dropdown-item">
+                  <a (click)="readNotifBooking()" type="button" class="dropdown-item">
                       New Booking order
                   </a>
                   <div class="dropdown-divider"></div>
                 </div>
                 <div *ngIf="countSalesOrder > 0" >
                   <div class="dropdown-divider"></div>
-                  <a (click)="readNotif()" type="button" class="dropdown-item">
+                  <a (click)="readNotifSO()" type="button" class="dropdown-item">
                       New sales order
                   </a>
                   <div class="dropdown-divider"></div>
