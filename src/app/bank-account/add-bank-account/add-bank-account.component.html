@@ -39,7 +39,7 @@
                         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
                     </div>
                 </div>
-                
+
                 <div class="card-body">
                    <div class="row">
                        <div class="col-md-3">
@@ -50,8 +50,10 @@
                                     <!-- Upload image input-->
                                     <br><br>
                                     <!-- Uploaded image area-->
-                                    <p class="font-italic text-center">Upload the bank logo in the update feature</p>
-                                    <div class="image-area mt-4"></div>
+                                    <p class="font-italic text-center">Bank Logo</p>
+                                    <div *ngIf="url != null" class="image-area mt-4">
+                                      <img [src]="url" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
+                                    </div>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -61,8 +63,15 @@
                         <form role="form">
                             <div class="card-body">
                                 <div class="form-group">
+                                  <label for="bankNumber">Bank</label>
+                                  <select (change)="selectedBank($event)" name="payment_method" class="form-control select2bs4" style="width: 100%;" required>
+                                    <option [ngValue]="null" [disabled]="true" >-- Select Bank --</option>
+                                    <option *ngFor="let bank of dataBank" value='{"id_mst_bank": "{{bank.id_mst_bank}}","display_name": "{{bank.display_name}}","path_photo": "{{bank.path_image}}"}'>{{bank.display_name}}</option>
+                                  </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="bankName">Bank name</label>
-                                    <input type="text" class="form-control" id="bankName" [(ngModel)]="bankAccount.bank_name" name="bank_name" placeholder="Type bank name">
+                                    <input type="text" class="form-control" id="bankName" name="bank_name" value="{{bankName}}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label for="bankNumberOwner">Account Name</label>
@@ -70,7 +79,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="bankNumber">Account Number</label>
-                                    <input type="text" class="form-control" id="bankNumber" [(ngModel)]="bankAccount.account_number" name="account_number" placeholder="Type account number">
+                                    <input type="number" class="form-control" id="bankNumber" [(ngModel)]="bankAccount.account_number" name="account_number" placeholder="Type account number">
                                 </div>
                                 <div class="alert alert-danger" role="alert" *ngIf="errorMessage!=''">
                                   Add Bank failed: {{ errorMessage }}
@@ -82,7 +91,7 @@
                             <!-- /.card-body -->
                         </form>
                        </div>
-                   </div> 
+                   </div>
                 </div>
                 <!-- /.card-body -->
             </div>

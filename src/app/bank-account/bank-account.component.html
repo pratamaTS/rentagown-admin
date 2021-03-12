@@ -57,7 +57,7 @@
                         <tbody *ngFor="let bank of dataBank">
                             <tr>
                                 <td>
-                                  <img *ngIf="bank.path_photo != ''" src="http://absdigital.id:5000{{ bank.path_photo }}" style="width: 150px; height: 50px;">
+                                  <img *ngIf="bank.path_photo != ''" src="http://absdigital.id:55000{{ bank.path_photo }}" style="width: 150px; height: 50px;">
                                   <p *ngIf="bank.path_photo == ''" class="text-center">Bank logo not available</p>
                                 </td>
                                 <td>{{ bank.bank_name }}</td>
@@ -66,7 +66,7 @@
                                 <td class="text-center">
                                     <a id="dropdownAction1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fas fa-ellipsis-h"></i></a>
                                     <ul aria-labelledby="dropdownAction1" class="dropdown-menu border-0 shadow">
-                                        <li><a routerLink="/update-bank-account/{{ bank.id_bank }}" class="dropdown-item">Update or Upload Logo</a></li>
+                                        <li><a routerLink="/update-bank-account/{{ bank.id_bank }}" class="dropdown-item">Update</a></li>
                                         <li><a (click)="onDeleteBank(bank.id_bank)" type="button" class="dropdown-item">Delete </a></li>
                                     </ul>
                                 </td>

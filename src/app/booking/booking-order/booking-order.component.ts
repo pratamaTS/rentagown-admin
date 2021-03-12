@@ -23,6 +23,11 @@ export class BookingOrderComponent implements OnInit {
   token: String | null = ''
   dataBookingOrder: any = []
   errorMessage = ''
+  currentIndex = -1
+  pageS: number = 1
+  count: number = 0
+  pageSize: number = 5
+  pageSizes = [5, 10, 20]
   Realdata: any = []
   viewMode: boolean = false;
   BookingSingle: any = {}
@@ -34,13 +39,16 @@ export class BookingOrderComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    const params = this.getRequestParams(this.pageS, this.pageSize);
+
     console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
 
     if (this.token != null) {
-      this.bookingOrderService.getAllBookingOrder(this.tokenType, this.token).subscribe(
+      this.bookingOrderService.getAllBO(this.tokenType, this.token, params).subscribe(
         data => {
           this.dataBookingOrder = data.data
+          this.count = data.total
           this.Realdata = data.data
           this.dtTrigger.next();
           console.log("booking", this.dataBookingOrder)
@@ -53,6 +61,58 @@ export class BookingOrderComponent implements OnInit {
       console.log('error', 'Please login first!')
     }
   }
+
+  getRequestParams(pageS: number, pageSize: number): any {
+    // tslint:disable-next-line:prefer-const
+    let params: any = {};
+
+    if (pageS) {
+      params[`page`] = pageS;
+    }
+
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
+  }
+
+  retrieveBooking(): void {
+    const params = this.getRequestParams(this.pageS, this.pageSize);
+
+    this.bookingOrderService.getAllBO(this.tokenType, this.token, params).subscribe(
+      data => {
+        this.dataBookingOrder = data.data
+        this.count = data.total
+        if (this.dataBookingOrder.page) {
+          params[`page`] = this.pageS - 1;
+        }
+
+        if (this.dataBookingOrder.pageSize) {
+          params[`size`] = this.pageSize;
+        }
+
+        this.Realdata = data.data
+        this.dtTrigger.next();
+        console.log("booking", this.dataBookingOrder)
+      },
+      err => {
+        this.errorMessage = err.error.message;
+      }
+    )
+  }
+
+  handlePageChange(event: number): void {
+    this.pageS = event;
+    this.retrieveBooking();
+  }
+
+  handlePageSizeChange(event: any): void {
+    this.pageSize = event.target.value;
+    this.pageS = 1;
+    this.retrieveBooking();
+  }
+
   filterData(test: any): void {
     let f = test.target.value.trim()
     this.dataBookingOrder = this.Realdata.filter((d: any) => {
@@ -60,14 +120,32 @@ export class BookingOrderComponent implements OnInit {
       return (d.name.includes(f) || d.product_name.includes(f) || d.invoice.includes(f))
     })
   }
-  processBooking(id: any) {
-    console.log("id book", id)
+
+  rejectPayment(booking: any) {
+    console.log("id book", booking.id)
     const data = {
-      id_transaction: id,
-      status: 2
+      id_transaction: booking.id,
     };
 
-    this.bookingOrderService.updateBooking(id, data, this.tokenType, this.token)
+    this.bookingOrderService.rejectPayment(data, this.tokenType, this.token)
+      .subscribe(
+        data => {
+          this.id = data.data.id_transaction
+          this.refreshData()
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+  confirmPayment(booking: any) {
+    console.log("id book", booking.id_transaction)
+    const data = {
+      id_transaction: booking.id_transaction,
+      invoice: booking.last_payment_invoice
+    };
+
+    this.bookingOrderService.confirmPayment(data, this.tokenType, this.token)
       .subscribe(
         data => {
           this.id = data.data.id_transaction
@@ -95,27 +173,9 @@ export class BookingOrderComponent implements OnInit {
         }
       );
   }
-  
+
   DisplayDate(d: any) {
     return this.helper.ApiDate(d)
-  }
-
-  doneBooking(id: any) {
-    console.log("id book", id)
-    const data = {
-      id_transaction: id,
-      status: 3
-    };
-
-    this.bookingOrderService.updateBooking(id, data, this.tokenType, this.token)
-      .subscribe(
-        data => {
-          this.id = data.data.id_transaction
-          this.refreshData()
-        },
-        error => {
-          console.log(error);
-        });
   }
 
   rerender(): void {
@@ -129,9 +189,11 @@ export class BookingOrderComponent implements OnInit {
 
   refreshData(): void {
     if (this.token != null) {
-      this.bookingOrderService.getAllBookingOrder(this.tokenType, this.token).subscribe(
+      const params = this.getRequestParams(this.pageS, this.pageSize);
+      this.bookingOrderService.getAllBO(this.tokenType, this.token, params).subscribe(
         data => {
           this.dataBookingOrder = data.data
+          this.count = data.total
           console.log('data booking', this.dataBookingOrder)
         },
         err => {

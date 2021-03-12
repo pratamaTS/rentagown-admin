@@ -6,11 +6,11 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-bank-account',
-  templateUrl: './bank-account.component.html',
-  styleUrls: ['./bank-account.component.css']
+  selector: 'app-bank',
+  templateUrl: './bank.component.html',
+  styleUrls: ['./bank.component.css']
 })
-export class BankAccountComponent implements OnInit {
+export class BankComponent implements OnInit {
 
   @ViewChild(DataTableDirective)
   dtElement!: DataTableDirective;
@@ -30,7 +30,7 @@ export class BankAccountComponent implements OnInit {
     this.token = this.tokenStorage.getToken()
 
     if (this.token != null) {
-      this.bankAccountService.getAllBankAccount(this.tokenType, this.token).subscribe(
+      this.bankAccountService.getAllBank(this.tokenType, this.token).subscribe(
         data => {
           this.dataBank = data.data
           this.Realdata = data.data
@@ -57,7 +57,7 @@ export class BankAccountComponent implements OnInit {
   }
 
   refreshData(): void {
-    this.bankAccountService.getAllBankAccount(this.tokenType, this.token).subscribe(
+    this.bankAccountService.getAllBank(this.tokenType, this.token).subscribe(
       data => {
         this.dataBank = data.data
         console.log('data bank', this.dataBank)
@@ -74,7 +74,7 @@ export class BankAccountComponent implements OnInit {
     const data = {
       id_bank: id
     };
-    this.bankAccountService.delete(id, data, this.tokenType, this.token)
+    this.bankAccountService.deleteBank(id, data, this.tokenType, this.token)
       .subscribe(
         response => {
           this.refreshData()

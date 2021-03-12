@@ -25,11 +25,13 @@ export class SidebarComponent implements OnInit {
       return "active"
     return ""
   }
+
   MenuOpen(arr: any): String {
     if (arr.includes(this.url))
       return "menu-open"
     return ""
   }
+
   ngOnInit(): void {
   }
 

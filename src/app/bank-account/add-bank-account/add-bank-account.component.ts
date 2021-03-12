@@ -10,13 +10,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-bank-account.component.css']
 })
 export class AddBankAccountComponent implements OnInit {
-  
+
   tokenType: String = 'Bearer'
   token: String | null = ''
   errorMessage = ''
+  dataBank: any = []
+  url = ""
+  bankName = ""
 
   bankAccount: BankAccount = {
-    bank_name: '',
+    id_mst_bank: '',
     account_name: '',
     account_number: '',
     path_photo: null
@@ -29,15 +32,36 @@ export class AddBankAccountComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
+    this.getBank()
+  }
+
+  getBank(): void {
+    this.bankAccountService.getAllBank(this.tokenType, this.token).subscribe(
+      data => {
+        this.dataBank = data.data
+      },
+      err => {
+        this.errorMessage = err.error.error;
+      }
+    )
+  }
+
+  selectedBank(event: any): void {
+    const valueBank = JSON.parse(event.target.value)
+    this.bankAccount.id_mst_bank = valueBank.id_mst_bank
+    this.bankName = valueBank.display_name
+    this.bankAccount.path_photo = valueBank.path_photo
+    this.url = "http://absdigital.id:55000"+this.bankAccount.path_photo
   }
 
   onCreateBank(): void {
 
     if(this.token != null){
       const data = {
-        bank_name: this.bankAccount.bank_name,
+        id_mst_bank: this.bankAccount.id_mst_bank,
         account_name: this.bankAccount.account_name,
-        account_number: this.bankAccount.account_number
+        account_number: this.bankAccount.account_number?.toString(),
+        path_photo: this.bankAccount.path_photo
       };
 
       this.bankAccountService.create(data, this.tokenType, this.token)

@@ -16,19 +16,21 @@ export class UpdateBankAccountComponent implements OnInit {
   id: any = ''
   tokenType: String = 'Bearer'
   token: String | null = ''
-  dataBank: any = []
   dataUploadPhoto: any = []
   errorMessage = ''
-  imageSrc: string = ''
+  url: string = ''
+  bankName = ''
+  dataBank: any = []
 
   constructor(private tokenStorage: TokenStorageService, private bankAccountService: BankAccountService, private route: ActivatedRoute, private router: Router) { }
 
   bankAccount: BankAccount = {
-    bank_name: '',
+    id_mst_bank: '',
     account_number: '',
     account_name: '',
     path_photo: ''
   };
+
   message = '';
   upload = false
 
@@ -38,59 +40,39 @@ export class UpdateBankAccountComponent implements OnInit {
     this.id = this.route.snapshot.params.id
     if(this.token != null){
       this.getBankAccountByID(this.id)
+      this.getBank()
     }else{
       this.message = 'Please login first!'
     }
   }
 
-
-
-  onFileChange(event: any) {
-    const reader = new FileReader();
-
-    if(event.target.files && event.target.files.length) {
-      const [logo] = event.target.files;
-      this.logo_bank_photo = logo
-      this.photo_name = logo.name
-      this.upload = true
-      reader.readAsDataURL(logo);
-      console.log("photo", logo)
-      console.log("photo name", logo.name)
-      console.log("logo bank", this.logo_bank_photo)
-
-
-      reader.onload = () => {
-        this.imageSrc = reader.result as string;
-        console.log("url image", this.imageSrc)
-      };
-
-    }
+  getBank(): void {
+    this.bankAccountService.getAllBank(this.tokenType, this.token).subscribe(
+      data => {
+        this.dataBank = data.data
+      },
+      err => {
+        this.errorMessage = err.error.error;
+      }
+    )
   }
 
-  uploadPhoto(): void {
-    console.log("photoup", this.logo_bank_photo)
-    this.bankAccountService.uploadPhotoLogoBank(this.id, this.logo_bank_photo, this.tokenType, this.token)
-    .subscribe(
-      data => {
-        console.log(data);
-        this.dataUploadPhoto = data.data
-        this.bankAccount.path_photo = this.dataUploadPhoto[0].path_photo
-        console.log("path_foto",this.bankAccount.path_photo)
-        this.onUpdate()
-      },
-      error => {
-        this.errorMessage = error.error.error;
-      });
+  selectedBank(event: any): void {
+    const valueBank = JSON.parse(event.target.value)
+    this.bankAccount.id_mst_bank = valueBank.id_mst_bank
+    this.bankName = valueBank.display_name
+    this.bankAccount.path_photo = valueBank.path_photo
+    this.url = "http://absdigital.id:55000"+this.bankAccount.path_photo
   }
 
   getBankAccountByID(id: string): void {
     this.bankAccountService.getBankAccountByID(id, this.tokenType, this.token).subscribe(
       data => {
         this.bankAccount = data.data
+        this.bankName = data.data.bank_name
         if(this.bankAccount.path_photo != ""){
-            this.imageSrc = "http://absdigital.id:5000" + this.bankAccount.path_photo
+            this.url = "http://absdigital.id:55000" + this.bankAccount.path_photo
         }
-        console.log('data bank', this.bankAccount)
       },
       err => {
         this.errorMessage = err.error.error;
@@ -99,14 +81,6 @@ export class UpdateBankAccountComponent implements OnInit {
   }
 
   onUpdateBank(): void {
-    if(this.upload == true){
-      this.uploadPhoto()
-    }else{
-      this.onUpdate()
-    }
-  }
-
-  onUpdate(): void {
     this.bankAccountService.update(this.id, this.bankAccount, this.tokenType, this.token)
       .subscribe(
         response => {

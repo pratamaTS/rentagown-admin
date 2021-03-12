@@ -12,12 +12,33 @@ export class BookingOrderService {
   getAllBookingOrder(tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
 
+    let params: any = {};
+
+    params[`page`] = 1;
+    params[`size`] = 500;
+
     const httpOptions = {
       headers: new HttpHeaders({
         'Authorization': authorization,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
-      })
+      }),
+      params: params
+    };
+
+    return this.http.get('api/booking/findall', httpOptions);
+  }
+
+  getAllBO(tokenType: String, token: String | null, params: any): Observable<any> {
+    const authorization = tokenType + ' ' + token
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': authorization,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }),
+      params: params
     };
 
     return this.http.get('api/booking/findall', httpOptions);
@@ -65,7 +86,7 @@ export class BookingOrderService {
     return this.http.get(`api/booking/find/${id}`, httpOptions);
   }
 
-  updateBooking(id: any, data: any, tokenType: String, token: String | null): Observable<any> {
+  rejectPayment(data: any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
 
     const httpOptions = {
@@ -76,6 +97,20 @@ export class BookingOrderService {
       })
     };
 
-    return this.http.put(`api/booking/update/${id}`, data, httpOptions);
+    return this.http.put(`api/booking/update/reject`, data, httpOptions);
+  }
+
+  confirmPayment(data: any, tokenType: String, token: String | null): Observable<any> {
+    const authorization = tokenType + ' ' + token
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': authorization,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+
+    return this.http.put(`api/booking/update/acc`, data, httpOptions);
   }
 }

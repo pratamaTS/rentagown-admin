@@ -39,7 +39,10 @@ import { InventoryStock } from './inventory-stock/product.component';
 import { SignupComponent } from './signup/signup.component';
 import { ForgotComponent } from './forgotpass/forgotpass.component';
 import { UserUpdateComponent } from './user/user-update/user-update.component';
-
+import { BankComponent } from './bank/bank.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { AddBankComponent } from './bank/add-bank/add-bank.component';
+import { UpdateBankComponent } from './bank/update-bank/update-bank.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -80,7 +83,10 @@ export function tokenGetter() {
     InventoryStock,
     SignupComponent,
     ForgotComponent,
-    UserUpdateComponent
+    UserUpdateComponent,
+    BankComponent,
+    AddBankComponent,
+    UpdateBankComponent
   ],
   imports: [
     BrowserModule,
@@ -89,13 +95,14 @@ export function tokenGetter() {
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
         allowedDomains: ["absdigital.id"],
         disallowedRoutes: ["http://absdigital.id/guard/"],
       },
-    }),
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

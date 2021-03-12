@@ -32,6 +32,8 @@ export class TopbarComponent implements OnInit {
   countSalesOrder: any = 0
   notifCountBook: any = 0
   notifCountSO: any = 0
+  paymentStatusBooking: any = 0
+  paymentStatusSO: any = 0
   count: any = 0
   read = false
 
@@ -46,8 +48,6 @@ export class TopbarComponent implements OnInit {
     this.countBookingOrder = this.localStorage.getCountNotifBooking() | 0
     this.countSalesOrder = this.localStorage.getCountNotifSO() | 0
     console.log('read notif get', this.read)
-
-    console.log('')
 
       if(this.token != null){
         this.getProfile()
@@ -78,10 +78,25 @@ export class TopbarComponent implements OnInit {
         this.dataBookingOrder = data.data
         this.countBookingOrder = this.dataBookingOrder.length | 0
 
+        for(let booking of this.dataBookingOrder){
+          if(booking.last_payment_status == 2){
+            this.paymentStatusBooking = 2
+            break
+          }
+        }
+
+        if(this.paymentStatusBooking == 2 && this.read == false){
+          this.countBookingOrder = this.countBookingOrder + 1
+        }
+
+        console.log('payment status', this.dataBookingOrder.last_payment_status)
         console.log('count booking', this.countBookingOrder)
         console.log('old count booking', this.oldCountBookingOrder)
 
-        if(this.countBookingOrder > this.oldCountBookingOrder){
+        if(this.countBookingOrder > this.oldCountBookingOrder && this.countBookingOrder != 0){
+          if(this.paymentStatusBooking == 2 && this.read == false){
+            this.countBookingOrder = this.countBookingOrder - 1
+          }
           this.localStorage.saveCountNotifBooking(this.countBookingOrder)
           this.notifCountBook = 1
           this.totalCount(this.notifCountBook, this.notifCountSO)
@@ -100,10 +115,24 @@ export class TopbarComponent implements OnInit {
         this.dataSalesOrder = data.data
         this.countSalesOrder = this.dataSalesOrder.length | 0
 
+        for(let so of this.dataSalesOrder){
+          if(so.last_payment_status == 2){
+            this.paymentStatusSO = 2
+            break
+          }
+        }
+
+        if(this.paymentStatusSO == 2 && this.read == false){
+          this.countSalesOrder = this.countSalesOrder + 1
+        }
+
         console.log('count so', this.countSalesOrder)
         console.log('old count so', this.oldCountSO)
 
-        if(this.countSalesOrder > this.oldCountSO){
+        if(this.countSalesOrder > this.oldCountSO && this.countSalesOrder != 0){
+          if(this.paymentStatusSO == 2 && this.read == false){
+            this.countSalesOrder = this.countSalesOrder - 1
+          }
           this.localStorage.saveCountNotifSalesOrder(this.countSalesOrder)
           this.notifCountSO = 1
           this.totalCount(this.notifCountBook, this.notifCountSO)
