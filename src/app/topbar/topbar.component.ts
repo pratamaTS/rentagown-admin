@@ -35,6 +35,9 @@ export class TopbarComponent implements OnInit {
   paymentStatusBooking: any = 0
   paymentStatusSO: any = 0
   count: any = 0
+  pageS: number = 1
+  pageSize: number = 5
+  pageSizes = [5, 10, 20]
   read = false
 
   constructor(private localStorage: LocalStorageService, private tokenStorage: TokenStorageService, private profileService: ProfileService, private bookingOrderService: BookingOrderService, private productService: ProductService, private router: Router) { }
@@ -110,7 +113,9 @@ export class TopbarComponent implements OnInit {
   }
 
   getSalesOrderCount(): void {
-    this.bookingOrderService.getAllSalesOrder(this.tokenType, this.token).subscribe(
+    const params = this.getRequestParams(this.pageS, this.pageSize);
+
+    this.bookingOrderService.getAllSalesOrder(this.tokenType, this.token, params).subscribe(
       data => {
         this.dataSalesOrder = data.data
         this.countSalesOrder = this.dataSalesOrder.length | 0
@@ -143,6 +148,21 @@ export class TopbarComponent implements OnInit {
         this.errorMessage = err.error.message;
       }
     )
+  }
+
+  getRequestParams(pageS: number, pageSize: number): any {
+    // tslint:disable-next-line:prefer-const
+    let params: any = {};
+
+    if (pageS) {
+      params[`page`] = pageS;
+    }
+
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
   }
 
   totalCount(countBook: any, countSO: any): void {

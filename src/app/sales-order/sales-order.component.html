@@ -18,7 +18,7 @@
               </div><!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                  <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
+                  <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
                   <li class="breadcrumb-item active">Sales Order</li>
                 </ol>
               </div><!-- /.col -->
@@ -31,60 +31,162 @@
         <div class="content">
           <div class="container-fluid">
             <!-- Default box -->
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Sales Order List</h3>
-                    <div class="card-tools">
-                        <input (input)="filterData($event)" placeholder="Search" />
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
-                    </div>
+            <div *ngIf="viewMode" class="row">
+              <div class="col">
+                <div class="card">
+                  <div class="card-header">
+                    <a (click)="viewMode=false" class="btn btn-primary">Back</a>
+                  </div>
+                  <div class="card-header">
+                    <h5 class="card-title">Sales Order Detail</h5>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">Customer Name : {{BookingSingle.name | titlecase}}</p>
+                    <p class="card-text">Invoice Number : {{BookingSingle.last_payment_invoice}}</p>
+                    <p class="card-text">Account Name : {{BookingSingle.last_payment_bank_name}}</p>
+                    <p class="card-text">Account Number : {{BookingSingle.last_payment_account_number}}</p>
+                    <p class="card-text">Date Created : {{BookingSingle.created_at | date: 'dd MMMM YYYY'}}</p>
+                    <p class="card-text">Start Booking : {{BookingSingle.start_date | date: 'dd MMMM YYYY'}}</p>
+                    <p class="card-text">End Booking : {{BookingSingle.end_date | date: 'dd MMMM YYYY'}}</p>
+                    <p class="card-text">Address : {{BookingSingle.address}}</p>
+                    <p class="card-text">Transaction Status : {{BookingSingle.status_name}}</p>
+                  </div>
+                  <div class="card-header">
+                    <h5 class="card-title">Payment Detail</h5>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">Payment Deadline : {{BookingSingle.last_payment_deadline | date: 'dd MMMM YYYY' }}</p>
+                    <p class="card-text">Payment Bank Name : {{BookingSingle.bank_dest_name}}</p>
+                    <p class="card-text">Payment Account Name : {{BookingSingle.account_dest_name}}</p>
+                    <p class="card-text">Payment Account Number : {{BookingSingle.account_dest_number}}</p>
+                    <p *ngIf="BookingSingle.last_payment_invoice_amount != 0" class="card-text">Payment Amount : {{BookingSingle.last_payment_invoice_amount | currency:'Rp ':'symbol':'3.0'}}</p>
+                    <p *ngIf="BookingSingle.last_payment_invoice_amount == 0" class="card-text">Payment Amount : Rp 0</p>
+                    <p *ngIf="BookingSingle.last_payment_invoice_amount != 0" class="card-text">Total Bill Amount : {{BookingSingle.last_payment_invoice_amount | currency:'Rp ':'symbol':'3.0'}}</p>
+                    <p *ngIf="BookingSingle.last_payment_invoice_amount == 0" class="card-text">Total Bill Amount : Rp 0</p>
+                  </div>
+                  <div class="card-header">
+                    <h5 class="card-title">Payment From Customer</h5>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">Repayment Bank Name : {{BookingSingle.last_payment_bank_name}}</p>
+                    <p class="card-text">Repayment Account Name : {{BookingSingle.last_payment_account_name}}</p>
+                    <p class="card-text">Repayment Account Number : {{BookingSingle.last_payment_account_number}}</p>
+                    <p *ngIf="BookingSingle.last_payment_amount != 0" class="card-text">Repayment Amount : {{BookingSingle.last_payment_amount | currency:'Rp ':'symbol':'3.0'}}</p>
+                    <p *ngIf="BookingSingle.last_payment_amount == 0" class="card-text">Repayment Amount : Rp 0</p>
+                    <p *ngIf="BookingSingle.last_payment_date_time != null" class="card-text">Repayment Date : {{BookingSingle.last_payment_date_time | date: 'dd MMMM YYYY'}}</p>
+                  </div>
+                  <div class="card-header">
+                    <h5 class="card-title">Fitting</h5>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">Bust : {{BookingSingle.bust}}</p>
+                    <p class="card-text">Arm Hole : {{BookingSingle.arm_hole}}</p>
+                    <p class="card-text">Waist : {{BookingSingle.waist}}</p>
+                    <p class="card-text">Hip : {{BookingSingle.hip}}</p>
+                  </div>
                 </div>
-                <div class="card-body">
-                    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th>SO Number</th>
-                        <th>SO Date</th>
-                        <th>Gown Name</th>
-                        <th>Rent Date</th>
-                        <th>Total Price</th>
-                        <th>Deposit Booking</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody *ngFor="let salesOrder of dataSalesOrder">
-
-                    <tr>
-                        <td>{{ salesOrder.invoice }}</td>
-                        <td>{{ salesOrder.created_at | date: 'dd-MMM-YYYY' }}</td>
-                        <td>{{ salesOrder.product_name | titlecase }}</td>
-                        <td>{{ salesOrder.start_date | date: 'dd-MMM-YYYY' }}</td>
-                        <td>{{ salesOrder.paid_price | currency:'Rp ':'symbol':'3.0' }}</td>
-                        <td *ngIf="salesOrder.down_payment > 0 || salesOrder.down_payment != null">Yes</td>
-                        <td *ngIf="salesOrder.down_payment == 0 || salesOrder.down_payment == null">No</td>
-                        <td class="text-center">
-                            <a id="dropdownAction1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fas fa-ellipsis-h"></i></a>
-                            <ul aria-labelledby="dropdownAction1" class="dropdown-menu border-0 shadow">
-                                <li><a routerLink="/sales-order-detail/{{salesOrder.id_transaction}}" class="dropdown-item">View </a></li>
-                            </ul>
-                        </td>
-                    </tr>
-
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <th>SO Number</th>
-                        <th>SO Date</th>
-                        <th>Gown Name</th>
-                        <th>Rent Date</th>
-                        <th>Total Price</th>
-                        <th>Deposit Booking</th>
-                        <th>Action</th>
-                    </tr>
-                    </tfoot>
-                    </table>
+              </div>
+              <div class="col">
+                <div class="card">
+                  <div class="card-header">
+                    Product Image
+                  </div>
+                  <img *ngIf="BookingSingle.product_path_photo !=''" src="http://absdigital.id:55000{{ BookingSingle.product_path_photo }}"
+                    style="width: 100%;">
+                  <p class="card-text" *ngIf="BookingSingle.product_path_photo ==''"> No Image</p>
                 </div>
-                <!-- /.card-body -->
+              </div>
+            </div>
+
+
+            <div *ngIf="!viewMode" class="card">
+              <div class="card-header">
+                <h3 class="card-title">Booking Order List</h3>
+                <div class="card-tools">
+                  <input (input)="filterData($event)" placeholder="Invoice Number, Customer Name or Product Name"
+                    style="width: 300px;" />
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip"
+                    title="Collapse"><i class="fas fa-minus"></i></button>
+                </div>
+              </div>
+              <div class="card-body" style="overflow-x: auto;">
+
+                Items per Page:
+                <select (change)="handlePageSizeChange($event)">
+                  <option *ngFor="let size of pageSizes" [ngValue]="size">
+                    {{ size }}
+                  </option>
+                </select>
+                <table class="table table-bordered table-striped" style="font-size: small;">
+                  <thead>
+                    <tr>
+                      <th>Invoice Number</th>
+                      <th>Customer Name</th>
+                      <th>Product Image</th>
+                      <th>Product Name</th>
+                      <th>Product Price</th>
+                      <th>Down Payment</th>
+                      <th>Remaining Bills</th>
+                      <th>Transaction Status</th>
+                      <th>Payment Status</th>
+                      <th>Payment Type</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let booking of dataSalesOrder | paginate : {
+                    itemsPerPage: pageSize,
+                    currentPage: pageS,
+                    totalItems: count
+                    }; let i = index" [class.active]="i == currentIndex">
+                    <tr *ngIf="booking.status > 0" [ngClass]="(booking.status == 1)?'table-danger':
+                    (booking.status == 2)?'table-warning':'table-success'
+                    ">
+                      <td>{{ booking.last_payment_invoice }}</td>
+                      <td>{{ booking.name | titlecase }}</td>
+                      <td><img *ngIf="booking.product_path_photo !=''" src="http://absdigital.id:55000{{ booking.product_path_photo }}"
+                          style="height: 100px;"></td>
+                      <td>{{ booking.product_name | titlecase }}</td>
+                      <td *ngIf="booking.product_final_price != 0">{{ booking.product_final_price | currency:'Rp ':'symbol':'3.0'}}</td>
+                      <td *ngIf="booking.product_final_price == 0">Rp 0</td>
+                      <td *ngIf="booking.down_payment != 0">{{ booking.down_payment | currency:'Rp ':'symbol':'3.0' }}</td>
+                      <td *ngIf="booking.down_payment == 0 && booking.payment_type == 1">Rp 0</td>
+                      <td *ngIf="booking.payment_type == 2">-</td>
+                      <td *ngIf="booking.remaining_bills != 0">{{ booking.remaining_bills | currency:'Rp ':'symbol':'3.0' }}</td>
+                      <td *ngIf="booking.remaining_bills == 0">{{ booking.next_payment_amount | currency:'Rp ':'symbol':'3.0' }}</td>
+                      <td>{{ booking.status_name | titlecase }}</td>
+                      <td>{{ booking.last_payment_status_name | titlecase }}</td>
+                      <td>{{ booking.payment_type_name | titlecase }}</td>
+                      <td class="text-center">
+                        <a (click)="viewData(booking)" type="button"> View </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>Invoice Number</th>
+                      <th>Customer Name</th>
+                      <th>Product Image</th>
+                      <th>Product Name</th>
+                      <th>Product Price</th>
+                      <th>Down Payment</th>
+                      <th>Remaining Bills</th>
+                      <th>Transaction Status</th>
+                      <th>Payment Status</th>
+                      <th>Payment Type</th>
+                      <th>Action</th>
+                    </tr>
+                  </tfoot>
+                </table>
+                <div class="col-md-12" style="text-align: right;">
+                  <pagination-controls
+                    previousLabel="Prev"
+                    nextLabel="Next"
+                    [responsive]="true"
+                    (pageChange)="handlePageChange($event)"
+                  ></pagination-controls>
+                </div>
+              </div>
+              <!-- /.card-body -->
             </div>
             <!-- /.card -->
           </div><!-- /.container-fluid -->

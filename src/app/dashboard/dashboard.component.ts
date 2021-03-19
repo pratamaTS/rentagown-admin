@@ -21,6 +21,9 @@ export class DashboardComponent implements OnInit {
   countProduct: any = 0
   countSalesOrder: any = 0
   errorMessage: string = ''
+  pageS: number = 1
+  pageSize: number = 5
+  pageSizes = [5, 10, 20]
 
   constructor(private tokenStorage: TokenStorageService, private bookingOrderService: BookingOrderService, private productService: ProductService) { }
 
@@ -39,7 +42,9 @@ export class DashboardComponent implements OnInit {
   }
 
   getSalesOrderCount(): void {
-    this.bookingOrderService.getAllSalesOrder(this.tokenType, this.token).subscribe(
+    const params = this.getRequestParams(this.pageS, this.pageSize);
+
+    this.bookingOrderService.getAllSalesOrder(this.tokenType, this.token, params).subscribe(
       data => {
         this.dataSalesOrder = data.data
         if(data.data != null){
@@ -51,6 +56,21 @@ export class DashboardComponent implements OnInit {
         this.errorMessage = err.error.message;
       }
     )
+  }
+
+  getRequestParams(pageS: number, pageSize: number): any {
+    // tslint:disable-next-line:prefer-const
+    let params: any = {};
+
+    if (pageS) {
+      params[`page`] = pageS;
+    }
+
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
   }
 
   getProductCount(): void {

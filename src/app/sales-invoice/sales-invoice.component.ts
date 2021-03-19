@@ -3,6 +3,9 @@ import { TokenStorageService } from '../_services/token-storage.service';
 import { BookingOrderService } from '../_services/booking-order.service'
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ApiHelper } from '../_services/api-helper'
+
 @Component({
   selector: 'app-sales-invoice',
   templateUrl: './sales-invoice.component.html',
@@ -17,24 +20,34 @@ export class SalesInvoiceComponent implements OnInit {
 
   tokenType: String = 'Bearer'
   token: String | null = ''
-  dataSalesInvoice: any = []
+  dataSalesOrder: any = []
   RealdataSalesInvoice: any = []
   filterText: any = ''
   errorMessage = ''
+  currentIndex = -1
+  pageS: number = 1
+  count: number = 0
+  pageSize: number = 5
+  pageSizes = [5, 10, 20]
+  Realdata: any = []
+  viewMode: boolean = false;
+  BookingSingle: any = {}
 
-  constructor(private tokenStorage: TokenStorageService, private bookingOrderService: BookingOrderService) { }
+  constructor(private tokenStorage: TokenStorageService, private helper: ApiHelper, private bookingOrderService: BookingOrderService) { }
 
   ngOnInit(): void {
+    const params = this.getRequestParams(this.pageS, this.pageSize);
+
     console.log(this.tokenStorage.getToken())
     this.token = this.tokenStorage.getToken()
 
     if (this.token != null) {
-      this.bookingOrderService.getAllSalesInvoice(this.tokenType, this.token).subscribe(
+      this.bookingOrderService.getAllSalesOrder(this.tokenType, this.token, params).subscribe(
         data => {
-          this.dataSalesInvoice = data.data
-          this.RealdataSalesInvoice = data.data
+          this.dataSalesOrder = data.data
+          this.count = data.total
+          this.Realdata = data.data
           this.dtTrigger.next();
-          console.log('data sales invoice', this.dataSalesInvoice)
         },
         err => {
           this.errorMessage = err.error.message;
@@ -44,22 +57,87 @@ export class SalesInvoiceComponent implements OnInit {
       console.log('error', 'Please login first!')
     }
   }
-  filterData(test: any): void {
-    console.log(test.target.value)
-    //let f = this.filterText.trim()
-    let f = test.target.value.trim()
-    console.log(f)
-    this.dataSalesInvoice = this.RealdataSalesInvoice.filter((d: any) => {
-      if (f == '') return true
-      // if(d.invoice== f) return true
-      // if(d.product_name== f) return true
-      console.log(d.product_name.includes(f))
 
-      return (d.product_name.includes(f) || d.invoice.includes(f))
+  getRequestParams(pageS: number, pageSize: number): any {
+    // tslint:disable-next-line:prefer-const
+    let params: any = {};
 
-    })
+    if (pageS) {
+      params[`page`] = pageS;
+    }
 
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
   }
+
+  filterData(test: any): void {
+    let f = test.target.value.trim()
+    this.dataSalesOrder = this.Realdata.filter((d: any) => {
+      if (f == '') return true
+      return (d.product_name.includes(f) || d.invoice.includes(f))
+    })
+  }
+
+  retrieveBooking(): void {
+    const params = this.getRequestParams(this.pageS, this.pageSize);
+
+    this.bookingOrderService.getAllSalesOrder(this.tokenType, this.token, params).subscribe(
+      data => {
+        this.dataSalesOrder = data.data
+        this.count = data.total
+        if (this.dataSalesOrder.page) {
+          params[`page`] = this.pageS - 1;
+        }
+
+        if (this.dataSalesOrder.pageSize) {
+          params[`size`] = this.pageSize;
+        }
+
+        this.Realdata = data.data
+        this.dtTrigger.next();
+      },
+      err => {
+        this.errorMessage = err.error.message;
+      }
+    )
+  }
+
+  handlePageChange(event: number): void {
+    this.pageS = event;
+    this.retrieveBooking();
+  }
+
+  handlePageSizeChange(event: any): void {
+    this.pageSize = event.target.value;
+    this.pageS = 1;
+    this.retrieveBooking();
+  }
+
+  viewData(a: any) {
+    this.viewMode = true
+    this.BookingSingle = a
+    this.helper.GET("api/fitting/" + a.id_fitting, "", "")
+      .subscribe(
+        data => {
+          let f = data.data
+          this.BookingSingle.bust = f.bust
+          this.BookingSingle.arm_hole = f.arm_hole
+          this.BookingSingle.waist = f.waist
+          this.BookingSingle.hip = f.hip
+        },
+        err => {
+          this.errorMessage = err.error.error;
+        }
+      );
+  }
+
+  DisplayDate(d: any) {
+    return this.helper.ApiDate(d)
+  }
+
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       // Destroy the table first

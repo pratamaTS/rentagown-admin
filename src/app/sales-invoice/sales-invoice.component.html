@@ -40,48 +40,74 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table   class="table table-bordered table-striped">
+                  <table class="table table-bordered table-striped" style="font-size: small;">
                     <thead>
-                    <tr>
-                        <th>SI Number</th>
-                        <th>SI Date</th>
-                        <th>Gown Name</th>
-                        <th>Rent Date</th>
-                        <th>Total Price</th>
-                        <th>Deposit Booking</th>
+                      <tr>
+                        <th>Invoice Number</th>
+                        <th>Customer Name</th>
+                        <th>Product Image</th>
+                        <th>Product Name</th>
+                        <th>Product Price</th>
+                        <th>Down Payment</th>
+                        <th>Remaining Bills</th>
+                        <th>Transaction Status</th>
+                        <th>Payment Status</th>
+                        <th>Payment Type</th>
                         <th>Action</th>
-                    </tr>
+                      </tr>
                     </thead>
-                    <tbody *ngFor="let salesInvoice of dataSalesInvoice">
-
-                    <tr>
-                        <td>{{ salesInvoice.invoice }}</td>
-                        <td>{{ salesInvoice.created_at | date: 'dd-MMM-YYYY' }}</td>
-                        <td>{{ salesInvoice.product_name | titlecase }}</td>
-                        <td>{{ salesInvoice.start_date | date: 'dd-MMM-YYYY' }}</td>
-                        <td>{{ salesInvoice.paid_price | currency:'Rp ':'symbol':'3.0' }}</td>
-                        <td *ngIf="salesInvoice.down_payment > 0 || salesInvoice.down_payment != null">Yes</td>
-                        <td *ngIf="salesInvoice.down_payment == 0 || salesInvoice.down_payment == null">No</td>
+                    <tbody *ngFor="let booking of dataSalesOrder | paginate : {
+                      itemsPerPage: pageSize,
+                      currentPage: pageS,
+                      totalItems: count
+                      }; let i = index" [class.active]="i == currentIndex">
+                      <tr *ngIf="booking.status > 0" [ngClass]="(booking.status == 1)?'table-danger':
+                      (booking.status == 2)?'table-warning':'table-success'
+                      ">
+                        <td>{{ booking.last_payment_invoice }}</td>
+                        <td>{{ booking.name | titlecase }}</td>
+                        <td><img *ngIf="booking.product_path_photo !=''" src="http://absdigital.id:55000{{ booking.product_path_photo }}"
+                            style="height: 100px;"></td>
+                        <td>{{ booking.product_name | titlecase }}</td>
+                        <td *ngIf="booking.product_final_price != 0">{{ booking.product_final_price | currency:'Rp ':'symbol':'3.0'}}</td>
+                        <td *ngIf="booking.product_final_price == 0">Rp 0</td>
+                        <td *ngIf="booking.down_payment != 0">{{ booking.down_payment | currency:'Rp ':'symbol':'3.0' }}</td>
+                        <td *ngIf="booking.down_payment == 0 && booking.payment_type == 1">Rp 0</td>
+                        <td *ngIf="booking.payment_type == 2">-</td>
+                        <td *ngIf="booking.remaining_bills != 0">{{ booking.remaining_bills | currency:'Rp ':'symbol':'3.0' }}</td>
+                        <td *ngIf="booking.remaining_bills == 0">{{ booking.next_payment_amount | currency:'Rp ':'symbol':'3.0' }}</td>
+                        <td>{{ booking.status_name | titlecase }}</td>
+                        <td>{{ booking.last_payment_status_name | titlecase }}</td>
+                        <td>{{ booking.payment_type_name | titlecase }}</td>
                         <td class="text-center">
-                            <a id="dropdownAction1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fas fa-ellipsis-h"></i></a>
-                            <ul aria-labelledby="dropdownAction1" class="dropdown-menu border-0 shadow">
-                                <li><a routerLink="/sales-invoice-detail/{{salesInvoice.id_transaction}}" class="dropdown-item">View </a></li>
-                            </ul>
+                          <a routerLink="/sales-invoice-detail/{{ booking.id_transaction }}" class="dropdown-item">View Sales Invoice </a>
                         </td>
-                    </tr>
+                      </tr>
                     </tbody>
                     <tfoot>
-                    <tr>
-                        <th>SO Number</th>
-                        <th>SO Date</th>
-                        <th>Gown Name</th>
-                        <th>Quantity</th>
-                        <th>Total Price</th>
-                        <th>Rent Date</th>
+                      <tr>
+                        <th>Invoice Number</th>
+                        <th>Customer Name</th>
+                        <th>Product Image</th>
+                        <th>Product Name</th>
+                        <th>Product Price</th>
+                        <th>Down Payment</th>
+                        <th>Remaining Bills</th>
+                        <th>Transaction Status</th>
+                        <th>Payment Status</th>
+                        <th>Payment Type</th>
                         <th>Action</th>
-                    </tr>
+                      </tr>
                     </tfoot>
-                    </table>
+                  </table>
+                  <div class="col-md-12" style="text-align: right;">
+                    <pagination-controls
+                      previousLabel="Prev"
+                      nextLabel="Next"
+                      [responsive]="true"
+                      (pageChange)="handlePageChange($event)"
+                    ></pagination-controls>
+                  </div>
                 </div>
                 <!-- /.card-body -->
             </div>

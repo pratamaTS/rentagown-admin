@@ -33,102 +33,108 @@
           <div class="container-fluid">
             <!-- Default box -->
             <div id="salesInvoiceReceipt" #salesInvoiceReceipt class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Sales Invoice Receipt</h3>
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
-                    </div>
-                </div>
-                <div class="card-body p-5">
-                    <form role="form">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h1 class="text-rag">SALES INVOICE</h1>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <img src="assets/dist/img/logo.png" width="80" />
-                            </div>
-                        </div>
-                        <div class="row mt-5">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="soNumber">SI Number</label>
-                                    <input type="text" class="form-control" id="soNumber" value="{{salesOrder.invoice }}" disabled="disabled">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="soNumber">Customer</label>
-                                    <input type="text" class="form-control" id="soNumber" value="{{salesOrder.name | titlecase }}" disabled="disabled">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>SI Date</label>
-                                    <input type="text" class="form-control" value="{{salesOrder.created_at | date: 'dd-MMMM-YYYY' }}" id="so_date_id" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Rent Date From</label>
-                                    <input type="text" class="form-control" value="{{salesOrder.start_date}}" id="rent_date_id" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label>Rent Date To</label>
-                                    <input type="text" class="form-control" value="{{salesOrder.end_date}}" id="rent_date_id" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="card-body table-responsive p-0 mt-5">
-                                    <table class="table table-hover text-nowrap">
-                                        <thead>
-                                            <tr>
-                                                <th>Category</th>
-                                                <th>Name</th>
-                                                <th>Quantity</th>
-                                                <th>Special Treatment</th>
-                                                <th class="text-right">Rent Price</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Wedding</td>
-                                                <td>{{ salesOrder.product_name }}</td>
-                                                <td>1</td>
-                                                <td *ngIf="salesOrder.one_day_service == 0">Regular Service</td>
-                                                <td *ngIf="salesOrder.one_day_service == 1">One Day Service</td>
-                                                <td class="text-right">{{ salesOrder.paid_price | currency:'Rp ':'symbol':'3.0' }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2"></td>
-                                                <td>Sub Total</td>
-                                                <td></td>
-                                                <td class="text-right">{{ salesOrder.paid_price | currency:'Rp ':'symbol':'3.0' }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2"></td>
-                                                <td>Deposit Booking</td>
-                                                <td></td>
-                                                <td class="text-right">{{ salesOrder.down_payment | currency:'Rp ':'symbol':'3.0' }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2"></td>
-                                                <td><b>Balance</b></td>
-                                                <td></td>
-                                                <td class="text-right"><b>{{ salesOrder.remaining_bills | currency:'Rp ':'symbol':'3.0' }}</b></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </form> 
-                </div>
-                <!-- /.card-body -->
+              <div class="card-header">
+                  <h3 class="card-title">Sales Invoice Receipt</h3>
+                  <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
+                  </div>
+              </div>
+              <div class="card-body p-5">
+                  <form role="form">
+                      <div class="row">
+                          <div class="col-md-6">
+                              <h1 class="text-rag">SALES INVOICE</h1>
+                          </div>
+                          <div class="col-md-6 text-right">
+                              <img src="assets/dist/img/logo.png" width="80" />
+                          </div>
+                      </div>
+                      <div class="row mt-5">
+                          <div class="col-md-3">
+                              <div class="form-group">
+                                  <label for="soNumber">SI Number</label>
+                                  <input type="text" class="form-control" id="soNumber" value="{{salesOrder.last_payment_invoice }}" disabled="disabled">
+                              </div>
+                          </div>
+                          <div class="col-md-3">
+                              <div class="form-group">
+                                  <label for="soNumber">Customer</label>
+                                  <input type="text" class="form-control" id="soNumber" value="{{salesOrder.receiver_name | titlecase }}" disabled="disabled">
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-3">
+                              <div class="form-group">
+                                  <label>SI Date</label>
+                                  <input type="text" class="form-control" value="{{salesOrder.created_at | date: 'dd-MMMM-YYYY' }}" id="so_date_id" readonly>
+                              </div>
+                          </div>
+                          <div class="col-md-3">
+                              <div class="form-group">
+                                  <label>Rent Date From</label>
+                                  <input type="text" class="form-control" value="{{salesOrder.start_date}}" id="rent_date_id" readonly>
+                              </div>
+                          </div>
+                          <div class="col-md-3">
+                              <div class="form-group">
+                                  <label>Rent Date To</label>
+                                  <input type="text" class="form-control" value="{{salesOrder.end_date}}" id="rent_date_id" readonly>
+                              </div>
+                          </div>
+                          <div class="col-md-12">
+                              <div class="card-body table-responsive p-0 mt-5">
+                                  <table class="table table-hover text-nowrap">
+                                      <thead>
+                                          <tr>
+                                              <th>Category</th>
+                                              <th>Name</th>
+                                              <th>Quantity</th>
+                                              <th>Special Treatment</th>
+                                              <th class="text-right">Rent Price</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          <tr>
+                                              <td>{{ salesOrder.product_category | titlecase}}</td>
+                                              <td>{{ salesOrder.product_name | titlecase }}</td>
+                                              <td>1</td>
+                                              <td *ngIf="salesOrder.one_day_service == 0">Regular Service</td>
+                                              <td *ngIf="salesOrder.one_day_service == 1">One Day Service</td>
+                                              <td class="text-right">{{ salesOrder.product_final_price | currency:'Rp ':'symbol':'3.0' }}</td>
+                                          </tr>
+                                          <tr>
+                                              <td colspan="2"></td>
+                                              <td>Sub Total</td>
+                                              <td></td>
+                                              <td class="text-right">{{ salesOrder.product_final_price | currency:'Rp ':'symbol':'3.0' }}</td>
+                                          </tr>
+                                          <tr *ngIf="salesOrder.payment_type == 1">
+                                              <td colspan="2"></td>
+                                              <td>Deposit Booking</td>
+                                              <td></td>
+                                              <td class="text-right">{{ salesOrder.down_payment | currency:'Rp ':'symbol':'3.0' }}</td>
+                                          </tr>
+                                          <tr *ngIf="salesOrder.payment_type == 2">
+                                            <td colspan="2"></td>
+                                            <td>Full Payment</td>
+                                            <td></td>
+                                            <td class="text-right">{{ salesOrder.full_payment | currency:'Rp ':'symbol':'3.0' }}</td>
+                                          </tr>
+                                          <tr>
+                                              <td colspan="2"></td>
+                                              <td><b>Total</b></td>
+                                              <td></td>
+                                              <td class="text-right"><b>{{ salesOrder.product_final_price | currency:'Rp ':'symbol':'3.0' }}</b></td>
+                                          </tr>
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+              <!-- /.card-body -->
             </div>
             <!-- /.card -->
             <div class="form-group col-12">

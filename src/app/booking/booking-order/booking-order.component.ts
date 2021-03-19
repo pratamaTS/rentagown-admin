@@ -156,6 +156,23 @@ export class BookingOrderComponent implements OnInit {
         });
   }
 
+  finishBooking(booking: any) {
+    console.log("id book", booking.id_transaction)
+    const data = {
+      id_transaction: booking.id_transaction
+    };
+
+    this.bookingOrderService.finishBooking(data, this.tokenType, this.token)
+      .subscribe(
+        data => {
+          this.id = data.data.id_transaction
+          this.refreshData()
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
   viewData(a: any) {
     this.viewMode = true
     this.BookingSingle = a

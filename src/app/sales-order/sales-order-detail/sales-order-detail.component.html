@@ -53,7 +53,7 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label for="soNumber">SO Number</label>
-                                    <input type="text" class="form-control" id="soNumber" value="{{salesOrder.invoice }}" disabled="disabled">
+                                    <input type="text" class="form-control" id="soNumber" value="{{salesOrder.last_payment_invoice }}" disabled="disabled">
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -101,13 +101,13 @@
                                                 <td>1</td>
                                                 <td *ngIf="salesOrder.one_day_service == 0">Regular Service</td>
                                                 <td *ngIf="salesOrder.one_day_service == 1">One Day Service</td>
-                                                <td class="text-right">{{ salesOrder.paid_price | currency:'Rp ':'symbol':'3.0' }}</td>
+                                                <td class="text-right">{{ salesOrder.product_final_price | currency:'Rp ':'symbol':'3.0' }}</td>
                                             </tr>
                                             <tr>
                                                 <td colspan="2"></td>
                                                 <td>Sub Total</td>
                                                 <td></td>
-                                                <td class="text-right">{{ salesOrder.paid_price | currency:'Rp ':'symbol':'3.0' }}</td>
+                                                <td class="text-right">{{ salesOrder.product_final_price | currency:'Rp ':'symbol':'3.0' }}</td>
                                             </tr>
                                             <tr>
                                                 <td colspan="2"></td>
@@ -126,7 +126,7 @@
                                 </div>
                             </div>
                         </div>
-                    </form> 
+                    </form>
                 </div>
                 <!-- /.card-body -->
             </div>

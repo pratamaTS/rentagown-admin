@@ -11,7 +11,7 @@ import { jsPDF } from 'jspdf'
   styleUrls: ['./sales-order-detail.component.css']
 })
 export class SalesOrderDetailComponent implements OnInit {
-  
+
   @ViewChild("salesOrderReceipt")
   salesOrderReceipt!: ElementRef;
   id: any = ''
@@ -22,38 +22,61 @@ export class SalesOrderDetailComponent implements OnInit {
   imageSrc: string = ''
 
   salesOrder: SalesOrder = {
-    id_transaction: '',
-    invoice: '',
-    paid_price: '',
-    id_product: '',
-    product_name: '',
-    path_photo: '',
-    id_user: '',
-    name: '',
-    address: '',
-    address_detail: '',
-    phone: '',
-    start_date: '',
-    end_date: '',
-    one_day_service: '',
-    down_payment: '',
-    forfeit: '',
-    payment_method: '',
-    status_transaction: '',
-    status: '',
-    remaining_bills: '',
-    payment_bank_name: '',
-    payment_account_number: '',
-    payment_account_name: '',
-    payment_amount: '',
-    repayment_bank_name: '',
-    repayment_account_number: '',
-    repayment_account_name: '',
-    repayment_amount: '',
-    total_bill_amount: '',
-    bookingdetails: [],
-    created_at: '' ,
-    updated_at: ''
+    id_transaction: "",
+    last_payment_invoice: "",
+    id_product: "",
+    product_name: "",
+    product_category: "",
+    product_final_price: 0,
+    product_path_photo: "",
+    product_promo_amount: 0,
+    product_promo_amount_percent: 0,
+    id_user: "",
+    name: "",
+    receiver_name: "",
+    receiver_phone: "",
+    id_address: "",
+    address_label: "",
+    address: "",
+    address_detail: "",
+    notes_address: "",
+    notes_booking: "",
+    phone: "",
+    one_day_service: 0,
+    down_payment: 0,
+    full_payment: 0,
+    start_date: "",
+    end_date: "",
+    id_dest_bank: "",
+    bank_dest_name: "",
+    account_dest_number: "",
+    account_dest_name: "",
+    bank_dest_path_photo: "",
+    remaining_bills: 0,
+    status: 0,
+    status_name: "",
+    payment_type: 0,
+    payment_type_name: "",
+    last_payment_status: 0,
+    last_payment_status_name: "",
+    last_payment_deadline: "",
+    last_payment_bank_name: "",
+    last_payment_account_number: "",
+    last_payment_account_name: "",
+    last_payment_amount: 0,
+    last_payment_invoice_amount: 0,
+    last_payment_date_time: "",
+    last_payment_method: 1,
+    last_payment_method_name: "",
+    able_fitting: 0,
+    able_pay: 0,
+    able_rate: 0,
+    next_payment_amount: 0,
+    id_fitting: "",
+    id_rating: "",
+    fcm_id: "",
+    created_at: "",
+    updated_at: ""
   }
   message = '';
 
@@ -75,8 +98,8 @@ export class SalesOrderDetailComponent implements OnInit {
     this.bookingOrderService.getSalesOrderByID(id, this.tokenType, this.token).subscribe(
       data => {
         this.salesOrder = data.data
-        if(this.salesOrder.path_photo != ""){
-            this.imageSrc = "http://absdigital.id:5000" + this.salesOrder.path_photo
+        if(this.salesOrder.product_path_photo != ""){
+            this.imageSrc = "http://absdigital.id:55000" + this.salesOrder.product_path_photo
         }
         console.log('data bank', this.salesOrder)
       },

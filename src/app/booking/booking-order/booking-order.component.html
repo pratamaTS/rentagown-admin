@@ -163,8 +163,8 @@
                         <br>
                       <a *ngIf="booking.last_payment_status == 2" (click)="rejectPayment(booking)"
                         class="btn btn-default"><i class="fas fa-minus-circle"></i> Reject Payment</a>
-                        <a *ngIf="booking.status == 5" (click)="rejectPayment(booking)"
-                        class="btn btn-default"><i class="fas fa-check-circle"></i> Finish</a>
+                      <a *ngIf="booking.status == 5" (click)="finishBooking(booking)"
+                      class="btn btn-default"><i class="fas fa-check-circle"></i> Finish</a>
                       <p *ngIf="booking.status ==3">Done</p>
                     </td>
                     <td class="text-center">

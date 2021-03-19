@@ -1,34 +1,57 @@
 export class SalesOrder {
     id_transaction?: string
-    invoice?: string
-    paid_price?: any
+    last_payment_invoice?: string
     id_product?: string
     product_name?: string
-    path_photo?: string
+    product_category?: string
+    product_final_price?: number
+    product_path_photo?: string
+    product_promo_amount?: number
+    product_promo_amount_percent?: number
     id_user?: string
     name?: string
+    receiver_name?: string
+    receiver_phone?: string
+    id_address?: string
+    address_label?: string
     address?: string
     address_detail?: string
-    phone?: any
-    start_date?: any
-    end_date?: any
-    one_day_service?: any
-    down_payment?: any
-    forfeit?: any
-    payment_method?: any
-    status_transaction?: string
-    status?: any
-    remaining_bills?: any
-    payment_bank_name?: string
-    payment_account_number?: string
-    payment_account_name?: string
-    payment_amount?: any
-    repayment_bank_name?: string
-    repayment_account_number?: string
-    repayment_account_name?: string
-    repayment_amount?: any
-    total_bill_amount?: any
-    bookingdetails?: any
-    created_at?: any
-    updated_at?: any
+    notes_address?: string
+    notes_booking?: string
+    phone?: string
+    one_day_service?: number
+    down_payment?: number
+    full_payment?: number
+    start_date?: string
+    end_date?: string
+    id_dest_bank?: string
+    bank_dest_name?: string
+    account_dest_number?: string
+    account_dest_name?: string
+    bank_dest_path_photo?: string
+    remaining_bills?: number
+    status?: number
+    status_name?: string
+    payment_type?: number
+    payment_type_name?: string
+    last_payment_status?: number
+    last_payment_status_name?: string
+    last_payment_deadline?: string
+    last_payment_bank_name?: string
+    last_payment_account_number?: string
+    last_payment_account_name?: string
+    last_payment_amount?: number
+    last_payment_invoice_amount?: number
+    last_payment_date_time?: string
+    last_payment_method?: number
+    last_payment_method_name?: string
+    able_fitting?: number
+    able_pay?:number
+    able_rate?: number
+    next_payment_amount?: number
+    id_fitting?: string
+    id_rating?: string
+    fcm_id?: string
+    created_at?: string
+    updated_at?: string
 }
