@@ -14,24 +14,6 @@ $(function () {
   var today, datepicker;
   today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
 
-  $('#si_date_id').datepicker({
-      uiLibrary: 'bootstrap4',
-      format: 'dd-mm-yyyy',
-      minDate: today
-  });
-
-  $('#so_date_id').datepicker({
-      uiLibrary: 'bootstrap4',
-      format: 'dd-mm-yyyy',
-      minDate: today
-  });
-
-  $('#rent_date_id').datepicker({
-      uiLibrary: 'bootstrap4',
-      format: 'dd-mm-yyyy',
-      minDate: today
-  });
-
   $('#promo_start_id').datepicker({
       uiLibrary: 'bootstrap4',
       format: 'dd-mm-yyyy',

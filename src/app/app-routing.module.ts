@@ -32,6 +32,7 @@ import { SignupComponent } from './signup/signup.component';
 import { ForgotComponent } from './forgotpass/forgotpass.component';
 
 import { AuthGuardService as AuthGuard } from './_services/auth-guard.service';
+import { SalesInvoiceDetailFpComponent } from './sales-invoice/sales-invoice-detail-fp/sales-invoice-detail-fp.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -62,6 +63,7 @@ const routes: Routes = [
   { path: 'update-newsletter/:id', component: UpdateNewsletterComponent, canActivate: [AuthGuard] },
   { path: 'sales-order-detail/:id', component: SalesOrderDetailComponent, canActivate: [AuthGuard] },
   { path: 'sales-invoice-detail/:id', component: SalesInvoiceDetailComponent, canActivate: [AuthGuard] },
+  { path: 'sales-invoice-detail-fp/:id', component: SalesInvoiceDetailFpComponent, canActivate: [AuthGuard] },
   { path: 'inventory-stock', component: InventoryStock, canActivate: [AuthGuard] },
   { path: 'sign-up', component: SignupComponent },
   { path: 'forgot', component: ForgotComponent }

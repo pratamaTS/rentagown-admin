@@ -178,7 +178,7 @@ export class TopbarComponent implements OnInit {
     this.localStorage.saveTotalCount(this.count)
     this.localStorage.saveStatusRead(this.read)
     console.log('read notif', this.read)
-    }, 5000);
+    }, 2000);
   }
 
   readNotifBooking(): void {

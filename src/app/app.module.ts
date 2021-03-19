@@ -43,6 +43,7 @@ import { BankComponent } from './bank/bank.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { AddBankComponent } from './bank/add-bank/add-bank.component';
 import { UpdateBankComponent } from './bank/update-bank/update-bank.component';
+import { SalesInvoiceDetailFpComponent } from './sales-invoice/sales-invoice-detail-fp/sales-invoice-detail-fp.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -86,7 +87,8 @@ export function tokenGetter() {
     UserUpdateComponent,
     BankComponent,
     AddBankComponent,
-    UpdateBankComponent
+    UpdateBankComponent,
+    SalesInvoiceDetailFpComponent
   ],
   imports: [
     BrowserModule,

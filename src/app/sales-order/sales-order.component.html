@@ -45,10 +45,10 @@
                     <p class="card-text">Invoice Number : {{BookingSingle.last_payment_invoice}}</p>
                     <p class="card-text">Account Name : {{BookingSingle.last_payment_bank_name}}</p>
                     <p class="card-text">Account Number : {{BookingSingle.last_payment_account_number}}</p>
-                    <p class="card-text">Date Created : {{BookingSingle.created_at | date: 'dd MMMM YYYY'}}</p>
+                    <p class="card-text">Date Created : {{BookingSingle.created_at | date: 'dd MMMM YYYY' :'UTC'  }}</p>
                     <p class="card-text">Start Booking : {{BookingSingle.start_date | date: 'dd MMMM YYYY'}}</p>
                     <p class="card-text">End Booking : {{BookingSingle.end_date | date: 'dd MMMM YYYY'}}</p>
-                    <p class="card-text">Address : {{BookingSingle.address}}</p>
+                    <p class="card-text">Address : {{BookingSingle.address_detail}}</p>
                     <p class="card-text">Transaction Status : {{BookingSingle.status_name}}</p>
                   </div>
                   <div class="card-header">
@@ -79,10 +79,10 @@
                     <h5 class="card-title">Fitting</h5>
                   </div>
                   <div class="card-body">
-                    <p class="card-text">Bust : {{BookingSingle.bust}}</p>
-                    <p class="card-text">Arm Hole : {{BookingSingle.arm_hole}}</p>
-                    <p class="card-text">Waist : {{BookingSingle.waist}}</p>
-                    <p class="card-text">Hip : {{BookingSingle.hip}}</p>
+                    <p class="card-text">Bust : {{BookingSingle.bust}} cm</p>
+                    <p class="card-text">Arm Hole : {{BookingSingle.arm_hole}} cm</p>
+                    <p class="card-text">Waist : {{BookingSingle.waist}} cm</p>
+                    <p class="card-text">Hip : {{BookingSingle.hip}} cm</p>
                   </div>
                 </div>
               </div>
@@ -101,7 +101,7 @@
 
             <div *ngIf="!viewMode" class="card">
               <div class="card-header">
-                <h3 class="card-title">Booking Order List</h3>
+                <h3 class="card-title">Sales Order List</h3>
                 <div class="card-tools">
                   <input (input)="filterData($event)" placeholder="Invoice Number, Customer Name or Product Name"
                     style="width: 300px;" />

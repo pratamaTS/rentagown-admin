@@ -67,7 +67,7 @@
                           <div class="col-md-3">
                               <div class="form-group">
                                   <label>SI Date</label>
-                                  <input type="text" class="form-control" value="{{salesOrder.created_at | date: 'dd MMMM YYYY':'UTC' }}" readonly>
+                                  <input type="text" class="form-control" value="{{salesOrder.created_at | date: 'dd MMMM YYYY':'UTC'}}" readonly>
                               </div>
                           </div>
                           <div class="col-md-3">
@@ -110,16 +110,16 @@
                                               <td class="text-right">{{ salesOrder.product_final_price | currency:'Rp ':'symbol':'3.0' }}</td>
                                           </tr>
                                           <tr *ngIf="salesOrder.payment_type == 1">
-                                              <td colspan="2"></td>
-                                              <td>Deposit Booking</td>
-                                              <td></td>
-                                              <td class="text-right">{{ salesOrder.down_payment | currency:'Rp ':'symbol':'3.0' }}</td>
-                                          </tr>
-                                          <tr>
                                             <td colspan="2"></td>
                                             <td>Deposit Booking Payment</td>
                                             <td></td>
                                             <td class="text-right">{{ salesOrder.down_payment | currency:'Rp ':'symbol':'3.0' }}</td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2"></td>
+                                            <td>Payment</td>
+                                            <td></td>
+                                            <td class="text-right">{{ salesOrder.last_payment_invoice_amount | currency:'Rp ':'symbol':'3.0' }}</td>
                                           </tr>
                                       </tbody>
                                   </table>

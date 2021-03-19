@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   countSalesOrder: any = 0
   errorMessage: string = ''
   pageS: number = 1
-  pageSize: number = 5
+  pageSize: number = 1000
   pageSizes = [5, 10, 20]
 
   constructor(private tokenStorage: TokenStorageService, private bookingOrderService: BookingOrderService, private productService: ProductService) { }

@@ -31,7 +31,8 @@ export class AddPromoComponent implements OnInit {
     promo_exp: '',
     terms_conditions: '',
     promo_stock: 0,
-    id_product_category: ''
+    id_product_category: '',
+    path_photo: ''
   }
 
   submitted = false
@@ -83,14 +84,16 @@ export class AddPromoComponent implements OnInit {
         promo_stock: Number(this.promo.promo_stock),
         id_product_category: this.promo.id_product_category,
         promo_start: this.helper.ApiDate(this.promo.promo_start)+" 00:00:00",
+        path_photo: ''
       };
 
       this.productService.createPromo(data, this.tokenType, this.token)
         .subscribe(
           data => {
             this.id = data.data.id_promo
+            // this.uploadPhoto()
             this.submitted = true;
-            this.uploadPhoto()
+            this.router.navigateByUrl('master-promo')
           },
           error => {
             this.errorMessage = error.error.error;
@@ -99,10 +102,13 @@ export class AddPromoComponent implements OnInit {
       console.log('error', 'Please login first!')
     }
   }
+
+
   StartdateInput(event: any): void {
     const valueDate = event.target.value
     this.promo.promo_start = valueDate
   }
+
   getAllProductCategory(): void {
     if (this.token != null) {
       this.productService.getAllProductCategory(this.tokenType, this.token).subscribe(
@@ -123,6 +129,7 @@ export class AddPromoComponent implements OnInit {
     this.promo.id_product_category = valueProcat.id
 
   }
+
   uploadPhoto(): void {
     this.productService.uploadPhotoPromo(this.id, this.data, this.tokenType, this.token)
     .subscribe(
@@ -130,7 +137,6 @@ export class AddPromoComponent implements OnInit {
         console.log(data);
         this.submitted = true;
         this.dataUploadPhoto = data.data
-        console.log("path_foto",this.dataUploadPhoto)
         this.onCreatePromoDetails()
       },
       error => {
@@ -139,23 +145,19 @@ export class AddPromoComponent implements OnInit {
   }
 
   onCreatePromoDetails(): void {
-    for(let i = 0; i < this.dataUploadPhoto.length; i++){
-      const data = {
-        id_promo: this.id,
-        path_photo: this.dataUploadPhoto[i].path_photo
-      };
+    const data = {
+      path_photo: this.dataUploadPhoto[0].path_photo
+    };
 
-      this.productService.updatePromo(this.id, data, this.tokenType, this.token)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.submitted = true;
-        },
-        error => {
-          this.errorMessage = error.error.error;
-        });
-    }
+    this.productService.updatePromo(this.id, data, this.tokenType, this.token)
+    .subscribe(
+      response => {
+        console.log(response);
+        this.submitted = true;
+      },
+      error => {
+        this.errorMessage = error.error.error;
+      });
     this.router.navigateByUrl('master-promo')
   }
-
 }

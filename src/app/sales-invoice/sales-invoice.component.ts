@@ -3,7 +3,6 @@ import { TokenStorageService } from '../_services/token-storage.service';
 import { BookingOrderService } from '../_services/booking-order.service'
 import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ApiHelper } from '../_services/api-helper'
 
 @Component({
@@ -77,7 +76,7 @@ export class SalesInvoiceComponent implements OnInit {
     let f = test.target.value.trim()
     this.dataSalesOrder = this.Realdata.filter((d: any) => {
       if (f == '') return true
-      return (d.product_name.includes(f) || d.invoice.includes(f))
+      return (d.product_name.includes(f) || d.last_payment_invoice.includes(f))
     })
   }
 
