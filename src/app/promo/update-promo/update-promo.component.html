@@ -63,7 +63,9 @@
                                     Min  : 200 pixel x 200 pixel (Square)<br>
                                     Max : 400 pixel x 400 pixel (Square)  
                                   </p>
-                                  <div class="image-area mt-4"><img id="imageResult" [src]="imageSrc" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+                                  <div *ngFor='let url of imageSrc' class="image-area mt-4"><img [src]="url" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
+                                    <p *ngIf="url != null" class="font-regular text-center">{{url.name}}</p>
+                                  </div>
                               </div>
                               <!-- /.card-body -->
                           </div>

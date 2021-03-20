@@ -209,7 +209,7 @@ export class ProductService {
     return this.http.post(`api/productdetail/photo/${id_product}`, data, httpOptions);
   }
 
-  uploadPhotoPromo(id_promo:any, data: FormData, tokenType: String, token: String | null): Observable<any> {
+  uploadPhotoPromo(data: FormData, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
 
     const httpOptions = {
@@ -219,7 +219,7 @@ export class ProductService {
       })
     };
 
-    return this.http.post(`api/promo/photo/${id_promo}`, data, httpOptions);
+    return this.http.post(`api/promo/photo`, data, httpOptions);
   }
 
   updateProduct(id: any, data: any, tokenType: String, token: String | null): Observable<any> {

@@ -84,7 +84,7 @@ export class BookingOrderService {
       })
     };
 
-    return this.http.get(`api/booking/find/${id}`, httpOptions);
+    return this.http.get(`api/booking/sales/invoice/${id}`, httpOptions);
   }
 
   rejectPayment(data: any, tokenType: String, token: String | null): Observable<any> {

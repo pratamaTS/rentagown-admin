@@ -19,7 +19,7 @@ export class AddPromoComponent implements OnInit {
   tokenType: String = 'Bearer'
   token: String | null = ''
   errorMessage = ''
-  imageSrc: any = null
+  imageSrc: any = []
   photo_name: any = null
   dataUploadPhoto: any = []
   pipe = new DatePipe('en-US');
@@ -47,22 +47,25 @@ export class AddPromoComponent implements OnInit {
 
   onFileChange(event: any) {
 
-    const reader = new FileReader();
-    if(event.target.files && event.target.files.length < 5) {
-      const [promo] = event.target.files;
-      this.data.append("photo_detail", event.target.files)
-      this.photo_name = promo.name
+    if(event.target.files && event.target.files.length < 2) {
+      const totalPhoto = event.target.files.length
 
-      reader.readAsDataURL(promo);
-      console.log("photo", promo)
-      console.log("photo name", promo.name)
+      for (let i = 0; i < totalPhoto; i++) {
 
-      reader.onload = () => {
-        this.imageSrc = reader.result as string;
-        console.log("url image", this.imageSrc)
-      };
+        const reader = new FileReader();
+
+        this.data.append("photo_detail", event.target.files[i])
+
+        console.log("photo", event.target.files)
+
+        reader.onload = (event:any) => {
+          this.imageSrc.push(event.target.result)
+        };
+
+        reader.readAsDataURL(event.target.files[i])
+      }
     }else{
-      this.errorMessage = "Max. upload image 5"
+      this.errorMessage = "Max. upload image 1"
     }
   }
 
@@ -84,7 +87,7 @@ export class AddPromoComponent implements OnInit {
         promo_stock: Number(this.promo.promo_stock),
         id_product_category: this.promo.id_product_category,
         promo_start: this.helper.ApiDate(this.promo.promo_start)+" 00:00:00",
-        path_photo: ''
+        path_photo: this.dataUploadPhoto[0].path_photo
       };
 
       this.productService.createPromo(data, this.tokenType, this.token)
@@ -131,13 +134,14 @@ export class AddPromoComponent implements OnInit {
   }
 
   uploadPhoto(): void {
-    this.productService.uploadPhotoPromo(this.id, this.data, this.tokenType, this.token)
+    this.productService.uploadPhotoPromo(this.data, this.tokenType, this.token)
     .subscribe(
       data => {
-        console.log(data);
+        console.log("data response",data);
         this.submitted = true;
         this.dataUploadPhoto = data.data
-        this.onCreatePromoDetails()
+        console.log("path_image",this.dataUploadPhoto)
+        this.onCreatePromo()
       },
       error => {
         this.errorMessage = error.error.error;

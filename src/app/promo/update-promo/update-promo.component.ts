@@ -17,7 +17,7 @@ export class UpdatePromoComponent implements OnInit {
   tokenType: String = 'Bearer'
   token: String | null = ''
   errorMessage = ''
-  imageSrc: any = null
+  imageSrc: any = []
   photo_name: any = null
   dataUploadPhoto: any = []
   isLoading: any;
@@ -28,7 +28,8 @@ export class UpdatePromoComponent implements OnInit {
     promo_exp: '',
     terms_conditions: '',
     promo_stock: 0,
-    id_product_category: ''
+    id_product_category: '',
+    path_photo: ''
   }
 
   message = ''
@@ -55,9 +56,9 @@ export class UpdatePromoComponent implements OnInit {
       data => {
         this.promo = data.data
         if (data.data.path_photo != "") {
-          this.imageSrc = "http://absdigital.id:5000" + data.data.path_photo
+          this.imageSrc.push("http://absdigital.id:55000" + this.promo.path_photo)
         }
-        console.log('data PRomo >>>>>>', this.promo)
+        console.log('data PRomo', this.promo)
       },
       err => {
         this.errorMessage = err.error.error;
@@ -69,25 +70,31 @@ export class UpdatePromoComponent implements OnInit {
     this.promo.id_product_category = valueProcat.id
 
   }
+
   onFileChange(event: any) {
 
-    const reader = new FileReader();
-    if (event.target.files && event.target.files.length < 5) {
-      const [promo] = event.target.files;
-      this.data.append("photo_detail", event.target.files)
-      this.photo_name = promo.name
+    if(event.target.files && event.target.files.length < 2) {
+      const totalPhoto = event.target.files.length
       this.upload = true
+      
+      this.imageSrc = []
 
-      reader.readAsDataURL(promo);
-      console.log("photo", promo)
-      console.log("photo name", promo.name)
+      for (let i = 0; i < totalPhoto; i++) {
 
-      reader.onload = () => {
-        this.imageSrc = reader.result as string;
-        console.log("url image", this.imageSrc)
-      };
-    } else {
-      this.errorMessage = "Max. upload image 5"
+        const reader = new FileReader();
+
+        this.data.append("photo_detail", event.target.files[i])
+
+        console.log("photo", event.target.files)
+
+        reader.onload = (event:any) => {
+          this.imageSrc.push(event.target.result)
+        };
+
+        reader.readAsDataURL(event.target.files[i])
+      }
+    }else{
+      this.errorMessage = "Max. upload image 1"
     }
   }
 
@@ -95,10 +102,12 @@ export class UpdatePromoComponent implements OnInit {
     const valueDate = event.target.value
     this.promo.promo_exp = valueDate
   }
+
   StartdateInput(event: any): void {
     const valueDate = event.target.value
     this.promo.promo_start = valueDate
   }
+
   onUpdatePromo(): void {
     if (this.upload == true) {
       this.uploadPhoto()
@@ -109,17 +118,34 @@ export class UpdatePromoComponent implements OnInit {
 
   onUpdate(): void {
     this.isLoading = true
+    let data = null
     if (this.token != null) {
-      const data = {
-        promo_name: this.promo.promo_name,
-        promo_code: this.promo.promo_code,
-        promo_amount: Number(this.promo.promo_amount),
-        promo_exp: this.helper.ApiDate(this.promo.promo_exp)+" 00:00:00",
-        terms_conditions: this.promo.terms_conditions,
-        promo_stock: Number(this.promo.promo_stock),
-        id_product_category: this.promo.id_product_category,
-        promo_start: this.helper.ApiDate(this.promo.promo_start)+" 00:00:00",
-      };
+
+      if(this.upload == false){
+        data = {
+          promo_name: this.promo.promo_name,
+          promo_code: this.promo.promo_code,
+          promo_amount: Number(this.promo.promo_amount),
+          promo_exp: this.helper.ApiDate(this.promo.promo_exp)+" 00:00:00",
+          terms_conditions: this.promo.terms_conditions,
+          promo_stock: Number(this.promo.promo_stock),
+          id_product_category: this.promo.id_product_category,
+          promo_start: this.helper.ApiDate(this.promo.promo_start)+" 00:00:00",
+          path_photo: this.promo.path_photo
+        };
+      }else{
+        data = {
+          promo_name: this.promo.promo_name,
+          promo_code: this.promo.promo_code,
+          promo_amount: Number(this.promo.promo_amount),
+          promo_exp: this.helper.ApiDate(this.promo.promo_exp)+" 00:00:00",
+          terms_conditions: this.promo.terms_conditions,
+          promo_stock: Number(this.promo.promo_stock),
+          id_product_category: this.promo.id_product_category,
+          promo_start: this.helper.ApiDate(this.promo.promo_start)+" 00:00:00",
+          path_photo: this.dataUploadPhoto[0].path_photo
+        };
+      }
 
       this.productService.updatePromo(this.id, data, this.tokenType, this.token)
         .subscribe(
@@ -127,6 +153,7 @@ export class UpdatePromoComponent implements OnInit {
             this.id = data.data.id_promo
             this.submitted = true;
             this.isLoading = false
+            this.upload = false
             this.router.navigateByUrl('master-promo')
           },
           error => {
@@ -140,6 +167,7 @@ export class UpdatePromoComponent implements OnInit {
       console.log('error', 'Please login first!')
     }
   }
+
   getAllProductCategory(): void {
     if (this.token != null) {
       this.productService.getAllProductCategory(this.tokenType, this.token).subscribe(
@@ -155,15 +183,16 @@ export class UpdatePromoComponent implements OnInit {
       console.log('error', 'Please login first!')
     }
   }
+  
   uploadPhoto(): void {
-    this.productService.uploadPhotoPromo(this.id, this.data, this.tokenType, this.token)
+    this.productService.uploadPhotoPromo(this.data, this.tokenType, this.token)
       .subscribe(
         data => {
           console.log(data);
           this.submitted = true;
           this.dataUploadPhoto = data.data
           console.log("path_foto", this.dataUploadPhoto)
-          this.onUpdatePromoDetails()
+          this.onUpdate()
         },
         error => {
           this.errorMessage = error.error.error;
