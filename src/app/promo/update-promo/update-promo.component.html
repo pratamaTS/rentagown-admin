@@ -39,7 +39,7 @@
                       <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
                   </div>
               </div>
-              
+
               <div class="card-body">
                  <div class="row">
                      <div class="col-md-3">
@@ -60,8 +60,8 @@
                                   <p class="font-italic">
                                     Upload product image <b style="color:red">*</b><br><br>
                                     Image Size<br>
-                                    Min  : 200 pixel x 200 pixel (Square)<br>
-                                    Max : 400 pixel x 400 pixel (Square)  
+                                    Min  : 800 pixel x 600 pixel<br>
+                                    Max : 1280 pixel x 800 pixel
                                   </p>
                                   <div *ngFor='let url of imageSrc' class="image-area mt-4"><img [src]="url" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
                                     <p *ngIf="url != null" class="font-regular text-center">{{url.name}}</p>
@@ -78,16 +78,16 @@
                                   <label for="newletterTitle">Promo name</label>
                                   <input type="text" class="form-control" id="newletterTitle" [(ngModel)]="promo.promo_name" name="promo_name" placeholder="Type title" value="">
                               </div>
-                              <div class="form-group">
+                              <!-- <div class="form-group">
                                   <label for="newletterTitle">Promo code</label>
                                   <input type="text" class="form-control" id="newletterTitle" [(ngModel)]="promo.promo_code" name="promo_code" placeholder="Type code" value="">
-                              </div>
+                              </div> -->
                               <div class="form-group">
                                 <label for="productCat">Product Category</label>
                                 <select (change)="selectedProductCategory($event)" name="id_product_category" class="form-control select2bs4" style="width: 100%;">
-                                  <option [ngValue]="null" [disabled]="true" >-- Select Category --</option>  
-                                  <option *ngFor="let procat of dataProductCategory" 
-                                  [selected]="procat.id_product_category == promo.id_product_category" 
+                                  <option [ngValue]="null" [disabled]="true" >-- Select Category --</option>
+                                  <option *ngFor="let procat of dataProductCategory"
+                                  [selected]="procat.id_product_category == promo.id_product_category"
                                   value='{"id": "{{procat.id_product_category}}","name": "{{procat.name_product_category}}"}'>{{procat.name_product_category}}</option>
                                 </select>
                               </div>
@@ -115,7 +115,10 @@
                                     </div>
                                   </div>
                               </div>
-                              
+                              <div class="form-group">
+                                <label for="promoDesc">Promo Description</label>
+                                <textarea rows="3" class="form-control" [(ngModel)]="promo.promo_desc" name="promo_desc" placeholder="Type your promo description" value=""></textarea>
+                              </div>
                               <div class="form-group">
                                   <label for="termCondition">Term and condition</label>
                                   <textarea rows="3" class="form-control" [(ngModel)]="promo.terms_conditions" name="terms_conditions" placeholder="Type your term and condition" value=""></textarea>

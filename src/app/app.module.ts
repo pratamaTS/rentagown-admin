@@ -41,6 +41,7 @@ import { ForgotComponent } from './forgotpass/forgotpass.component';
 import { UserUpdateComponent } from './user/user-update/user-update.component';
 import { BankComponent } from './bank/bank.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng2ImgMaxModule } from 'ng2-img-max';
 import { AddBankComponent } from './bank/add-bank/add-bank.component';
 import { UpdateBankComponent } from './bank/update-bank/update-bank.component';
 import { SalesInvoiceDetailFpComponent } from './sales-invoice/sales-invoice-detail-fp/sales-invoice-detail-fp.component';
@@ -98,6 +99,7 @@ export function tokenGetter() {
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+    Ng2ImgMaxModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,

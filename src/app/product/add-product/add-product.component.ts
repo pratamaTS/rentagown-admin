@@ -3,7 +3,7 @@ import { TokenStorageService } from '../../_services/token-storage.service';
 import { Product } from 'src/app/_models/product.model';
 import { ProductService } from 'src/app/_services/product.service';
 import { Router } from '@angular/router';
-
+import { Ng2ImgMaxService } from 'ng2-img-max';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -47,9 +47,9 @@ export class AddProductComponent implements OnInit {
   };
 
   submitted = false;
-  
 
-  constructor(private tokenStorage: TokenStorageService, private productService: ProductService, private router: Router) { }
+
+  constructor(private ng2ImgMax: Ng2ImgMaxService, private tokenStorage: TokenStorageService, private productService: ProductService, private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.tokenStorage.getToken())
@@ -105,7 +105,7 @@ export class AddProductComponent implements OnInit {
 
   selectedPromo(event: any): void {
     const valuePromo = JSON.parse(event.target.value)
-    
+
     this.product.id_promo = valuePromo.id
     this.product.promo_name = valuePromo.name
     this.product.promo_code = valuePromo.code
@@ -118,18 +118,24 @@ export class AddProductComponent implements OnInit {
   }
 
   onFileChange(event: any) {
-    
+
     if(event.target.files && event.target.files.length < 5) {
       const totalPhoto = event.target.files.length
-      
+
       for (let i = 0; i < totalPhoto; i++) {
-        
+
         const reader = new FileReader();
-        
-        this.data.append("photo_detail", event.target.files[i])
-        
-        console.log("photo", event.target.files)
-        
+
+        this.ng2ImgMax.resizeImage(event.target.files[i], 1236, 836).subscribe(
+          result => {
+            this.data.append("photo_detail", result)
+            console.log("result resize", result)
+          },
+          error => {
+            console.log('Failed to resize image!', error);
+          }
+        );
+
         reader.onload = (event:any) => {
           this.imageSrc.push(event.target.result)
         };
@@ -147,7 +153,7 @@ export class AddProductComponent implements OnInit {
         id_product: this.product.id_product,
         path_photo: this.dataUploadPhoto[i].path_photo
       };
-      
+
       this.productService.createProductDetails(data, this.tokenType, this.token)
       .subscribe(
         response => {
@@ -195,9 +201,9 @@ export class AddProductComponent implements OnInit {
         id_user: '',
         name: ''
       };
-      if (!data.product_name || 
-        !data.id_product  || 
-        !data.id_product || 
+      if (!data.product_name ||
+        !data.id_product  ||
+        !data.id_product ||
         !data.id_product_category ||
         !data.product_status ||
         !data.product_quantity ||

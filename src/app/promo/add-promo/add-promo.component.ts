@@ -4,7 +4,8 @@ import { Promo } from 'src/app/_models/promo.model';
 import { ProductService } from 'src/app/_services/product.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { ApiHelper } from '../../_services/api-helper'
+import { ApiHelper } from '../../_services/api-helper';
+import { Ng2ImgMaxService } from 'ng2-img-max';
 
 @Component({
   selector: 'app-add-promo',
@@ -27,6 +28,7 @@ export class AddPromoComponent implements OnInit {
   promo: Promo = {
     promo_name: '',
     promo_code: '',
+    promo_desc: '',
     promo_amount: 0,
     promo_exp: '',
     terms_conditions: '',
@@ -37,7 +39,7 @@ export class AddPromoComponent implements OnInit {
 
   submitted = false
 
-  constructor(private tokenStorage: TokenStorageService, private productService: ProductService, private router: Router, private helper: ApiHelper) { }
+  constructor(private ng2ImgMax: Ng2ImgMaxService, private tokenStorage: TokenStorageService, private productService: ProductService, private router: Router, private helper: ApiHelper) { }
 
   ngOnInit(): void {
     this.getAllProductCategory()
@@ -54,9 +56,15 @@ export class AddPromoComponent implements OnInit {
 
         const reader = new FileReader();
 
-        this.data.append("photo_detail", event.target.files[i])
-
-        console.log("photo", event.target.files)
+        this.ng2ImgMax.resizeImage(event.target.files[i], 500, 800).subscribe(
+          result => {
+            this.data.append("photo_detail", result)
+            console.log("result resize", result)
+          },
+          error => {
+            console.log('Failed to resize image!', error);
+          }
+        );
 
         reader.onload = (event:any) => {
           this.imageSrc.push(event.target.result)
@@ -80,7 +88,7 @@ export class AddPromoComponent implements OnInit {
     if(this.token != null){
       const data = {
         promo_name: this.promo.promo_name,
-        promo_code: this.promo.promo_code,
+        promo_desc: this.promo.promo_desc,
         promo_amount: Number(this.promo.promo_amount),
         promo_exp: this.helper.ApiDate(this.promo.promo_exp)+" 00:00:00",
         terms_conditions: this.promo.terms_conditions,

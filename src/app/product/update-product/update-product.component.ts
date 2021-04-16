@@ -3,7 +3,7 @@ import { TokenStorageService } from '../../_services/token-storage.service';
 import { Product } from 'src/app/_models/product.model';
 import { ProductService } from '../../_services/product.service'
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { Ng2ImgMaxService } from 'ng2-img-max';
 @Component({
   selector: 'app-update-product',
   templateUrl: './update-product.component.html',
@@ -34,7 +34,7 @@ export class UpdateProductComponent implements OnInit {
   dataPhoto: any = []
   imageSrc: any = []
 
-  constructor(private tokenStorage: TokenStorageService, private productService: ProductService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private ng2ImgMax: Ng2ImgMaxService, private tokenStorage: TokenStorageService, private productService: ProductService, private route: ActivatedRoute, private router: Router) { }
 
   product: Product = {
     id_product: '',
@@ -135,7 +135,12 @@ export class UpdateProductComponent implements OnInit {
         //   }
         // ]
         // console.log(">>>>>>> ", this.product)
-        this.dataPhoto = data.data.Photo
+        if (data.data.Photo) {
+          for(let photo of data.data.Photo){
+            this.imageSrc.push("http://absdigital.id:55000" + photo.path_photo)
+            console.log("photo", this.imageSrc)
+          }
+        }
       },
       err => {
         this.errorMessage = err.error.message;
@@ -162,13 +167,28 @@ export class UpdateProductComponent implements OnInit {
   }
 
   onFileChange(event: any) {
-    this.upload = true
-
     if (event.target.files && event.target.files.length < 5) {
       const totalPhoto = event.target.files.length
+
+      if(this.upload == false){
+        this.imageSrc = []
+      }
+
+      this.upload = true
       for (let i = 0; i < totalPhoto; i++) {
         const reader = new FileReader();
-        this.data.append("photo_detail", event.target.files[i])
+
+        this.ng2ImgMax.resizeImage(event.target.files[i], 1236, 836).subscribe(
+          result => {
+            this.data.append("photo_detail", result)
+            console.log("result resize", result)
+          },
+          error => {
+            console.log('Failed to resize image!', error);
+          }
+        );
+
+
         reader.onload = (event: any) => {
           this.imageSrc.push(event.target.result)
         };

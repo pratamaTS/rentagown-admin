@@ -4,6 +4,7 @@ import { Promo } from 'src/app/_models/promo.model';
 import { ProductService } from 'src/app/_services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiHelper } from '../../_services/api-helper'
+import { Ng2ImgMaxService } from 'ng2-img-max';
 
 @Component({
   selector: 'app-update-promo',
@@ -24,6 +25,7 @@ export class UpdatePromoComponent implements OnInit {
   promo: Promo = {
     promo_name: '',
     promo_code: '',
+    promo_desc: '',
     promo_amount: 0,
     promo_exp: '',
     terms_conditions: '',
@@ -36,7 +38,7 @@ export class UpdatePromoComponent implements OnInit {
   submitted = false
   upload = false
 
-  constructor(private tokenStorage: TokenStorageService, private productService: ProductService, private route: ActivatedRoute, private router: Router, private helper: ApiHelper) { }
+  constructor(private ng2ImgMax: Ng2ImgMaxService, private tokenStorage: TokenStorageService, private productService: ProductService, private route: ActivatedRoute, private router: Router, private helper: ApiHelper) { }
 
   ngOnInit(): void {
     this.getAllProductCategory()
@@ -76,14 +78,22 @@ export class UpdatePromoComponent implements OnInit {
     if(event.target.files && event.target.files.length < 2) {
       const totalPhoto = event.target.files.length
       this.upload = true
-      
+
       this.imageSrc = []
 
       for (let i = 0; i < totalPhoto; i++) {
 
         const reader = new FileReader();
 
-        this.data.append("photo_detail", event.target.files[i])
+        this.ng2ImgMax.resizeImage(event.target.files[i], 500, 800).subscribe(
+          result => {
+            this.data.append("photo_detail", result)
+            console.log("result resize", result)
+          },
+          error => {
+            console.log('Failed to resize image!', error);
+          }
+        );
 
         console.log("photo", event.target.files)
 
@@ -124,7 +134,7 @@ export class UpdatePromoComponent implements OnInit {
       if(this.upload == false){
         data = {
           promo_name: this.promo.promo_name,
-          promo_code: this.promo.promo_code,
+          promo_desc: this.promo.promo_desc,
           promo_amount: Number(this.promo.promo_amount),
           promo_exp: this.helper.ApiDate(this.promo.promo_exp)+" 00:00:00",
           terms_conditions: this.promo.terms_conditions,
@@ -136,7 +146,7 @@ export class UpdatePromoComponent implements OnInit {
       }else{
         data = {
           promo_name: this.promo.promo_name,
-          promo_code: this.promo.promo_code,
+          promo_desc: this.promo.promo_desc,
           promo_amount: Number(this.promo.promo_amount),
           promo_exp: this.helper.ApiDate(this.promo.promo_exp)+" 00:00:00",
           terms_conditions: this.promo.terms_conditions,
@@ -183,7 +193,7 @@ export class UpdatePromoComponent implements OnInit {
       console.log('error', 'Please login first!')
     }
   }
-  
+
   uploadPhoto(): void {
     this.productService.uploadPhotoPromo(this.data, this.tokenType, this.token)
       .subscribe(

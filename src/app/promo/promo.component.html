@@ -49,8 +49,10 @@
                             <tr>
                                 <th>Promo Image</th>
                                 <th>Promo Name</th>
-                                <th>Promo Code</th>
+                                <th>Category Product</th>
+                                <!-- <th>Promo Code</th> -->
                                 <th>Promo Amount</th>
+                                <th>Promo Description</th>
                                 <th>Terms & Conditions</th>
                                 <th>Promo Stock</th>
                                 <th>Promo Start</th>
@@ -61,12 +63,14 @@
                         <tbody *ngFor="let promo of dataPromo">
                             <tr>
                                 <td>
-                                  <img *ngIf="promo.path_photo != ''" src="http://absdigital.id:55000{{ promo.path_photo }}" style="width: 150px; height: 50px;">
+                                  <img *ngIf="promo.path_photo != ''" src="http://absdigital.id:55000{{ promo.path_photo }}" style="width: 250px; height: 150px;">
                                   <p *ngIf="promo.path_photo == ''" class="text-center">Promo Image not available</p>
                                 </td>
                                 <td>{{ promo.promo_name }}</td>
-                                <td>{{ promo.promo_code }}</td>
+                                <td>{{ promo.promo_name_category }}</td>
+                                <!-- <td>{{ promo.promo_code }}</td> -->
                                 <td>{{ promo.promo_amount + "%" }}</td>
+                                <td>{{ promo.promo_desc }}</td>
                                 <td>{{ promo.terms_conditions }}</td>
                                 <td>{{ promo.promo_stock }}</td>
                                 <td>{{ promo.promo_start | date: 'dd-MMM-YYYY'}}</td>
@@ -84,8 +88,10 @@
                             <tr>
                                 <th>Promo Image</th>
                                 <th>Promo Name</th>
-                                <th>Promo Code</th>
+                                <th>Category Product</th>
+                                <!-- <th>Promo Code</th> -->
                                 <th>Promo Amount</th>
+                                <th>Promo Description</th>
                                 <th>Terms & Conditions</th>
                                 <th>Promo Stock</th>
                                 <th>Promo Start</th>
