@@ -5,6 +5,7 @@ import { Email } from 'src/app/_models/email.model';
 import { NewsletterService } from 'src/app/_services/newsletter.service';
 import { UserService } from 'src/app/_services/user.service';
 import { Router } from '@angular/router';
+import { Ng2ImgMaxService } from 'ng2-img-max';
 @Component({
   selector: 'app-add-newsletter',
   templateUrl: './add-newsletter.component.html',
@@ -30,7 +31,7 @@ export class AddNewsletterComponent implements OnInit {
 
   email = []
 
-  constructor(private tokenStorage: TokenStorageService, private newsletterService: NewsletterService, private userService: UserService, private router: Router) { }
+  constructor(private ng2ImgMax: Ng2ImgMaxService, private tokenStorage: TokenStorageService, private newsletterService: NewsletterService, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     console.log(this.tokenStorage.getToken())
@@ -70,9 +71,15 @@ export class AddNewsletterComponent implements OnInit {
 
         const reader = new FileReader();
 
-        this.data.append("photo_detail", event.target.files[i])
-
-        console.log("photo", event.target.files)
+        this.ng2ImgMax.resizeImage(event.target.files[i], 800, 600).subscribe(
+          result => {
+            this.data.append("photo_detail", result)
+            console.log("result resize", result)
+          },
+          error => {
+            console.log('Failed to resize image!', error);
+          }
+        );
 
         reader.onload = (event:any) => {
           this.imageSrc.push(event.target.result)

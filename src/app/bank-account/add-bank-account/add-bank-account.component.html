@@ -50,7 +50,12 @@
                                     <!-- Upload image input-->
                                     <br><br>
                                     <!-- Uploaded image area-->
-                                    <p class="font-italic text-center">Bank Logo</p>
+                                    <p class="font-italic">
+                                      Upload logo <b style="color:red">*</b><br><br>
+                                      Image Size<br>
+                                      Min  : 800 pixel x 600 pixel<br>
+                                      Max : 1280 pixel x 800 pixel
+                                    </p>
                                     <div *ngIf="url != null" class="image-area mt-4">
                                       <img [src]="url" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
                                     </div>

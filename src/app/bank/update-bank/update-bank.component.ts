@@ -3,6 +3,7 @@ import { TokenStorageService } from '../../_services/token-storage.service';
 import { Bank } from 'src/app/_models/bank.model';
 import { BankAccountService } from '../../_services/bank-account.service'
 import { ActivatedRoute, Router } from '@angular/router';
+import { Ng2ImgMaxService } from 'ng2-img-max';
 
 @Component({
   selector: 'app-update-bank',
@@ -32,7 +33,7 @@ export class UpdateBankComponent implements OnInit {
   fotoNotNull = false;
   fotoChanged = false;
 
-  constructor(private tokenStorage: TokenStorageService, private bankAccountService: BankAccountService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private ng2ImgMax: Ng2ImgMaxService, private tokenStorage: TokenStorageService, private bankAccountService: BankAccountService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.token = this.tokenStorage.getToken()
@@ -72,9 +73,15 @@ export class UpdateBankComponent implements OnInit {
 
         const reader = new FileReader();
 
-        this.data.append("photo_detail", event.target.files[i])
-
-        console.log("photo", event.target.files)
+        this.ng2ImgMax.resizeImage(event.target.files[i], 800, 600).subscribe(
+          result => {
+            this.data.append("photo_detail", result)
+            console.log("result resize", result)
+          },
+          error => {
+            console.log('Failed to resize image!', error);
+          }
+        );
 
         reader.onload = (event:any) => {
           this.imageSrc.push(event.target.result)

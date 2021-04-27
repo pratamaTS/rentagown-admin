@@ -56,6 +56,12 @@
                                     </div>
 
                                     <!-- Uploaded image area-->
+                                    <p class="font-italic">
+                                      Upload newsletter image <b style="color:red">*</b><br><br>
+                                      Image Size<br>
+                                      Min  : 800 pixel x 600 pixel<br>
+                                      Max : 1280 pixel x 800 pixel
+                                    </p>
                                     <p *ngIf="errorMessage != null" class="font-italic text-center" style="color:red">{{errorMessage}}</p>
                                     <div *ngFor='let url of imageSrc' class="image-area mt-4"><img [src]="url" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
                                       <p *ngIf="url != null" class="font-regular text-center">{{url.name}}</p>

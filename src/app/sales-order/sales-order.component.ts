@@ -43,6 +43,7 @@ export class SalesOrderComponent implements OnInit {
       this.bookingOrderService.getAllSalesOrder(this.tokenType, this.token, params).subscribe(
         data => {
           this.dataSalesOrder = data.data
+          console.log('sales order oninit', data)
           this.count = data.total
           this.Realdata = data.data
           this.dtTrigger.next();
@@ -86,6 +87,7 @@ export class SalesOrderComponent implements OnInit {
       data => {
         this.dataSalesOrder = data.data
         this.count = data.total
+        console.log('sales order retreive', data)
         if (this.dataSalesOrder.page) {
           params[`page`] = this.pageS - 1;
         }

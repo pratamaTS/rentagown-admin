@@ -52,7 +52,7 @@
                     <tbody *ngFor="let newsletter of dataNewsletter">
                       <tr>
                         <td>{{ newsletter.title | titlecase }}</td>
-                        <td>{{ newsletter.created_at | date: 'dd-MMMM-YYYY' }}</td>
+                        <td>{{ newsletter.created_at | date: 'dd MMMM YYYY' }}</td>
                         <td>{{ newsletter.content | titlecase }}</td>
                         <td class="text-center">
                           <a id="dropdownAction2" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fas fa-ellipsis-h"></i></a>
