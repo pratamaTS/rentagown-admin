@@ -167,7 +167,7 @@ export class UpdateProductComponent implements OnInit {
   }
 
   onFileChange(event: any) {
-    if (event.target.files && event.target.files.length < 5) {
+    if (event.target.files && event.target.files.length < 6) {
       const totalPhoto = event.target.files.length
 
       if(this.upload == false){
@@ -178,7 +178,7 @@ export class UpdateProductComponent implements OnInit {
       for (let i = 0; i < totalPhoto; i++) {
         const reader = new FileReader();
 
-        this.ng2ImgMax.resizeImage(event.target.files[i], 1236, 836).subscribe(
+        this.ng2ImgMax.resizeImage(event.target.files[i], 836, 1236).subscribe(
           result => {
             this.data.append("photo_detail", result)
             console.log("result resize", result)

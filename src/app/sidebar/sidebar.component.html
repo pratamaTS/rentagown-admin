@@ -22,7 +22,7 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-          <a routerLink="/dashboard" class="nav-link {{ActiveClass('dashboard')}}">
+          <a routerLink="/dashboard" class="nav-link {{ActiveClass(['dashboard'])}}">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>Dashboard</p>
           </a>
@@ -34,19 +34,19 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a routerLink="/booking-order" class="nav-link {{ActiveClass('booking-order')}}">
+              <a routerLink="/booking-order" class="nav-link {{ActiveClass(['booking-order'])}}">
                 <i class="nav-icon fas fa-cart-arrow-down"></i>
                 <p>Booking Order</p>
               </a>
             </li>
             <li class="nav-item">
-              <a routerLink="/sales-order" class="nav-link {{ActiveClass('sales-order')}}">
+              <a routerLink="/sales-order" class="nav-link {{ActiveClass(['sales-order'])}}">
                 <i class="nav-icon fas fa-cart-arrow-down"></i>
                 <p>Sales Order</p>
               </a>
             </li>
             <li class="nav-item">
-              <a routerLink="/sales-invoice" class="nav-link {{ActiveClass('sales-invoice')}}">
+              <a routerLink="/sales-invoice" class="nav-link {{ActiveClass(['sales-invoice'])}}">
                 <i class="nav-icon fas fa-file-invoice"></i>
                 <p>Sales Invoice</p>
               </a>
@@ -73,32 +73,32 @@
             </a>
           </li> -->
         <li
-          class="nav-item has-treeview {{MenuOpen(['master-user','master-product','master-product-category','master-wishlist','master-newsletter','master-promo','master-bank','master-bank-account'])}}">
+          class="nav-item has-treeview {{MenuOpen(['master-user','master-product','add-product','master-product-category','master-wishlist','master-newsletter','add-newsletter','master-promo','add-promo','master-bank','add-bank','master-bank-account','add-bank-account'])}}">
           <a class="nav-link">
             <i class="nav-icon fas fa-th"></i>
             <p>Master <i class="right fas fa-angle-left"></i></p>
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a routerLink="/master-user" class="nav-link {{ActiveClass('master-user')}}">
+              <a routerLink="/master-user" class="nav-link {{ActiveClass(['master-user'])}}">
                 <i class="fas fa-user nav-icon"></i>
                 <p>Master User</p>
               </a>
             </li>
-            <li class="nav-item has-treeview {{MenuOpen(['master-product','master-product-category'])}}">
+            <li class="nav-item has-treeview {{MenuOpen(['master-product','add-product','update-product','master-product-category'])}}">
               <a class="nav-link">
                 <i class="fas fa-box-open nav-icon"></i>
                 <p>Master Product <i class="right fas fa-angle-left"></i></p>
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a routerLink="/master-product" class="nav-link {{ActiveClass('master-product')}}">
+                  <a routerLink="/master-product" class="nav-link {{ActiveClass(['master-product','add-product','update-product'])}}">
                     <i class="nav-icon fas fa-dolly-flatbed"></i>
                     <p>Product</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a routerLink="/master-product-category" class="nav-link {{ActiveClass('master-product-category')}}">
+                  <a routerLink="/master-product-category" class="nav-link {{ActiveClass(['master-product-category'])}}">
                     <i class="fas fa-boxes nav-icon"></i>
                     <p>Product Category</p>
                   </a>
@@ -106,31 +106,31 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a routerLink="/master-wishlist" class="nav-link {{ActiveClass('master-wishlist')}}">
+              <a routerLink="/master-wishlist" class="nav-link {{ActiveClass(['master-wishlist'])}}">
                 <i class="fas fa-heart nav-icon"></i>
                 <p>Master Wishlist</p>
               </a>
             </li>
             <li class="nav-item">
-              <a routerLink="/master-newsletter" class="nav-link {{ActiveClass('master-newsletter')}}">
+              <a routerLink="/master-newsletter" class="nav-link {{ActiveClass(['master-newsletter','add-newsletter'])}}">
                 <i class="fas fa-newspaper nav-icon"></i>
                 <p>Master Newsletter</p>
               </a>
             </li>
             <li class="nav-item">
-              <a routerLink="/master-promo" class="nav-link {{ActiveClass('master-promo')}}">
+              <a routerLink="/master-promo" class="nav-link {{ActiveClass(['master-promo','add-promo'])}}">
                 <i class="fas fa-percentage nav-icon"></i>
                 <p>Master Promo</p>
               </a>
             </li>
             <li class="nav-item">
-              <a routerLink="/master-bank" class="nav-link {{ActiveClass('master-bank')}}">
+              <a routerLink="/master-bank" class="nav-link {{ActiveClass(['master-bank','add-bank'])}}">
                 <i class="fas fa-credit-card nav-icon"></i>
                 <p>Master Bank</p>
               </a>
             </li>
             <li class="nav-item">
-              <a routerLink="/master-bank-account" class="nav-link {{ActiveClass('master-bank-account')}}">
+              <a routerLink="/master-bank-account" class="nav-link {{ActiveClass(['master-bank-account','add-bank-account'])}}">
                 <i class="fas fa-credit-card nav-icon"></i>
                 <p>Master Bank Account</p>
               </a>
@@ -145,7 +145,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a routerLink="/inventory-stock" class="nav-link {{ActiveClass('inventory-stock')}}">
+              <a routerLink="/inventory-stock" class="nav-link {{ActiveClass(['inventory-stock'])}}">
                 <i class="fas fa-boxes nav-icon"></i>
                 <p>Inventory Stock</p>
               </a>

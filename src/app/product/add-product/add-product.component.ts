@@ -119,14 +119,18 @@ export class AddProductComponent implements OnInit {
 
   onFileChange(event: any) {
 
-    if(event.target.files && event.target.files.length < 5) {
+    if(event.target.files && event.target.files.length < 6) {
       const totalPhoto = event.target.files.length
 
       for (let i = 0; i < totalPhoto; i++) {
 
         const reader = new FileReader();
 
-        this.ng2ImgMax.resizeImage(event.target.files[i], 1236, 836).subscribe(
+        console.log("size foto", event.target.files[i])
+        console.log("width", event.target.files[i].width)
+        console.log("height", event.target.files[i].height)
+
+        this.ng2ImgMax.resizeImage(event.target.files[i], 836, 1236).subscribe(
           result => {
             this.data.append("photo_detail", result)
             console.log("result resize", result)
@@ -203,7 +207,6 @@ export class AddProductComponent implements OnInit {
       };
       if (!data.product_name ||
         !data.id_product  ||
-        !data.id_product ||
         !data.id_product_category ||
         !data.product_status ||
         !data.product_quantity ||

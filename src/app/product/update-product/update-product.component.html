@@ -60,7 +60,7 @@
                                       Upload product image <b style="color:red">*</b><br><br>
                                       Image Size<br>
                                       Min  : 418 pixel x 618 pixel (Portrait)<br>
-                                      Max : 836 pixel x 1,236 pixel (Portrait)  
+                                      Max : 836 pixel x 1,236 pixel (Portrait)
                                     </p>
                                     <div *ngFor='let url of imageSrc' class="image-area mt-4"><img [src]="url" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
                                       <p *ngIf="url != null" class="font-regular text-center">{{url.name}}</p>
@@ -93,9 +93,9 @@
                                 <div class="form-group">
                                     <label for="productCat">Product Category</label><label for="productCat" style="color:red">*</label>
                                     <select (change)="selectedProductCategory($event)" name="id_product_category" class="form-control select2bs4" style="width: 100%;" required>
-                                      <option [ngValue]="null" [disabled]="true" >-- Select Category --</option>  
+                                      <option [ngValue]="null" [disabled]="true" >-- Select Category --</option>
                                       <option *ngFor="let procat of dataProductCategory"
-                                      [selected]="procat.name_product_category == product.name_product_category" 
+                                      [selected]="procat.name_product_category == product.name_product_category"
                                        value='{"id": "{{procat.id_product_category}}","name": "{{procat.name_product_category}}"}'
                                       >{{procat.name_product_category}}</option>
                                     </select>
@@ -113,7 +113,7 @@
                                     <div class="form-group">
                                       <label for="productStatus">Product Status</label><label for="productStatus" style="color:red">*</label>
                                       <select (change)="selectedProductStatus($event)" name="product_status" class="form-control select2bs4" style="width: 100%;" required>
-                                        <option [ngValue]="null" [disabled]="true" >-- Select Product Status --</option>  
+                                        <option [ngValue]="null" [disabled]="true" >-- Select Product Status --</option>
                                         <option value="1" [selected]="product.product_status==1" > Available</option>
                                         <option value="0" [selected]="product.product_status==0">Not Available</option>
                                       </select>
@@ -148,7 +148,7 @@
                           <h5 class="card-header">No Rating Yet</h5>
                         </div>
                     </div>
-                   </div> 
+                   </div>
                 </div>
                 <!-- /.card-body -->
             </div>

@@ -20,15 +20,15 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-  ActiveClass(link: any): String {
-    if (link == this.url)
+  ActiveClass(arr: any): String {
+    if (arr.includes(this.url))
       return "active"
     return ""
   }
 
   MenuOpen(arr: any): String {
     if (arr.includes(this.url))
-      return "menu-open"
+      return "active menu-open"
     return ""
   }
 
