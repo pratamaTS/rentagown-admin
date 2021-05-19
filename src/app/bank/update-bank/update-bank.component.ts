@@ -24,9 +24,9 @@ export class UpdateBankComponent implements OnInit {
     name: '',
     display_name: '',
     path_image: null,
-    payment_method_type: 0,
+    payment_method_type: null,
     payment_method_name: '',
-    status: 1
+    status: null
   };
 
   submitted = false;
@@ -51,7 +51,7 @@ export class UpdateBankComponent implements OnInit {
         this.bank = data.data
         if(this.bank.path_image != ""){
           this.fotoNotNull = true
-          this.imageSrc.push("http://absdigital.id:55000" + this.bank.path_image)
+          this.imageSrc.push("https://apps.rentagown.id:50443" + this.bank.path_image)
         }
         console.log('data bank', this.bank)
       },
@@ -76,6 +76,7 @@ export class UpdateBankComponent implements OnInit {
         this.ng2ImgMax.resizeImage(event.target.files[i], 800, 600).subscribe(
           result => {
             this.data.append("photo_detail", result)
+            this.submitted = true;
             console.log("result resize", result)
           },
           error => {
@@ -108,19 +109,28 @@ export class UpdateBankComponent implements OnInit {
   }
 
   uploadPhoto(): void {
-    this.bankAccountService.uploadPhotoLogoMstBank(this.data, this.tokenType, this.token)
-    .subscribe(
-      data => {
-        console.log(data);
-        this.submitted = true;
-        this.dataUploadPhoto = data.data
-        console.log("path_image",this.dataUploadPhoto)
-        this.submitted = true
-        this.onUpdateBank()
-      },
-      error => {
-        console.log(error);
-      });
+    if(this.bank.name == null || this.bank.name == ""){
+      this.errorMessage = "Corporate name is required"
+    }else if(this.bank.display_name == null || this.bank.display_name == ""){
+      this.errorMessage = "Bank name is required"
+    }else if(this.bank.payment_method_type == null){
+      this.errorMessage = "Payment method is required"
+    }else if(this.bank.status == null){
+      this.errorMessage = "Activated bank is required"
+    }else{
+      this.bankAccountService.uploadPhotoLogoMstBank(this.data, this.tokenType, this.token)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.dataUploadPhoto = data.data
+          console.log("path_image",this.dataUploadPhoto)
+          this.submitted = true
+          this.onUpdateBank()
+        },
+        error => {
+          console.log(error);
+        });
+    }
   }
 
   onUpdateBank(): void {
@@ -130,6 +140,8 @@ export class UpdateBankComponent implements OnInit {
     }else{
       if(this.submitted == true){
         this.bank.path_image = this.dataUploadPhoto[0].path_photo
+      }else if(this.bank.name == "OTHER BANK"){
+        this.bank.path_image = ""
       }
       this.bank.payment_method_type = Number(this.bank.payment_method_type)
       this.bank.status = Number(this.bank.status)

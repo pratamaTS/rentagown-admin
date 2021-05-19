@@ -57,7 +57,7 @@
 
                                   <!-- Uploaded image area-->
                                   <p class="font-italic">
-                                    Upload product image <b style="color:red">*</b><br><br>
+                                    Upload promo image <b style="color:red">*</b><br><br>
                                     Image Size<br>
                                     Min  : 800 pixel x 600 pixel<br>
                                     Max : 1280 pixel x 800 pixel
@@ -74,7 +74,7 @@
                         <form role="form">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="newletterTitle">Promo name</label>
+                                    <label for="newletterTitle">Promo name</label><label for="promoName" style="color:red">*</label>
                                     <input type="text" class="form-control" id="newletterTitle" [(ngModel)]="promo.promo_name" name="promo_name" placeholder="Type title" value="">
                                 </div>
                                 <!-- <div class="form-group">
@@ -82,24 +82,24 @@
                                     <input type="text" class="form-control" id="newletterTitle" [(ngModel)]="promo.promo_code" name="promo_code" placeholder="Type code" value="">
                                 </div> -->
                                 <div class="form-group">
-                                  <label for="productCat">Product Category</label>
+                                  <label for="productCat">Product Category</label><label for="prodCategory" style="color:red">*</label>
                                   <select (change)="selectedProductCategory($event)" name="id_product_category" class="form-control select2bs4" style="width: 100%;">
                                     <option [ngValue]="null" [disabled]="true" >-- Select Category --</option>
                                     <option *ngFor="let procat of dataProductCategory" value='{"id": "{{procat.id_product_category}}","name": "{{procat.name_product_category}}"}'>{{procat.name_product_category}}</option>
                                   </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="discount">Discount (%)</label>
+                                    <label for="discount">Discount (%)</label><label for="disc" style="color:red">*</label>
                                     <input type="text" class="form-control" id="discount" [(ngModel)]="promo.promo_amount" name="promo_amount" placeholder="Type discount ex: 30" value="">
                                 </div>
                                 <div class="form-group">
-                                  <label for="promo_stock">Promo Stock</label>
+                                  <label for="promo_stock">Promo Stock</label><label for="promoStock" style="color:red">*</label>
                                   <input type="text" class="form-control" id="promo_stock" [(ngModel)]="promo.promo_stock" name="promo_stock" placeholder="Promo Stock" value="">
                                 </div>
                                 <div class="form-row">
                                   <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Promo Period Start</label>
+                                        <label>Promo Period Start</label><label for="promoPeriodStart" style="color:red">*</label>
                                         <input type="date" class="form-control" [ngModel]="promo.promo_start | date:'yyyy-MM-dd'"  (change)="StartdateInput($event)"     name="promo_start" >
                                     </div>
                                   </div>
@@ -107,7 +107,7 @@
                                 <div class="form-row">
                                     <div class="col-md-12">
                                       <div class="form-group">
-                                          <label>Promo period Expired</label>
+                                          <label>Promo period Expired</label><label for="promoExp" style="color:red">*</label>
                                           <input type="date" class="form-control" [ngModel]="promo.promo_exp | date:'yyyy-MM-dd'" (change)="dateInput($event)" name="promo_exp" palceholder="Expired Date">
                                       </div>
                                     </div>

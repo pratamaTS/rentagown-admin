@@ -14,13 +14,13 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1 class="m-0 text-dark">Add Bank</h1><br/>
+              <h1 class="m-0 text-dark">Update Bank</h1><br/>
               <a routerLink="/master-bank" class="btn btn-primary"><i class="fas fa-long-arrow-alt-left"></i>  Back to Master Bank</a>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a routerLink="/dashboard" >Dashboard</a></li>
-                <li class="breadcrumb-item active">Add Bank</li>
+                <li class="breadcrumb-item active">Update Bank</li>
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -75,21 +75,21 @@
                       <form role="form">
                           <div class="card-body">
                               <div class="form-group">
-                                  <label for="bankName">Corporate name</label>
+                                  <label for="bankName">Corporate name</label><label for="corpName" style="color:red">*</label>
                                   <input type="text" class="form-control" id="corporateName" [(ngModel)]="bank.name" name="name" placeholder="Type Corporate Name" value="{{bank.name}}">
                               </div>
                               <div class="form-group">
-                                  <label for="bankNumberOwner">Bank Name</label>
+                                  <label for="bankNumberOwner">Bank Name</label><label for="bankName" style="color:red">*</label>
                                   <input type="text" class="form-control" id="bankName" [(ngModel)]="bank.display_name" name="display_name" placeholder="Type Bank Name" value="{{bank.display_name}}">
                               </div>
                               <div class="form-group">
-                                  <label for="bankNumber">Payment Method</label>
+                                  <label for="bankNumber">Payment Method</label><label for="paymentMethod" style="color:red">*</label>
                                   <select (change)="selectedPaymentMethod($event)" name="payment_method" class="form-control select2bs4" style="width: 100%;" required>
                                     <option *ngIf="bank.payment_method_type == 1" value='{"payment_method_type": "1","payment_method_name": "Transfer"}'>Transfer</option>
                                   </select>
                               </div>
                               <div class="form-group">
-                                <label for="bankNumber">Activated Bank</label>
+                                <label for="bankNumber">Activated Bank</label><label for="activatedBank" style="color:red">*</label>
                                 <select (change)="selectedStatus($event)" name="status" class="form-control select2bs4" style="width: 100%;" required>
                                   <option *ngIf="bank.status == 1" value='1'>Active</option>
                                   <option *ngIf="bank.status == 1" value='0'>Not Active</option>

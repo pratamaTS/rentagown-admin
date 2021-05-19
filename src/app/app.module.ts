@@ -45,6 +45,8 @@ import { Ng2ImgMaxModule } from 'ng2-img-max';
 import { AddBankComponent } from './bank/add-bank/add-bank.component';
 import { UpdateBankComponent } from './bank/update-bank/update-bank.component';
 import { SalesInvoiceDetailFpComponent } from './sales-invoice/sales-invoice-detail-fp/sales-invoice-detail-fp.component';
+import { UserAddComponent } from './user/user-add/user-add.component';
+import { UserEditComponent } from './user/user-edit/user-edit.component';
 
 export function tokenGetter() {
   return localStorage.getItem("access_token");
@@ -89,7 +91,9 @@ export function tokenGetter() {
     BankComponent,
     AddBankComponent,
     UpdateBankComponent,
-    SalesInvoiceDetailFpComponent
+    SalesInvoiceDetailFpComponent,
+    UserAddComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
@@ -103,8 +107,8 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        allowedDomains: ["absdigital.id"],
-        disallowedRoutes: ["http://absdigital.id/guard/"],
+        allowedDomains: ["admin.rentagown.id"],
+        disallowedRoutes: ["http://apps.rentagown.id/guard/"],
       },
     })
   ],

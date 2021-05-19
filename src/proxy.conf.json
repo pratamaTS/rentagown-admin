@@ -1,6 +1,6 @@
 {
     "/api/*": {
-        "target": "http://absdigital.id:55000/api/v/2",
+        "target": "https://apps.rentagown.id:50443/api/v/2",
         "secure": false,
         "pathRewrite": {"^/api" : ""},
         "changeOrigin": true,

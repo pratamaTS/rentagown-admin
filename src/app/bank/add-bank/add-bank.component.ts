@@ -22,9 +22,9 @@ export class AddBankComponent implements OnInit {
     name: '',
     display_name: '',
     path_image: null,
-    payment_method_type: 0,
+    payment_method_type: null,
     payment_method_name: '',
-    status: 1
+    status: null
   };
 
   submitted = false;
@@ -48,6 +48,7 @@ export class AddBankComponent implements OnInit {
         this.ng2ImgMax.resizeImage(event.target.files[i], 800, 600).subscribe(
           result => {
             this.data.append("photo_detail", result)
+            this.submitted = true;
             console.log("result resize", result)
           },
           error => {
@@ -80,44 +81,76 @@ export class AddBankComponent implements OnInit {
   }
 
   uploadPhoto(): void {
-    this.bankAccountService.uploadPhotoLogoMstBank(this.data, this.tokenType, this.token)
-    .subscribe(
-      data => {
-        console.log(data);
-        this.submitted = true;
-        this.dataUploadPhoto = data.data
-        console.log("path_image",this.dataUploadPhoto)
-        this.onCreateBank()
-      },
-      error => {
-        console.log(error);
-      });
+    if(this.bank.name != "other bank" && this.submitted == false){
+      this.errorMessage = "Logo bank is required"
+    }else if(this.bank.name == null || this.bank.name == ""){
+      this.errorMessage = "Corporate name is required"
+    }else if(this.bank.display_name == null || this.bank.display_name == ""){
+      this.errorMessage = "Bank name is required"
+    }else if(this.bank.payment_method_type == null){
+      this.errorMessage = "Payment method is required"
+    }else if(this.bank.status == null){
+      this.errorMessage = "Activated bank is required"
+    }else{
+      this.bankAccountService.uploadPhotoLogoMstBank(this.data, this.tokenType, this.token)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.dataUploadPhoto = data.data
+          console.log("path_image",this.dataUploadPhoto)
+          this.onCreateBank()
+        },
+        error => {
+          console.log(error);
+        });
+    }
   }
 
   onCreateBank(): void {
-
     if(this.token != null){
+      if(this.bank.name == "other bank"){
+        const data = {
+          name: this.bank.name,
+          display_name: this.bank.display_name,
+          path_image: "",
+          payment_method_type: Number(this.bank.payment_method_type),
+          payment_method_name: this.bank.payment_method_name,
+          status: Number(this.bank.status)
+        };
 
-      const data = {
-        name: this.bank.name,
-        display_name: this.bank.display_name,
-        path_image: this.dataUploadPhoto[0].path_photo,
-        payment_method_type: Number(this.bank.payment_method_type),
-        payment_method_name: this.bank.payment_method_name,
-        status: Number(this.bank.status)
-      };
+        this.bankAccountService.createBank(data, this.tokenType, this.token)
+          .subscribe(
+            response => {
+              console.log(response);
+              this.errorMessage = '';
+              this.submitted = true;
+              this.router.navigateByUrl('master-bank');
+            },
+            error => {
+              this.errorMessage = error.error.error;
+        });
+      }else{
+        const data = {
+          name: this.bank.name,
+          display_name: this.bank.display_name,
+          path_image: this.dataUploadPhoto[0].path_photo,
+          payment_method_type: Number(this.bank.payment_method_type),
+          payment_method_name: this.bank.payment_method_name,
+          status: Number(this.bank.status)
+        };
 
-      this.bankAccountService.createBank(data, this.tokenType, this.token)
-        .subscribe(
-          response => {
-            console.log(response);
-            this.errorMessage = '';
-            this.submitted = true;
-            this.router.navigateByUrl('master-bank');
-          },
-          error => {
-            this.errorMessage = error.error.error;
-      });
+        this.bankAccountService.createBank(data, this.tokenType, this.token)
+          .subscribe(
+            response => {
+              console.log(response);
+              this.errorMessage = '';
+              this.submitted = true;
+              this.router.navigateByUrl('master-bank');
+            },
+            error => {
+              this.errorMessage = error.error.error;
+        });
+      }
     }else{
       console.log('error', 'Please login first!')
     }

@@ -68,6 +68,23 @@ export class BankAccountComponent implements OnInit {
     )
   }
 
+  setAsDefaultBank(id: any): void {
+    let myconfirm = confirm("Are You Sure want to set this bank to default?");
+    if (!myconfirm) return
+    const data = {
+      id_bank: id
+    };
+    this.bankAccountService.setAsDefaultAccountBank(id, data, this.tokenType, this.token)
+      .subscribe(
+        response => {
+          alert("Set as default bank success!")
+          this.refreshData()
+        },
+        err => {
+          this.errorMessage = err.error.error;
+        });
+  }
+
   onDeleteBank(id: any): void {
     let myconfirm = confirm("Delete this data, Are You Sure?");
     if (!myconfirm) return

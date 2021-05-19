@@ -67,20 +67,25 @@ export class ProductCategoryComponent implements OnInit {
   onCreateProductCategory(): void {
 
     if (this.token != null) {
-      const data = {
-        name_product_category: this.productCategory.name_product_category
-      };
+      if(this.productCategory.name_product_category == null || this.productCategory.name_product_category == ""){
+        this.errorMessage = "Category name is required"
+      }else{
+        const data = {
+          name_product_category: this.productCategory.name_product_category
+        };
 
-      this.productService.createProductCategory(data, this.tokenType, this.token)
-        .subscribe(
-          response => {
-            this.errorMessage = '';
-            this.submitted = true;
-            this.refreshData()
-          },
-          error => {
-            this.errorMessage = error.error.error;
-          });
+        this.productService.createProductCategory(data, this.tokenType, this.token)
+          .subscribe(
+            response => {
+              this.productCategory.name_product_category = ""
+              this.errorMessage = '';
+              this.submitted = true;
+              this.refreshData()
+            },
+            error => {
+              this.errorMessage = error.error.error;
+            });
+      }
     } else {
       console.log('error', 'Please login first!')
     }
@@ -95,6 +100,7 @@ export class ProductCategoryComponent implements OnInit {
     this.productService.deleteProductCategory(id, data, this.tokenType, this.token)
       .subscribe(
         response => {
+          this.productCategory.name_product_category = ""
           console.log(response);
           this.refreshData()
         },

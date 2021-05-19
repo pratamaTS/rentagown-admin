@@ -30,6 +30,8 @@ export class AddNewsletterComponent implements OnInit {
   };
 
   email = []
+  emailSelected = false
+  submitted = false
 
   constructor(private ng2ImgMax: Ng2ImgMaxService, private tokenStorage: TokenStorageService, private newsletterService: NewsletterService, private userService: UserService, private router: Router) { }
 
@@ -41,6 +43,7 @@ export class AddNewsletterComponent implements OnInit {
 
   selectedEmail(event: any): void {
     const valueUserEmail = JSON.parse(event.target.value)
+    this.emailSelected = true
     if(valueUserEmail.email != "alluser"){
       this.dataEmail.push(valueUserEmail.email)
       this.allUser = false
@@ -74,6 +77,7 @@ export class AddNewsletterComponent implements OnInit {
         this.ng2ImgMax.resizeImage(event.target.files[i], 800, 600).subscribe(
           result => {
             this.data.append("photo_detail", result)
+            this.submitted = true
             console.log("result resize", result)
           },
           error => {
@@ -93,17 +97,27 @@ export class AddNewsletterComponent implements OnInit {
   }
 
   uploadPhoto(): void {
-    this.newsletterService.uploadPhotoNewsletter(this.data, this.tokenType, this.token)
-    .subscribe(
-      data => {
-        console.log(data);
-        this.dataUploadPhoto = data.data
-        console.log("path_foto",this.dataUploadPhoto)
-        this.onCreateNewsletter()
-      },
-      error => {
-        console.log(error);
-      });
+    if(this.submitted == false){
+      this.errorMessage = "Newsletter image is required"
+    }else if(this.newsletter.title == null || this.newsletter.title == ""){
+      this.errorMessage = "Newsletter title is required"
+    }else if(this.newsletter.content == null || this.newsletter.content == ""){
+      this.errorMessage = "Newsletter content is required"
+    }else if(this.emailSelected == false){
+      this.errorMessage = "User email is required"
+    }else{
+      this.newsletterService.uploadPhotoNewsletter(this.data, this.tokenType, this.token)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.dataUploadPhoto = data.data
+          console.log("path_foto",this.dataUploadPhoto)
+          this.onCreateNewsletter()
+        },
+        error => {
+          console.log(error);
+        });
+    }
   }
 
   onCreateNewsletter(): void {

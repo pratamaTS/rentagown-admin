@@ -17,6 +17,7 @@ import { AddBankComponent } from './bank/add-bank/add-bank.component';
 import { AddBankAccountComponent } from './bank-account/add-bank-account/add-bank-account.component';
 import { AddProductComponent } from './product/add-product/add-product.component';
 import { AddPromoComponent } from './promo/add-promo/add-promo.component';
+import { UserAddComponent } from './user/user-add/user-add.component';
 import { AddNewsletterComponent } from './newsletter/add-newsletter/add-newsletter.component';
 import { UpdateBankComponent } from './bank/update-bank/update-bank.component';
 import { UpdateBankAccountComponent } from './bank-account/update-bank-account/update-bank-account.component';
@@ -25,6 +26,7 @@ import { UpdateProductComponent } from './product/update-product/update-product.
 import { UpdatePromoComponent } from './promo/update-promo/update-promo.component';
 import { UpdateNewsletterComponent } from './newsletter/update-newsletter/update-newsletter.component';
 import { UserUpdateComponent } from './user/user-update/user-update.component';
+import { UserEditComponent } from './user/user-edit/user-edit.component';
 import { SalesOrderDetailComponent } from './sales-order/sales-order-detail/sales-order-detail.component';
 import { SalesInvoiceDetailComponent } from './sales-invoice/sales-invoice-detail/sales-invoice-detail.component';
 import { InventoryStock } from './inventory-stock/product.component';
@@ -55,11 +57,13 @@ const routes: Routes = [
   { path: 'add-product', component: AddProductComponent, canActivate: [AuthGuard] },
   { path: 'add-promo', component: AddPromoComponent, canActivate: [AuthGuard] },
   { path: 'add-newsletter', component: AddNewsletterComponent, canActivate: [AuthGuard] },
+  { path: 'add-user', component: UserAddComponent, canActivate: [AuthGuard] },
   { path: 'update-bank/:id', component: UpdateBankComponent, canActivate: [AuthGuard] },
   { path: 'update-bank-account/:id', component: UpdateBankAccountComponent, canActivate: [AuthGuard] },
   { path: 'update-product-category/:id', component: UpdateProductCategoryComponent, canActivate: [AuthGuard] },
   { path: 'update-product/:id', component: UpdateProductComponent, canActivate: [AuthGuard] },
   { path: 'update-promo/:id', component: UpdatePromoComponent, canActivate: [AuthGuard] },
+  { path: 'update-user/:id', component: UserEditComponent, canActivate: [AuthGuard] },
   { path: 'update-newsletter/:id', component: UpdateNewsletterComponent, canActivate: [AuthGuard] },
   { path: 'sales-order-detail/:id', component: SalesOrderDetailComponent, canActivate: [AuthGuard] },
   { path: 'sales-invoice-detail/:id', component: SalesInvoiceDetailComponent, canActivate: [AuthGuard] },

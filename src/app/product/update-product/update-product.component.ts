@@ -137,7 +137,7 @@ export class UpdateProductComponent implements OnInit {
         // console.log(">>>>>>> ", this.product)
         if (data.data.Photo) {
           for(let photo of data.data.Photo){
-            this.imageSrc.push("http://absdigital.id:55000" + photo.path_photo)
+            this.imageSrc.push("https://apps.rentagown.id:50443" + photo.path_photo)
             console.log("photo", this.imageSrc)
           }
         }

@@ -66,8 +66,8 @@
                                       <p *ngIf="url != null" class="font-regular text-center">{{url.name}}</p>
                                     </div>
                                     <p *ngIf="errorMessage != null" class="font-italic text-center" style="color:red">{{errorMessage}}</p>
-                                    <div *ngIf="imageSrc == ''" class="image-area mt-4"><img *ngFor="let productImage of dataPhoto; let i = index" [attr.data-index]="i" id="imageResult" src="http://absdigital.id:5000{{ productImage.path_photo }}" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
-                                    <div *ngIf="imageSrc != ''" class="image-area mt-4"><img *ngFor="let productImage of dataPhoto" id="imageResult" [src]="'http://absdigital.id:5000{{productImage.path_photo}}'" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+                                    <div *ngIf="imageSrc == ''" class="image-area mt-4"><img *ngFor="let productImage of dataPhoto; let i = index" [attr.data-index]="i" id="imageResult" src="https://apps.rentagown.id:50443{{ productImage.path_photo }}" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
+                                    <div *ngIf="imageSrc != ''" class="image-area mt-4"><img *ngFor="let productImage of dataPhoto" id="imageResult" [src]="'https://apps.rentagown.id:50443{{productImage.path_photo}}'" alt="" class="img-fluid rounded shadow-sm mx-auto d-block"></div>
                                 </div>
                                 <!-- /.card-body -->
                             </div>
@@ -86,7 +86,7 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="productId">Product ID</label><label for="productId" style="color:red">*</label>
-                                            <input type="text" class="form-control" id="productId" [(ngModel)]="product.id_product" name="id_product" placeholder="Type product ID" required>
+                                            <input type="text" class="form-control" id="productId" [(ngModel)]="product.id_product" name="id_product" placeholder="Type product ID" readonly>
                                         </div>
                                     </div>
                                 </div>

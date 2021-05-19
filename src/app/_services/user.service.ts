@@ -23,6 +23,20 @@ export class UserService {
     return this.http.get('api/user/findall', httpOptions);
   }
 
+  getUserByID(id: any, tokenType: String, token: String | null): Observable<any> {
+    const authorization = tokenType + ' ' + token
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': authorization,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+
+    return this.http.get(`api/user/find/${id}`, httpOptions);
+  }
+
   uploadPhotoProfile(data: FormData, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
 
@@ -48,6 +62,20 @@ export class UserService {
     };
 
     return this.http.put(`api/user/update`, data, httpOptions);
+  }
+
+  updateUser(id: any, data: any, tokenType: String, token: String | null): Observable<any> {
+    const authorization = tokenType + ' ' + token
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': authorization,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    };
+
+    return this.http.put(`api/user/admin/update/${id}`, data, httpOptions);
   }
 
   updateUserPass(data: any, tokenType: String, token: String | null): Observable<any> {

@@ -15,7 +15,7 @@
           <div class="row mb-2">
             <div class="col-sm-6">
               <h1 class="m-0 text-dark">Master User</h1><br />
-              <a class="btn btn-primary" (click)="EditMode=true"><i class="fas fa-plus-circle"></i> Add User</a>
+              <a class="btn btn-primary" routerLink="/add-user"><i class="fas fa-plus-circle"></i> Add User</a>
             </div><!-- /.col -->
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -100,7 +100,7 @@
               <a class="btn btn-primary" (click)="FilterMode('user')">User</a>&nbsp;
               <a class="btn btn-primary" (click)="FilterMode('active')">Active</a>&nbsp;
               <a class="btn btn-primary" (click)="FilterMode('inactive')">Inactive</a>&nbsp;
-
+              <br /><br />
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
@@ -116,8 +116,7 @@
                   <tr>
                     <td>{{ user.name | titlecase }}</td>
                     <td>{{ user.email }}</td>
-                    <td *ngIf="user.role == 'User'">{{ user.phone }}</td>
-                    <td *ngIf="user.role == 'Admin'">-</td>
+                    <td>{{ user.phone }}</td>
                     <td>{{ user.role }}</td>
                     <td>{{ user.status==1 ?'Active':'Inactive' }}</td>
                     <td class="text-center">
@@ -128,6 +127,7 @@
                             user.status==1?'Deactivate User':'Activate User' }}</a></li>
                         <li><a type="button" class="dropdown-item" (click)="ChangeRole(user)">{{
                             user.role=='Admin'?'Demote to User':'Promote To Admin' }}</a></li>
+                        <li><a type="button" class="dropdown-item" routerLink="/update-user/{{ user.id_user }}">Update</a></li>
                         <li><a type="button" class="dropdown-item" (click)="DeleteUser(user.id_user)">Delete</a></li>
                       </ul>
                     </td>

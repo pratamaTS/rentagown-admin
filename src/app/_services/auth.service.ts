@@ -3,8 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-const AUTH_API = 'http://absdigital.id:5000/api/v/1/';
-
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type': 'application/json',
@@ -33,7 +31,7 @@ export class Auth {
   }
 
   register(name: string, email: string, password: string, platform: string): Observable<any> {
-    return this.http.post(AUTH_API + 'user', {
+    return this.http.post('api/user', {
       name,
       email,
       password,

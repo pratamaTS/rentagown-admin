@@ -196,6 +196,8 @@ export class TopbarComponent implements OnInit {
   }
 
   logout(): void {
+    let myconfirm = confirm("Are You Sure want to log out?");
+    if (!myconfirm) return
     this.tokenStorage.signOut()
     this.router.navigateByUrl('login')
   }

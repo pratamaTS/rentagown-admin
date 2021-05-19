@@ -59,6 +59,7 @@ export class AddPromoComponent implements OnInit {
         this.ng2ImgMax.resizeImage(event.target.files[i], 500, 800).subscribe(
           result => {
             this.data.append("photo_detail", result)
+            this.submitted = true;
             console.log("result resize", result)
           },
           error => {
@@ -142,18 +143,33 @@ export class AddPromoComponent implements OnInit {
   }
 
   uploadPhoto(): void {
-    this.productService.uploadPhotoPromo(this.data, this.tokenType, this.token)
-    .subscribe(
-      data => {
-        console.log("data response",data);
-        this.submitted = true;
-        this.dataUploadPhoto = data.data
-        console.log("path_image",this.dataUploadPhoto)
-        this.onCreatePromo()
-      },
-      error => {
-        this.errorMessage = error.error.error;
-      });
+    if(this.submitted == false){
+      this.errorMessage = "Promo image is required"
+    }else if(this.promo.promo_name == null || this.promo.promo_name == ""){
+      this.errorMessage = "Promo name is required"
+    }else if(this.promo.id_product_category == null || this.promo.id_product_category == ""){
+      this.errorMessage = "Promo category is required"
+    }else if(this.promo.promo_amount == null || this.promo.promo_amount == 0){
+      this.errorMessage = "Discount can't be 0"
+    }else if(this.promo.promo_stock == null || this.promo.promo_stock == 0){
+      this.errorMessage = "Promo stock can't be 0"
+    }else if(this.promo.promo_start == null || this.promo.promo_start == ""){
+      this.errorMessage = "Promo period start is required"
+    }else if(this.promo.promo_exp == null || this.promo.promo_exp == ""){
+      this.errorMessage = "Promo period expired is required"
+    }else {
+      this.productService.uploadPhotoPromo(this.data, this.tokenType, this.token)
+      .subscribe(
+        data => {
+          console.log("data response",data);
+          this.dataUploadPhoto = data.data
+          console.log("path_image",this.dataUploadPhoto)
+          this.onCreatePromo()
+        },
+        error => {
+          this.errorMessage = error.error.error;
+        });
+    }
   }
 
   onCreatePromoDetails(): void {

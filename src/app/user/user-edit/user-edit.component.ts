@@ -3,14 +3,14 @@ import { TokenStorageService } from '../../_services/token-storage.service';
 import { UserService } from '../../_services/user.service'
 import { ProfileService } from '../../_services/profile.service';
 import { User } from '../../_models/user.model'
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-user-update',
-  templateUrl: './user-update.component.html',
-  styleUrls: ['./user-update.component.css']
+  selector: 'app-user-edit',
+  templateUrl: './user-edit.component.html',
+  styleUrls: ['./user-edit.component.css']
 })
-export class UserUpdateComponent implements OnInit {
+export class UserEditComponent implements OnInit {
 
   id: any = ''
   tokenType: String = 'Bearer'
@@ -25,7 +25,7 @@ export class UserUpdateComponent implements OnInit {
   user: User = {
     name: '',
     email: '',
-    password: null,
+    password: '',
     c_password: '',
     path_photo: '',
     phone: '',
@@ -35,18 +35,19 @@ export class UserUpdateComponent implements OnInit {
   submitted = false;
   message = '';
 
-  constructor(private tokenStorage: TokenStorageService, private profileService: ProfileService, private userService: UserService, private router: Router) { }
+  constructor(private tokenStorage: TokenStorageService, private profileService: ProfileService, private userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     if(this.token != null){
-      this.getProfile()
+      this.id = this.route.snapshot.params.id
+      this.getUserInfo()
     }else{
       console.log('error', 'Please login first!')
     }
   }
 
-  getProfile(): void {
-    this.profileService.getProfile(this.tokenType, this.token).subscribe(
+  getUserInfo(): void {
+    this.userService.getUserByID(this.id, this.tokenType, this.token).subscribe(
       data => {
         this.dataUser = data.data
         this.user.name = this.dataUser.name
@@ -114,16 +115,11 @@ export class UserUpdateComponent implements OnInit {
           phone: this.user.phone?.toString()
         };
 
-
-        this.userService.updateUserProfile(data, this.tokenType, this.token)
+        this.userService.updateUser(this.id, data, this.tokenType, this.token)
         .subscribe(
           response => {
             console.log(response);
-            if(this.user.password != null){
-              this.onUpdatePassword()
-            }else{
-              this.router.navigateByUrl('master-user')
-            }
+            this.router.navigateByUrl('master-user')
           },
           error => {
             this.errorMessage = error.error.error;
@@ -137,16 +133,11 @@ export class UserUpdateComponent implements OnInit {
           phone: this.user.phone?.toString()
         };
 
-
-        this.userService.updateUserProfile(data, this.tokenType, this.token)
+        this.userService.updateUser(this.id, data, this.tokenType, this.token)
         .subscribe(
           response => {
             console.log(response);
-            if(this.user.password != null){
-              this.onUpdatePassword()
-            }else{
-              this.router.navigateByUrl('master-user')
-            }
+            this.router.navigateByUrl('master-user')
           },
           error => {
             this.errorMessage = error.error.error;
@@ -154,27 +145,6 @@ export class UserUpdateComponent implements OnInit {
       }
     }else{
       console.log('error', 'Please login first!')
-    }
-  }
-
-  onUpdatePassword(): void {
-    if(this.user.password == this.user.c_password){
-      const data = {
-        password: this.user.password
-      };
-
-      this.userService.updateUserPass(data, this.tokenType, this.token)
-        .subscribe(
-          response => {
-            console.log(response);
-            this.message = response.message;
-            this.router.navigateByUrl('master-user');
-          },
-          error => {
-            console.log(error);
-      });
-    }else{
-      this.errorMessage = "Wrong password, please confirm password again"
     }
   }
 }

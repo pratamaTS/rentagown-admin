@@ -14,13 +14,13 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Add Bank Number</h1><br/>
+                <h1 class="m-0 text-dark">Add Bank Account</h1><br/>
                 <a routerLink="/master-bank-account" class="btn btn-primary"><i class="fas fa-long-arrow-alt-left"></i>  Back to Bank Number List</a>
               </div><!-- /.col -->
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                   <li class="breadcrumb-item"><a routerLink="/dashboard" >Dashboard</a></li>
-                  <li class="breadcrumb-item active">Add Bank Number</li>
+                  <li class="breadcrumb-item active">Add Bank Account</li>
                 </ol>
               </div><!-- /.col -->
             </div><!-- /.row -->
@@ -51,10 +51,7 @@
                                     <br><br>
                                     <!-- Uploaded image area-->
                                     <p class="font-italic">
-                                      Upload logo <b style="color:red">*</b><br><br>
-                                      Image Size<br>
-                                      Min  : 800 pixel x 600 pixel<br>
-                                      Max : 1280 pixel x 800 pixel
+                                      Logo Bank <br><br>
                                     </p>
                                     <div *ngIf="url != null" class="image-area mt-4">
                                       <img [src]="url" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
@@ -68,22 +65,22 @@
                         <form role="form">
                             <div class="card-body">
                                 <div class="form-group">
-                                  <label for="bankNumber">Bank</label>
+                                  <label for="bankNumber">Bank</label><label for="price" style="color:red">*</label>
                                   <select (change)="selectedBank($event)" name="payment_method" class="form-control select2bs4" style="width: 100%;" required>
                                     <option [ngValue]="null" [disabled]="true" >-- Select Bank --</option>
                                     <option *ngFor="let bank of dataBank" value='{"id_mst_bank": "{{bank.id_mst_bank}}","display_name": "{{bank.display_name}}","path_photo": "{{bank.path_image}}"}'>{{bank.display_name}}</option>
                                   </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="bankName">Bank name</label>
+                                    <label for="bankName">Bank name</label><label for="price" style="color:red">*</label>
                                     <input type="text" class="form-control" id="bankName" name="bank_name" value="{{bankName}}" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label for="bankNumberOwner">Account Name</label>
+                                    <label for="bankNumberOwner">Account Name</label><label for="price" style="color:red">*</label>
                                     <input type="text" class="form-control" id="bankNumberOwner" [(ngModel)]="bankAccount.account_name" name="account_name" placeholder="Type account name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="bankNumber">Account Number</label>
+                                    <label for="bankNumber">Account Number</label><label for="price" style="color:red">*</label>
                                     <input type="number" class="form-control" id="bankNumber" [(ngModel)]="bankAccount.account_number" name="account_number" placeholder="Type account number">
                                 </div>
                                 <div class="alert alert-danger" role="alert" *ngIf="errorMessage!=''">

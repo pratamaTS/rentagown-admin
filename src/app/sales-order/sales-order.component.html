@@ -91,7 +91,7 @@
                   <div class="card-header">
                     Product Image
                   </div>
-                  <img *ngIf="BookingSingle.product_path_photo !=''" src="http://absdigital.id:55000{{ BookingSingle.product_path_photo }}"
+                  <img *ngIf="BookingSingle.product_path_photo !=''" src="https://apps.rentagown.id:50443{{ BookingSingle.product_path_photo }}"
                     style="width: 100%;">
                   <p class="card-text" *ngIf="BookingSingle.product_path_photo ==''"> No Image</p>
                 </div>
@@ -143,7 +143,7 @@
                     ">
                       <td>{{ booking.last_payment_invoice }}</td>
                       <td>{{ booking.name | titlecase }}</td>
-                      <td><img *ngIf="booking.product_path_photo !=''" src="http://absdigital.id:55000{{ booking.product_path_photo }}"
+                      <td><img *ngIf="booking.product_path_photo !=''" src="https://apps.rentagown.id:50443{{ booking.product_path_photo }}"
                           style="height: 100px;"></td>
                       <td>{{ booking.product_name | titlecase }}</td>
                       <td *ngIf="booking.product_final_price != 0">{{ booking.product_final_price | currency:'Rp ':'symbol':'3.0'}}</td>

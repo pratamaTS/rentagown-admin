@@ -163,6 +163,21 @@ export class BankAccountService {
     return this.http.delete(`api/mstbank/${id}`, httpOptions);
   }
 
+  setAsDefaultAccountBank(id: any, data: any, tokenType: String, token: String | null): Observable<any> {
+    const authorization = tokenType + ' ' + token
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': authorization,
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      }),
+      body: data
+    };
+
+    return this.http.post(`api/bank/default`, data);
+  }
+
   delete(id: any, data: any, tokenType: String, token: String | null): Observable<any> {
     const authorization = tokenType + ' ' + token
 

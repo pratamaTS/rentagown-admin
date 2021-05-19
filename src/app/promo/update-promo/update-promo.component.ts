@@ -58,7 +58,7 @@ export class UpdatePromoComponent implements OnInit {
       data => {
         this.promo = data.data
         if (data.data.path_photo != "") {
-          this.imageSrc.push("http://absdigital.id:55000" + this.promo.path_photo)
+          this.imageSrc.push("https://apps.rentagown.id:50443" + this.promo.path_photo)
         }
         console.log('data PRomo', this.promo)
       },
@@ -119,10 +119,24 @@ export class UpdatePromoComponent implements OnInit {
   }
 
   onUpdatePromo(): void {
-    if (this.upload == true) {
-      this.uploadPhoto()
-    } else {
-      this.onUpdate()
+    if(this.promo.promo_name == null || this.promo.promo_name == ""){
+      this.errorMessage = "Promo name is required"
+    }else if(this.promo.id_product_category == null || this.promo.id_product_category == ""){
+      this.errorMessage = "Promo category is required"
+    }else if(this.promo.promo_amount == null || this.promo.promo_amount == 0){
+      this.errorMessage = "Discount can't be 0"
+    }else if(this.promo.promo_stock == null || this.promo.promo_stock == 0){
+      this.errorMessage = "Promo stock can't be 0"
+    }else if(this.promo.promo_start == null || this.promo.promo_start == ""){
+      this.errorMessage = "Promo period start is required"
+    }else if(this.promo.promo_exp == null || this.promo.promo_exp == ""){
+      this.errorMessage = "Promo period expired is required"
+    }else {
+      if (this.upload == true) {
+        this.uploadPhoto()
+      } else {
+        this.onUpdate()
+      }
     }
   }
 

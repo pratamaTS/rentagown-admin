@@ -62,7 +62,7 @@
                                       Min  : 800 pixel x 600 pixel<br>
                                       Max : 1280 pixel x 800 pixel
                                     </p>
-                                    <p *ngIf="errorMessage != null" class="font-italic text-center" style="color:red">{{errorMessage}}</p>
+                                    <p *ngIf="errorMessage != null && submitted == false" class="font-italic text-center" style="color:red">{{errorMessage}}</p>
                                     <div *ngFor='let url of imageSrc' class="image-area mt-4"><img [src]="url" alt="" class="img-fluid rounded shadow-sm mx-auto d-block">
                                       <p *ngIf="url != null" class="font-regular text-center">{{url.name}}</p>
                                     </div>
@@ -75,17 +75,17 @@
                         <form role="form">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="newletterTitle">Newsletter title</label>
+                                    <label for="newletterTitle">Newsletter title</label><label for="newsTitle" style="color:red">*</label>
                                     <input type="text" class="form-control" id="newletterTitle" [(ngModel)]="newsletter.title" name="title" placeholder="Type newsletter title" value="">
                                 </div>
                                 <div class="form-group">
-                                    <label for="newletterContent">Newsletter content</label>
+                                    <label for="newletterContent">Newsletter content</label><label for="newsContent" style="color:red">*</label>
                                     <textarea type="text" class="form-control" id="newletterContent" [(ngModel)]="newsletter.content" name="content" placeholder="Type newsletter content"></textarea>
                                 </div>
                                 <div class="form-row">
                                     <div class="col-md-9">
                                         <div class="form-group">
-                                            <label for="userEmailSelect">User Email</label>
+                                            <label for="userEmailSelect">User Email</label><label for="userEmail" style="color:red">*</label>
                                             <select (change)="selectedEmail($event)" class="form-control" multiple data-placeholder="Select Email" style="width: 100%;">
                                                 <option value='{"email": "alluser"}'>All User</option>
                                                 <option *ngFor="let user of dataUser" value='{"email": "{{user.email}}"}'>{{user.email}}</option>
@@ -93,7 +93,9 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="alert alert-danger" role="alert" *ngIf="errorMessage!=''">
+                                  Create Newsletter failed: {{ errorMessage }}
+                                </div>
 
                                 <div class="form-group">
                                     <br/><br/><button (click)="uploadPhoto()" type="submit" class="btn btn-primary">Send Newsletter</button>

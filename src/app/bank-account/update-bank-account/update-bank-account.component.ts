@@ -49,7 +49,13 @@ export class UpdateBankAccountComponent implements OnInit {
   getBank(): void {
     this.bankAccountService.getAllBank(this.tokenType, this.token).subscribe(
       data => {
-        this.dataBank = data.data
+        const mData = data.data
+
+        mData.forEach((value: any,index: any)=>{
+          if(value.display_name=="OTHER BANK") mData.splice(index,1)
+        });
+
+        this.dataBank = mData
       },
       err => {
         this.errorMessage = err.error.error;
@@ -62,7 +68,7 @@ export class UpdateBankAccountComponent implements OnInit {
     this.bankAccount.id_mst_bank = valueBank.id_mst_bank
     this.bankName = valueBank.display_name
     this.bankAccount.path_photo = valueBank.path_photo
-    this.url = "http://absdigital.id:55000"+this.bankAccount.path_photo
+    this.url = "https://apps.rentagown.id:50443"+this.bankAccount.path_photo
   }
 
   getBankAccountByID(id: string): void {
@@ -71,7 +77,7 @@ export class UpdateBankAccountComponent implements OnInit {
         this.bankAccount = data.data
         this.bankName = data.data.bank_name
         if(this.bankAccount.path_photo != ""){
-            this.url = "http://absdigital.id:55000" + this.bankAccount.path_photo
+            this.url = "https://apps.rentagown.id:50443" + this.bankAccount.path_photo
         }
       },
       err => {
@@ -81,16 +87,24 @@ export class UpdateBankAccountComponent implements OnInit {
   }
 
   onUpdateBank(): void {
-    this.bankAccountService.update(this.id, this.bankAccount, this.tokenType, this.token)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.message = response.message;
-          this.router.navigateByUrl('master-bank-account');
-        },
-        error => {
-          this.errorMessage = error.error.error;
-        });
+    if(this.bankAccount.id_mst_bank == null || this.bankAccount.id_mst_bank == ""){
+      this.errorMessage = "Bank is required"
+    }else if(this.bankAccount.account_name == null || this.bankAccount.account_name == ""){
+      this.errorMessage = "Account name is required"
+    }else if(this.bankAccount.account_number == null || this.bankAccount.account_number == ""){
+      this.errorMessage = "Account number is required"
+    }else{
+      this.bankAccountService.update(this.id, this.bankAccount, this.tokenType, this.token)
+        .subscribe(
+          response => {
+            console.log(response);
+            this.message = response.message;
+            this.router.navigateByUrl('master-bank-account');
+          },
+          error => {
+            this.errorMessage = error.error.error;
+          });
+    }
   }
 
 }

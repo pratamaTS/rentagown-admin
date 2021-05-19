@@ -75,22 +75,22 @@
                       <form role="form">
                           <div class="card-body">
                               <div class="form-group">
-                                  <label for="bankName">Corporate name</label>
+                                  <label for="bankName">Corporate name</label><label for="corpName" style="color:red">*</label>
                                   <input type="text" class="form-control" id="corporateName" [(ngModel)]="bank.name" name="name" placeholder="Type Corporate Name">
                               </div>
                               <div class="form-group">
-                                  <label for="bankNumberOwner">Bank Name</label>
+                                  <label for="bankNumberOwner">Bank Name</label><label for="bankName" style="color:red">*</label>
                                   <input type="text" class="form-control" id="bankName" [(ngModel)]="bank.display_name" name="display_name" placeholder="Type Bank Name">
                               </div>
                               <div class="form-group">
-                                  <label for="bankNumber">Payment Method</label>
+                                  <label for="bankNumber">Payment Method</label><label for="paymentMethod" style="color:red">*</label>
                                   <select (change)="selectedPaymentMethod($event)" name="payment_method" class="form-control select2bs4" style="width: 100%;" required>
                                     <option [ngValue]="null" [disabled]="true" >-- Select Payment Method --</option>
                                     <option value='{"payment_method_type": "1","payment_method_name": "Transfer"}'>Transfer</option>
                                   </select>
                               </div>
                               <div class="form-group">
-                                <label for="bankNumber">Activated Bank</label>
+                                <label for="bankNumber">Activated Bank</label><label for="activateBank" style="color:red">*</label>
                                 <select (change)="selectedStatus($event)" name="status" class="form-control select2bs4" style="width: 100%;" required>
                                   <option [ngValue]="null" [disabled]="true" >-- Select Status --</option>
                                   <option value='1'>Active</option>
