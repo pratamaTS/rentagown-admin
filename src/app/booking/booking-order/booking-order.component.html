@@ -130,6 +130,7 @@
                     <th>Transaction Status</th>
                     <th>Payment Status</th>
                     <th>Payment Type</th>
+                    <th>Booking Type</th>
                     <th>Approve Payment</th>
                     <th>Action</th>
                   </tr>
@@ -145,7 +146,7 @@
                     <td>{{ booking.last_payment_invoice }}</td>
                     <td>{{ booking.name | titlecase }}</td>
                     <td><img *ngIf="booking.product_path_photo !=''" src="https://apps.rentagown.id:50443{{ booking.product_path_photo }}"
-                        style="height: 100px;"></td>
+                        style="width: 230px; height: 360px;"></td>
                     <td>{{ booking.product_name | titlecase }}</td>
                     <td *ngIf="booking.product_final_price != 0">{{ booking.product_final_price | currency:'Rp ':'symbol':'3.0'}}</td>
                     <td *ngIf="booking.product_final_price == 0">Rp 0</td>
@@ -157,6 +158,7 @@
                     <td>{{ booking.status_name | titlecase }}</td>
                     <td>{{ booking.last_payment_status_name | titlecase }}</td>
                     <td>{{ booking.payment_type_name | titlecase }}</td>
+                    <td>{{ booking.booking_type_name | titlecase }}</td>
                     <td class="text-center">
                       <a *ngIf="booking.last_payment_status == 2" (click)="confirmPayment(booking)"
                         class="btn btn-default"><i class="fas fa-check-circle"></i> Confirm Payment</a>
@@ -184,6 +186,7 @@
                     <th>Transaction Status</th>
                     <th>Payment Status</th>
                     <th>Payment Type</th>
+                    <th>Booking Type</th>
                     <th>Approve Payment</th>
                     <th>Action</th>
                   </tr>
