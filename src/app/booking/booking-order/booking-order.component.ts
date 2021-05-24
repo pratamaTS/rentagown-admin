@@ -122,9 +122,9 @@ export class BookingOrderComponent implements OnInit {
   }
 
   rejectPayment(booking: any) {
-    console.log("id book", booking.id)
+    console.log("id book", booking.id_transaction)
     const data = {
-      id_transaction: booking.id,
+      id_transaction: booking.id_transaction,
     };
 
     this.bookingOrderService.rejectPayment(data, this.tokenType, this.token)

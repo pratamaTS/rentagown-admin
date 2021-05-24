@@ -48,7 +48,8 @@
                     <p class="card-text">Date Created : {{BookingSingle.created_at | date: 'dd MMMM YYYY' :'UTC'  }}</p>
                     <p class="card-text">Start Booking : {{BookingSingle.start_date | date: 'dd MMMM YYYY'}}</p>
                     <p class="card-text">End Booking : {{BookingSingle.end_date | date: 'dd MMMM YYYY'}}</p>
-                    <p class="card-text">Address : {{BookingSingle.address_detail}}</p>
+                    <p class="card-text">Address Title : {{BookingSingle.address_label}}</p>
+                    <p class="card-text">Address : {{BookingSingle.address}}</p>
                     <p class="card-text">Transaction Status : {{BookingSingle.status_name}}</p>
                   </div>
                   <div class="card-header">
@@ -145,7 +146,7 @@
                       <td>{{ booking.last_payment_invoice }}</td>
                       <td>{{ booking.name | titlecase }}</td>
                       <td><img *ngIf="booking.product_path_photo !=''" src="https://apps.rentagown.id:50443{{ booking.product_path_photo }}"
-                          style="width: 230px; height: 360px;"></td>
+                          style="width: 95px; height: 155px; display: block; margin-left: auto; margin-right: auto;"></td>
                       <td>{{ booking.product_name | titlecase }}</td>
                       <td *ngIf="booking.product_final_price != 0">{{ booking.product_final_price | currency:'Rp ':'symbol':'3.0'}}</td>
                       <td *ngIf="booking.product_final_price == 0">Rp 0</td>
